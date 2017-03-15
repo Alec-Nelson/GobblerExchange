@@ -42,6 +42,15 @@ type MemoryMessageBuffer struct {
 	maximum  int
 }
 
+func MakeMemoryBuffer(max int) func() MessageBuffer {
+	return func() MessageBuffer {
+		return &MemoryMessageBuffer{
+			maximum: max,
+		}
+
+	}
+}
+
 func (m *MemoryMessageBuffer) addMessage(ms Message) {
 	m.messages = append(m.messages, ms)
 	if len(m.messages) > m.maximum {

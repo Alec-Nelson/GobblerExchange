@@ -5,7 +5,7 @@ type MessageListener func(Message)
 type MessageBroker struct {
 	messages  map[TopicName]MessageBuffer
 	listeners map[TopicName]map[SessionKey]MessageListener
-	newBuf func()MessageBuffer
+	NewBuf func()MessageBuffer
 }
 
 func (m MessageBroker) addListener(t TopicName, k SessionKey, l MessageListener) {
@@ -19,7 +19,7 @@ func (m MessageBroker) removeListener(t TopicName, k SessionKey) {
 func (m MessageBroker) sendMessage(t TopicName, ms Message) {
 	buf, ok := m.messages[t]
 	if !ok {
-		buf = m.newBuf()
+		buf = m.NewBuf()
 		m.messages[t] = buf
 	}
 	buf.addMessage(ms)

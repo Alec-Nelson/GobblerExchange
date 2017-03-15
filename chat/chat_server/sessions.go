@@ -9,6 +9,18 @@ type SessionHandler struct {
 	activeTopics map[TopicName]Topic
 }
 
+func newSessionHandler() SessionHandler {
+	return SessionHandler{
+		activeSessions: map[SessionKey]UserSession{},
+		activeTopics: map[TopicName]Topic{},
+	}
+}
+
+func (sh SessionHandler) validSession(s SessionKey) bool {
+	_, ok := sh.activeSessions[s]
+	return ok
+}
+
 
 func (sh SessionHandler) openSession(s UserSession) SessionKey {
 	k := SessionKey(uuid.New().String())
