@@ -11,8 +11,8 @@ type SessionHandler struct {
 
 func newSessionHandler() SessionHandler {
 	return SessionHandler{
-		activeSessions: map[SessionKey]UserSession{},
-		activeTopics: map[TopicName]Topic{},
+		activeSessions: make(map[SessionKey]UserSession),
+		activeTopics: make(map[TopicName]Topic),
 	}
 }
 

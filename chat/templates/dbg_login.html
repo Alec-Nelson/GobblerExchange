@@ -1,0 +1,27 @@
+<html>
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  <body>
+    <p>
+      Display name?
+      <input id="name">
+      <button id="done">Go</button>
+    </p>
+
+    <script type="text/javascript">
+      $(function(){
+	  $("#done").click(function(){
+	      var name = $("#name").val()
+	      $.get("/create_session?name="+name,
+		    function(data){
+			console.log(data)
+			window.location="/chat?session="+data
+		    }
+		   )
+	  })
+      })
+    </script>
+  </body>
+</html>

@@ -4,6 +4,7 @@ import "net/http"
 import "fmt"
 import "log"
 
+
 type Server struct {
 	sockets  WebsocketHandler
 	sessions SessionHandler
@@ -27,7 +28,7 @@ func NewServer(m MessageBroker) Server {
 func (s Server) socketHandler(w http.ResponseWriter, r *http.Request) {
 	topic := TopicName("all")
 	query_topic := r.URL.Query()["topic"]
-	if len(query_topic) < 1 {
+	if len(query_topic) > 1 {
 		topic = TopicName(query_topic[0])
 	}
 	session := r.URL.Query()["session"]
@@ -64,12 +65,14 @@ func (s Server) createSession(w http.ResponseWriter, r *http.Request) {
 	}
 	key := s.sessions.openSession(sesh)
 	fmt.Fprintf(w, "%s", key)
-	log.Printf("Opened session for %s", name) 
+	log.Printf("Opened session for %s", name)
 }
 
 func (s Server) StartServer(port int) {
 	http.HandleFunc("/socket", s.socketHandler)
 	http.HandleFunc("/create_session", s.createSession)
+	http.HandleFunc("/chat", s.serveTemplate)
+	http.HandleFunc("/debug_login", s.serveLogin)
 	log.Printf("Starting on %d", port)
 	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
 }
