@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset="utf-8">
+        <title>Gobbler Exchange</title>
+        <script src="../../public/js/jquery.min.js"></script>
+        <script src="../../public/js/bootstrap.min.js"></script>
+        <script src="../../public/js/base.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../public/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../public/css/base.css">
+    </head>
+    <body>
+      <div class="container">
+        <div class="row">
+        <div class="col-lg-8">
+            <h1>
+                <span class="maroon">Gobbler</span>
+                <span class="orange">Exchange</span>
+            </h1>
+        </div>
+        <div class="col-lg-2">
+            <p id = "signedinas" class="description" style="float: right;">
+            Signed in as...
+            </p>
+        </div>
+        <!-- <div class="col-lg-2"> -->
+            <button id = "signout" type="button" class="btn btn-primary" style="float: right;">
+                Sign Out
+            </button>
+        <!-- </div> -->
+      </div>
+
+
+<!-- Search bar -->
+<div class="container">
+    <div class="row">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8">
+        <div class="input-group">
+          <div class="input-group-btn">
+            <button id = "searchdropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                CRN <span class="caret"><span>
+            </button>
+            <ul class="dropdown-menu" role = "menu">
+              <li><a href="#">CRN</a></li>
+              <li><a href="#">Group</a></li>
+              <li><a href="#">Username</a></li>
+              <li><a href="#">Email</a></li>
+            </ul>
+          </div><!-- /btn-group -->
+          <input id = "searchBar" type="text" class="form-control" aria-label="...">
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
+      <div class="col-lg-2">
+          <button id = "button" type="button" class="btn btn-primary" aria-label="Left Align">
+            Search
+          </button>
+      </div>
+    </div><!-- /.row -->
+</div>
+
+<br>
+
+    <!-- Class navigation (forum, calendar, notes, whiteboard) -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2" style="text-align: center;">
+            <button id = "button" type="button" class="btn btn-primary">
+                New Class
+            </button>
+        </div>
+        <div class="col-lg-8">
+            <ul class="nav nav-tabs">
+              <li id = "tab" role="presentation"><a href="#">Forum</a></li>
+              <li id = "tab" role="presentation"><a href="#">Calendar</a></li>
+              <li id = "tab" role="presentation"><a href="#">Notes</a></li>
+              <li id = "tab" role="presentation"><a href="#">Whiteboard</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-2"></div>
+      </div>
+    </div>
+
+<br>
+<div class = "container" id="classTabs">
+        <div class="row">
+            <div class="col-lg-2">
+                <a href="#" class="list-group-item">CS 3114</a>
+                <a href="#" class="list-group-item">STAT 4705</a>
+                <a href="#" class="list-group-item">ENGL 1704</a>
+            </div>
+            <div class="col-lg-7">
+
+                <!-- Main space -->
+
+                <div id="module">
+                    <body>
+                       <h2>Create a Calendar Event</h2>
+                    </body>
+                         <form>
+                          <div class="form-group">
+                            <label for="title">Title</label>
+                            <input class="form-control" id="title" type="text">
+                          </div>
+                          <div class="form-group">
+                            <label for="startTime">Start Time</label>
+                            <input class="form-control" id="startTime" type="text">
+                          </div>
+                          <div class="form-group">
+                            <label for="location">Location</label>
+                            <input class="form-control" id="location" type="text">
+                          </div>
+                           <div class="form-group">
+                            <label for="comment">Description:</label>
+                            <textarea class="form-control" rows="5" id="description"></textarea>
+                          </div>
+                          <div class="form-group">
+                              <label for="tag">Tag:</label>
+                              <select class="form-control" id="tag">
+                                <option value="studyGroup">Study Group</option>
+                                <option value="exam">Exam</option>
+                                <option value="study">Study</option>
+                                <option value="homeworkDue">Homework Due</option>
+                              </select>
+                              <br>
+                            </div>
+                            <button type="submit" class="btn btn-default">Create</button>
+                        </form>
+                </div>
+
+            </div>
+            <div class="col-lg-3">
+
+                <!-- Chat box -->
+                CHAT SPACE FOR GREG :)
+                <iframe id="chat" src=""></iframe>
+                
+            </div>
+        </div>
+    </div>
+
+    </body>
+</html>
