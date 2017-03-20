@@ -1,0 +1,157 @@
+    <html>
+    <head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<style>
+    .chatmsg {
+	padding: 2px;
+	margin-bottom: 2px;
+    }
+    .chatblock {
+	margin-top: 10;
+	background-color: lightgray;
+    }
+    .from_me {
+	background-color: #ff9c47;
+    }
+
+    .name_sender {
+	padding: 2px;
+	font-size: x-small;
+    }
+</style>
+    </head>
+    
+  <body>
+      
+
+    <div class="container card" style="height: 100%;">
+    <div>
+
+    <div class="row">
+    <div class="col-8">
+    <p>
+    {{ .User.DisplayName }}
+    </p>
+    </div>
+    <div class="col-4">
+    <p id="topic" class="text-right"></p>
+    </div>
+    </div>
+    </div>
+	<div id="chat" style="overflow-y: scroll; height: 100%; margin-bottom: 25px;">
+
+	</div>
+	<input id="sender" class="form-control input-lg" placeholder="enter message">
+      </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    
+    <script type="text/javascript">
+    var key = {{ .Key }};
+
+
+last_message = {
+    author: "",
+    div : null,
+    footer: null
+}
+
+
+function renderMessage(message) {
+    var sender = message.SenderName
+    var txt = message.Content
+    var new_msg = $("</p>").text(txt)
+    new_msg.addClass("chatmsg")
+    
+    if(last_message.author == message.SenderName){
+	last_message.div.append(new_msg)
+    } else {
+	var newdiv = $("<div/>")
+	var message_div = $("<div/>")
+	newdiv.addClass("card")
+	newdiv.addClass("chatblock")
+	newdiv.append(message_div)
+
+	sender_info = $("<div/>")
+	sender_info.addClass("card-footer text-muted")
+	sender_info.addClass("name_sender")
+	sender_info.text(sender)
+	newdiv.append(sender_info)
+	
+	last_message.author = message.SenderName
+	last_message.div = message_div
+	last_message.footer = sender_info
+	
+	$("#chat").append(newdiv)
+	message_div.append(new_msg)
+
+	if(sender == "{{ .User.DisplayName }}"){
+	    newdiv.addClass("from_me")
+	}
+    }
+
+    now = new Date()
+    sent = new Date(message.SentTime)
+    if (now.toDateString() == sent.toDateString()) {
+	// then it was sent today..
+	last_message.footer.text(sender+" "+sent.toLocaleTimeString())
+    } else {
+	last_message.footer.text(sender+" "+new Date(message.SentTime).toLocaleString())
+    }
+  //  newdiv.addClass("card-block")
+
+
+    $("#chat").each( function() 
+		       {
+			   // certain browsers have a bug such that scrollHeight is too small
+			   // when content does not fill the client area of the element
+			   var scrollHeight = Math.max(this.scrollHeight, this.clientHeight);
+			   this.scrollTop = scrollHeight - this.clientHeight;
+		       });
+}
+
+$('#sender').keypress(function (e) {
+    if (e.which == 13) {
+	sendMessage();
+	$("#sender").val("")
+	return false;    //<---- Add this line
+  }
+});
+
+function joinTopic(topic) {
+    $("#topic").text(topic)
+    var socket = connectSocket(topic)
+    socket.onmessage = function(message) {
+	msg = JSON.parse(message.data)
+	console.log(msg)
+	renderMessage(msg)
+
+    }
+    sendMessage = function(){
+	var content = $("#sender").val();
+	msg = {
+	    Content: content,
+	    SenderName: "{{ .User.DisplayName }}"
+	}
+	console.log(msg)
+	socket.send(JSON.stringify(msg))
+	console.log("Sent")
+    }
+}
+
+function connectSocket(topic){
+    var host = "ws://"+window.location.host+"/socket?session="+key+"&topic="+topic
+    console.log(host)
+    var socket = new WebSocket(host)
+    return socket
+}
+$(function(){
+    joinTopic("all")
+})
+    </script>
+  </body>
+</html>
