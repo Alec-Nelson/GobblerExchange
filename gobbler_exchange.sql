@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2017 at 10:23 PM
+-- Generation Time: Mar 20, 2017 at 05:59 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -89,15 +89,16 @@ CREATE TABLE `event` (
   `userId` int(11) NOT NULL,
   `location` varchar(250) NOT NULL,
   `description` varchar(1000) NOT NULL,
-  `calendarId` int(11) NOT NULL
+  `calendarId` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `event`
 --
 
-INSERT INTO `event` (`id`, `timestamp`, `userId`, `location`, `description`, `calendarId`) VALUES
-(1, '2017-03-19 09:00:00', 1, 'CS Lounge', 'Meet with group', 1);
+INSERT INTO `event` (`id`, `timestamp`, `userId`, `location`, `description`, `calendarId`, `title`) VALUES
+(1, '2017-03-19 09:00:00', 1, 'CS Lounge', 'Meet with group to study for CS 3333 exam', 1, 'Study Group');
 
 -- --------------------------------------------------------
 

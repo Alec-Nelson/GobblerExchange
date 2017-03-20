@@ -10,6 +10,7 @@ class Event extends DbObject {
     protected $location;
     protected $description;
     protected $calendarId;
+    protected $title;
 
     //constructor
     public function __construct($args = array()){
@@ -19,7 +20,8 @@ class Event extends DbObject {
             'userId' => null,
             'location' => null,
             'description' => null,
-            'calendarId' => null
+            'calendarId' => null,
+            'title' => null
         );
 
         $args += $defaultArgs;
@@ -30,6 +32,7 @@ class Event extends DbObject {
         $this->location = $args['location'];
         $this->description = $args['description'];
         $this->calendarId = $args['calendarId'];
+        $this->title = $args['title'];
     }
 
     //save changes to database
@@ -41,7 +44,8 @@ class Event extends DbObject {
             'userId' => $this->userId,
             'location' => $this->location,
             'description' => $this->description,
-            'calendarId' => $this->calendarId
+            'calendarId' => $this->calendarId,
+            'title' => $this->title
         );
 
         $db->store($this, __CLASS__, self::DB_TABLE, $db_properties);

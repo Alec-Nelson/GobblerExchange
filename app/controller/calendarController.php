@@ -69,7 +69,7 @@ class CalendarController {
 	}
 
 	/* Submits the new event form
-	 * Prereq (POST variables): Cancel, location, description, date, time
+	 * Prereq (POST variables): Cancel, location, description, date, time, title
 	 * Page variables: N/A
 	 */
 	public function newEvent_submit() {
@@ -87,6 +87,7 @@ class CalendarController {
 		$date = $_POST['time'];														//TODO worry about am/pm
 		$timestamp = Event::convertToSQLDateTime($date, $time);
 		$author = $_SESSION['username'];
+		$title = $_POST['title'];
 
 		//get calendar id from group
 		$groupId = $_POST['groupId'];
@@ -103,6 +104,7 @@ class CalendarController {
 		$event->set('location', $location);
 		$event->set('description', $description);
 		$event->set('calendarId', $calendarId);
+		$event->set('title', $title);
 		$event->save();
 
 		header('Location: '.BASE_URL.'/calendar');
@@ -111,7 +113,7 @@ class CalendarController {
 
 	/* Brings up form for editing an event
 	 * Prereq (POST variables): edit (event id)
-	 * Page variables: location, description, date, time
+	 * Page variables: location, description, date, time, title
 	 */
 	public function editEvent(){
         SiteController::loggedInCheck();
@@ -136,6 +138,7 @@ class CalendarController {
 			$description = $event_row->get('description');
 			$date = $event_row->getDate();												//TODO worry about am/pm
 			$time = $event_row->getTime();
+			$title = $event_row->get('title');
 			include_once SYSTEM_PATH.'/view/editevent.tpl';                           //TODO: check tpl is correct
 		}
 	}
@@ -160,12 +163,14 @@ class CalendarController {
 		$description = $_POST['description'];
 		$date = $_POST['date'];																//TODO worry about am/pm
 		$time = $_POST['time'];
+		$title = $_POST['title'];
 		$timestamp = Event::convertToSQLDateTime($date, $time);
 
 		$event = Event::loadById($eventid);
 		$event->set('location', $location);
 		$event->set('description', $body);
 		$event->set('timestamp', $timestamp);
+		$event->set('title', $title);
 		$event->save();
 
 		header('Location: '.BASE_URL.'/calendar');
