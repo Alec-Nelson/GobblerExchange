@@ -1,0 +1,31 @@
+<html lang = "en">
+    <head>
+        <meta charset="utf-8">
+        <title>Gobbler Exchange</title>
+        <script src="../../../public/js/jquery.min.js"></script>
+        <script src="../../../public/js/bootstrap.min.js"></script>
+        <script src="../../../public/js/base.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../../public/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../public/css/base.css">
+        <script src="https://use.fontawesome.com/625f8d2098.js"></script>
+    </head>
+    <body>
+
+		<form>
+			Date: (If these are notes for a lecture, use the date the lecture took place)<br>
+			<input type="text" name="firstname"><br/>
+			<!-- Do we want to prevent possible filetypes? These do have names attached after all, so people will know who uploads a malicious file. -->
+			Attachment: <INPUT TYPE="file" NAME="attachedfile" MAXLENGTH=50 ALLOW="text/*" > 
+		</form>
+		
+		<div class="col-lg-2" style="text-align: center;">
+			
+			<a href="notes2source.html">
+				<button id = "button" type="button" class="btn btn-primary">
+					Add Note
+				</button>
+			</a>
+		</div>
+
+    </body>
+</html>

@@ -1,0 +1,82 @@
+<html lang = "en">
+    <head>
+        <meta charset="utf-8">
+        <title>Gobbler Exchange</title>
+        <script src="../../../public/js/jquery.min.js"></script>
+        <script src="../../../public/js/bootstrap.min.js"></script>
+        <script src="../../../public/js/base.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../../public/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../public/css/base.css">
+        <script src="https://use.fontawesome.com/625f8d2098.js"></script>
+    </head>
+    <body>
+
+		<div class="col-lg-7">
+
+                <!-- Main space -->
+                <div id="module">
+					<!-- So the idea here is that all of these tags will be filled in and could keep going as long as we want to display stuff, like an arraylist in Java, not sure what needs to be done for that. -->
+					
+                    
+					<div class="row">
+						
+							<div class="col-lg-8">
+								<div class="input-group">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle buttons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											CRN <span class="caret "></span>
+										</button >
+										<ul  class="dropdown-menu">
+											<li><a href="#">Group</a></li>
+											<li><a href="#">Username</a></li>
+											<li><a href="#">Email</a></li>
+										</ul>
+									</div><!-- /btn-group -->
+								<input id="searchBar" type="text" class="form-control" aria-label="...">
+								</div><!-- /input-group -->
+							</div><!-- /.col-lg-6 -->
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button">
+									<i class="fa fa-search" aria-hidden="true"></i>
+								</button>
+							</span>
+						</div><!-- /.row -->
+					</div>
+					<br/>
+					
+						<div class="row-fluid">
+							<a href="notesAdd.html">
+								<button id = "button" type="button" class="btn btn-primary">
+									Add Note
+								</button>
+							</a>
+							<a href="notesDelete.html">
+								<button id = "button" type="button" class="btn btn-primary">
+									Delete Note
+								</button>
+							</a>
+						</div>
+			
+						<h2> Recently Added </h2>
+						<ul>
+							<li>
+								<h4> <a href="#">Pollard Rho and Index Calculus</a> </h4>
+								<h5> Author: Matthew Szostak </h5>
+								<h5> Date: 03/02/17 </h5>
+							</li>
+							<li>
+								<h4> <a href="#">Algorithms for the Discrete Log Problem</a> </h4>
+								<h5> Author: Matthew Szostak </h5>
+								<h5> Date: 02/28/17 </h5>
+							</li>
+						</ul>  <!-- I'm thinking maybe 4 notes here at maximum until they press more -->
+					<div class="col-lg-2" style="text-align: center;">
+						<button id = "button" type="button" class="btn btn-primary">
+							Show More Notes
+						</button>
+					</div>
+					
+                </div>
+
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<html lang = "en">
+    <head>
+        <meta charset="utf-8">
+        <title>Gobbler Exchange</title>
+        <script src="../../../public/js/jquery.min.js"></script>
+        <script src="../../../public/js/bootstrap.min.js"></script>
+        <script src="../../../public/js/base.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../../public/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../public/css/base.css">
+        <script src="https://use.fontawesome.com/625f8d2098.js"></script>
+    </head>
+    <body>
+
+		<h2> Your notes</h2>
+		<!-- Only display notes here if the author matches the user's login info -->
+						<ul>
+							<li>
+								<h4> Algorithms for the Discrete Log Problem </h4>
+								<h5> Author: Matthew Szostak </h5>
+								<h5> Date: 02/28/17 </h5>
+								<form action="/action_page.php" method="get">
+									<input type="checkbox" name="delete" value="true"> Delete<br>
+								</form>
+							</li>
+							 
+							<li>
+								<h4> <Pollard Rho and Index Calculus </h4>
+								<h5> Author: Matthew Szostak </h5>
+								<h5> Date: 03/02/17 </h5>
+								<form action="/action_page.php" method="get">
+									<input type="checkbox" name="delete" value="true"> Delete<br>
+								</form>
+							</li>
+						</ul> 
+					<div class="col-lg-2" style="text-align: center;">
+						<a href="notes2source.html">
+							<button id = "button" type="button" class="btn btn-primary">
+								Delete all selected notes
+							</button>
+						</a>
+					</div>
+					<!-- TODO: Add a confirmation window -->
+
+    </body>
+</html>
