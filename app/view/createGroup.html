@@ -12,12 +12,20 @@
     <body>
 
 		<form>
+            Is this a class?
+            <input type="checkbox" name="vehicle" value="Bike">Class<br>
+
+            <!-- This will be visible if the checkbox is selected -->
+            Enter CRN:<br>
+			<input type="text" name="groupName"><br/>
+
+            <!-- This will be visible if the checkbox is NOT selected (autofilled if it is a CRN) -->
 			Group name:<br>
 			<input type="text" name="groupName"><br/>
 		</form>
-		
+
 		<div class="col-lg-2" style="text-align: center;">
-			
+
 			<a href="base.html">
 				<button id = "button" type="button" class="btn btn-primary">
 					Create group
