@@ -80,17 +80,46 @@ class Group extends DbObject {
         }
     }
 
-    //general search via group_name
-    public static function searchGroupName($group_name, $search_string) {
-        $query = sprintf(" SELECT id FROM %s WHERE",
-            self::DB_TABLE
+    //checks if the group name has already been taken
+    public static function checkGroupNameAvailability($groupname){
+        if($groupname === null)
+            return false;
+        $query = sprintf(" SELECT id FROM %s WHERE group_name = '%s' ",
+            self::DB_TABLE,
+            $groupname
             );
-
-        //split search string up by spaces (build query)
-        $array = explode(" ", $search_string);
-        foreach($array as $word) {
-            $query .= " group_name LIKE '" . $word . "'"
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return true;
+        else {
+            return false;
         }
+    }
+
+    //get all users in this group
+    public function getUsers(){
+        return UserGroup::getAllUsersInGroup($this->id);
+    }
+
+    //get all notes for this group
+    public function getNotes(){
+        return Notes::getAllNotes($this->id);
+    }
+
+    //get all polls for this group
+    public function getAllPolls(){
+        return Poll::getAllPolls($this->id);
+    }
+
+    //SEARCH FUNCTIONS ---------------------------------------------------
+
+    //search by CRN
+    public static function searchCRN($crn) {
+        $query = sprintf(" SELECT id FROM %s WHERE number='%s'",
+            self::DB_TABLE,
+            $crn
+            );
 
         $db = Db::instance();
         $result = $db->lookup($query);
@@ -103,14 +132,22 @@ class Group extends DbObject {
         }
     }
 
-    //get all users in this group
-    public static function getUsers(){
-        return UserGroup::getAllUsersInGroup($this->id);
-    }
+    //search by group name
+    public static function searchGroupName($group_name) {
+        $query = sprintf(" SELECT id FROM %s WHERE group_name='%s'",
+            self::DB_TABLE,
+            $group_name
+            );
 
-    //get all notes for this group
-    public static function getNotes(){
-        return Notes::getAllNotes($this->id);
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $row = mysql_fetch_assoc($result);
+            $obj = self::loadById($row['id']);
+            return ($obj);
+        }
     }
 }
 ?>

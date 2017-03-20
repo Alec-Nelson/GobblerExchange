@@ -43,7 +43,7 @@ class UserGroup extends DbObject {
 
     //Get a list of all users in a particular group
     //**This function can be called from the Group class.
-    private static function getAllUsersInGroup($groupId){
+    private function getAllUsersInGroup($groupId){
         $query = sprintf(" SELECT * FROM %s WHERE groupId=%s",
             self::DB_TABLE,
             $groupId
@@ -64,7 +64,7 @@ class UserGroup extends DbObject {
 
     //Get a list of all groups a particular user is a part of
     //**This function can be called from the User class.
-    private static function getAllGroupsOfUser($userId){
+    private function getAllGroupsOfUser($userId){
         $query = sprintf(" SELECT * FROM %s WHERE userId=%s",
             self::DB_TABLE,
             $userId

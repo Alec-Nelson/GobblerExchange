@@ -23,11 +23,11 @@ class Forum extends DbObject {
         return $obj;
     }
 
-    public static function getPosts(){
+    public function getPosts(){
         return ForumPost::getAllPosts($this->id);
     }
 
-    public static function getPinnedPosts(){
+    public function getPinnedPosts(){
         return ForumPost::getAllPinnedPosts($this->id);
     }
 }

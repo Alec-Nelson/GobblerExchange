@@ -17,21 +17,7 @@ class SiteController {
 			case 'home':
 				$this->home();
 				break;
-			case 'editpost':
-				$this->editpost();
-				break;
-			case 'editpost_submit':
-				$this->editpost_submit();
-				break;
-			case 'newpost':
-				$this->newpost();
-				break;
-			case 'newpost_submit':
-				$this->newpost_submit();
-				break;
-			case 'deletepost':
-				$this->deletepost();
-				break;
+
 			case 'signup':
 				$this->signup();
 				break;
@@ -44,196 +30,19 @@ class SiteController {
 			case 'postlogin':
 				$this->postlogin();
 				break;
-			case 'calendar':
-				$this->calendar();
-				break;
-			case 'chat':
-				$this->chat();
-				break;
-			case 'upvote':
-				$this->upvote();
-				break;
-			case 'downvote':
-				$this->downvote();
-				break;
 			case 'logout':
 				$this->logout();
 				break;
+			case 'jsontable':
+				$this->jsontable();
+				break;
 		}
 	}
 
-    public function home() {
-		self::loggedInCheck();
-
-		//Get forumid associated with the current crn
-		$crnid = 1; //Not implemented
-		$crn_row = Crn::loadById($crnid);
-		$forumid = $crn_row->get('forumId');
-
-		//retrieve all posts from the forum
-		$posts = ForumPost::getAllPosts($forumid);
-		include_once SYSTEM_PATH.'/view/home.tpl';
-	}
-
-	public function editpost(){
-		$postid = $_POST['edit'];
-		$post_row = ForumPost::loadById($postid);
-
-		$authorid = $post_row->get('userId');
-		$user = User::loadById($authorid);
-		$username = $user->get('username');
-
-		//check if author of the post is the logged in user
-		if($_SESSION['username'] != $username){
-			$_SESSION['info'] = "You can only edit posts of which you are the author of.";
-			header('Location: '.BASE_URL);
-			exit();
-		} else {
-			//allow access to edit post
-			$title = $post_row->get('title');
-			$body = $post_row->get('description');
-			$tag = $post_row->get('tag');
-			include_once SYSTEM_PATH.'/view/edit.tpl';
-		}
-	}
-	public function editpost_submit(){
-		if (isset($_POST['Cancel'])) {
-			header('Location: '.BASE_URL);
-			exit();
-		}
-
-		$postid = $_POST['postid'];
-		$post = ForumPost::loadById($postid);
-
-		$title = $_POST['title'];
-		$body = $_POST['description'];
-		$tag = $_POST['tag'];
-		$timestamp = date("Y-m-d", time());
-
-		$post = ForumPost::loadById($postid);
-		$post->set('title', $title);
-		$post->set('description', $body);
-		$post->set('tag', $tag);
-		$post->set('timestamp', $timestamp);
-		$post->save();
-
-		header('Location: '.BASE_URL);
-	}
-
-	public function calendar(){
-		include_once SYSTEM_PATH.'/view/calendar.tpl';
-	}
-
-	public function chat(){
-		include_once SYSTEM_PATH.'/view/chat.tpl';
-	}
-
-	public function upvote(){
-		//retrieve variables
-		$postid = $_POST['upvote'];
-		$user = User::loadByUsername($_SESSION['username']);
-		$userid = $user->get('id');
-
-		//check if user previously downvoted
-		$old_rating = Rating::loadByUserAndPostId($userid, $postid);
-		if($old_rating != null){
-			$old_rating->delete();
-			header('Location: '.BASE_URL);
-			exit();
-		} else {
-			//save user's voting preference
-			$rating = new Rating();
-			$rating->set('userId', $userid);
-			$rating->set('postId', $postid);
-			$rating->set('rating', 1);
-			$rating->save();
-
-			header('Location: '.BASE_URL);
-			exit();
-		}
-	}
-
-	public function downvote(){
-		$postid = $_POST['downvote'];
-		$user = User::loadByUsername($_SESSION['username']);
-		$userid = $user->get('id');
-
-		//check if user previously downvoted
-		$old_rating = Rating::loadByUserAndPostId($userid, $postid);
-		if($old_rating != null){
-			$old_rating->delete();
-			header('Location: '.BASE_URL);
-			exit();
-		} else {
-			//save user's voting preference
-			$rating = new Rating();
-			$rating->set('userId', $userid);
-			$rating->set('postId', $postid);
-			$rating->set('rating', -1);
-			$rating->save();
-
-			header('Location: '.BASE_URL);
-			exit();
-		}
-
-		header('Location: '.BASE_URL);
-	}
-
-	public function newpost(){
-		include_once SYSTEM_PATH.'/view/newpost.tpl';
-	}
-	public function newpost_submit(){
-		if (isset($_POST['Cancel'])) {
-			header('Location: '.BASE_URL);
-			exit();
-		}
-
-		$title = $_POST['title'];
-		$description = $_POST['description'];
-		$tag = $_POST['tag'];
-		$timestamp = date("Y-m-d", time());
-		$author = $_SESSION['username'];
-
-		//get author's id
-		$user_row = User::loadByUsername($author);
-		$userid = $user_row->get('id');
-
-		//add a rating
-		$rating = new Rating();
-		$rating->set('userId', $userid);
-		$rating->set('rating', 0);
-		$rating->save();
-
-		$post = new ForumPost();
-		$post->set('userId', $userid);
-		$post->set('timestamp', $timestamp);
-		$post->set('title', $title);
-		$post->set('description', $description);
-		$post->set('tag', $tag);
-		$post->set('ratingId', $rating->get('id'));
-		$post->set('forumId', 1); //hardcoded, only 1 CRN page exists
-		$post->save();
-
-		$rating->set('postId', $post->get('id'));
-		$rating->save();
-		header('Location: '.BASE_URL);
-	}
-
-	public function deletepost(){
-		$postid = $_POST['delete'];
-		$post_row = ForumPost::loadById($postid);
-		$post_author_id = $post_row->get('userId');
-		$post_author = User::loadById($post_author_id);
-
-		//user is the author of the post, allow delete
-		if($post_author->get('username') == $_SESSION['username']){
-			$post_row->delete();
-		} else {
-			$_SESSION['info'] = "You can only delete posts you have created.";
-		}
-
-		//refresh page
-		header('Location: '.BASE_URL);
+	//redirects to forum
+    public function home() {														//TODO uncomment logincheck once login page complete
+		// self::loggedInCheck();
+		include_once SYSTEM_PATH.'/view/testHome.html';
 	}
 
 	public function signup(){
@@ -265,7 +74,7 @@ class SiteController {
 		}
 	}
 
-	private function loggedInCheck(){
+	public function loggedInCheck(){
 		//checks if user  is logged in
 		// if not redirects to sign up page
 		if( !isset($_SESSION['username']) || $_SESSION['username'] == '')
@@ -355,5 +164,16 @@ class SiteController {
 
 		// redirect to home page
 		header('Location: '.BASE_URL);
+	}
+
+	public function jsontable(){
+		// header('Content-Type: application/json');
+		$cmd = "generate-classes-json.rb";
+		echo exec("ruby ".$cmd);
+		echo system($cmd);
+		echo $cmd;
+		// echo "test";
+		// redirect to home page
+		// header('Location: '.BASE_URL);
 	}
 }

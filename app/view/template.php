@@ -3,11 +3,11 @@
     <head>
         <meta charset="utf-8">
         <title>Gobbler Exchange</title>
-        <script src="../../public/js/jquery.min.js"></script>
-        <script src="../../public/js/bootstrap.min.js"></script>
-        <script src="../../public/js/base.js"></script>
-        <link rel="stylesheet" type="text/css" href="../../public/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="../../public/css/base.css">
+        <script src="<?= BASE_URL ?>/public/js/jquery.min.js"></script>
+        <script src="<?= BASE_URL ?>/public/js/bootstrap.min.js"></script>
+        <script src="<?= BASE_URL ?>/public/js/base.js"></script>
+        <link href="<?= BASE_URL ?>/public/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+        <link href="<?= BASE_URL ?>/public/css/template.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/base.css');?>" type="text/css" rel="stylesheet">
         <script src="https://use.fontawesome.com/625f8d2098.js"></script>
     </head>
     <body>
@@ -15,8 +15,10 @@
         <div class="row">
         <div class="col-lg-8">
             <h1>
-                <span class="maroon">Gobbler</span>
-                <span class="orange">Exchange</span>
+                <a class="title" href="<?= BASE_URL ?>" style="text-decoration:none"><span class="maroon">Gobbler</span></a>
+                <a class="title" href="<?= BASE_URL ?>" style="text-decoration:none"><span class="orange">Exchange</span></a>
+
+                <!-- <span class="orange">Exchange</span> -->
             </h1>
         </div>
         <div class="col-lg-2">
@@ -67,14 +69,16 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-2" style="text-align: center;">
-            <button id = "button" type="button" class="btn btn-primary">
+          <form method="POST" action="<?= BASE_URL ?>/jsontable">
+            <button id = "button" type="submit" class="btn btn-primary">
                 New Class
             </button>
+          </form>
         </div>
         <div class="col-lg-8">
             <ul class="nav nav-tabs">
-              <li id = "tab" role="presentation"><a href="#">Forum</a></li>
-              <li id = "tab" role="presentation"><a href="#">Calendar</a></li>
+              <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/forum">Forum</a></li>
+              <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/calendar">Calendar</a></li>
               <li id = "tab" role="presentation"><a href="#">Notes</a></li>
               <li id = "tab" role="presentation"><a href="#">Whiteboard</a></li>
             </ul>
@@ -95,19 +99,3 @@
 
                 <!-- Main space -->
                 <div id="module">
-                    <h1> PUT YOUR CODE HERE :D </h1>  <!-- Put forum, notes, whiteboard, calendar, etc. here -->
-                </div>
-
-            </div>
-            <div class="col-lg-3">
-
-                <!-- Chat box -->
-                CHAT SPACE FOR GREG :)
-                <iframe id="chat" src=""></iframe>
-
-            </div>
-        </div>
-    </div>
-
-    </body>
-</html>

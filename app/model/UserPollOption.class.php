@@ -46,7 +46,7 @@ class UserPollOption extends DbObject {
         if(!$ex) die ('Query failed:' . mysql_error());
     }
 
-    public static function loadById($id){
+    public function loadById($id){
         $db = Db::instance();
         $obj = $db->fetchById($id, __CLASS__, self::DB_TABLE);
         return $obj;

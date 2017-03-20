@@ -73,7 +73,7 @@ class Comment extends DbObject {
 
     //Get all comments for a particular forum post
     //**This function can be called from the ForumPost class.
-    private static function getAllCommentsByPost($postId){
+    private function getAllCommentsByPost($postId){
         $query = sprintf(" SELECT * FROM %s WHERE postId=%s",
             self::DB_TABLE,
             $postId
@@ -94,7 +94,7 @@ class Comment extends DbObject {
 
     //Get all comments for particular notes
     //**This function can be called from the Notes class.
-    private static function getAllCommentsByNotes($notesId){
+    private function getAllCommentsByNotes($notesId){
         $query = sprintf(" SELECT * FROM %s WHERE notesId=%s",
             self::DB_TABLE,
             $notesId

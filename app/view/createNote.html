@@ -6,6 +6,7 @@
         <script src="../../public/js/jquery.min.js"></script>
         <script src="../../public/js/bootstrap.min.js"></script>
         <script src="../../public/js/base.js"></script>
+        <script src="../../public/js/createNote.js"></script>
         <link rel="stylesheet" type="text/css" href="../../public/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../public/css/base.css">
         <script src="https://use.fontawesome.com/625f8d2098.js"></script>
@@ -93,9 +94,15 @@
             </div>
             <div class="col-lg-7">
 
-                <!-- Main space -->
+                <!-- Main space !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
                 <div id="module">
-                    <h1> PUT YOUR CODE HERE :D </h1>  <!-- Put forum, notes, whiteboard, calendar, etc. here -->
+                    <form>
+                      Title<br>
+                      <input id = "title" type="text" name="title"><br>
+                      <br>
+                      <textarea id = "note" type="text" name="note"></textarea>
+                      <input type="submit" value="Submit">
+                    </form>
                 </div>
 
             </div>

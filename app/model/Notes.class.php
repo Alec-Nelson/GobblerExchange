@@ -5,6 +5,7 @@ class Notes extends DbObject {
 
     //database fields
     protected $id;
+    protected $title;
     protected $link;
     protected $userId;
     protected $timestamp;
@@ -17,6 +18,7 @@ class Notes extends DbObject {
     public function __construct($args = array()){
         $defaultArgs = array(
             'id' => null,
+            'title' => null,
             'link' => null,
             'userId' => null,
             'timestamp' => null,
@@ -28,6 +30,7 @@ class Notes extends DbObject {
         $args += $defaultArgs;
 
         $this->id = $args['id'];
+        $this->title = $args['title'];
         $this->link = $args['link'];
         $this->userId = $args['userId'];
         $this->timestamp = $args['timestamp'];
@@ -41,6 +44,7 @@ class Notes extends DbObject {
         $db = Db::instance();
 
         $db_properties = array(
+            'title' => $this->title,
             'link' => $this->link,
             'userId' => $this->userId,
             'timestamp' => $this->timestamp,
@@ -69,22 +73,22 @@ class Notes extends DbObject {
         if(!$ex) die ('Query failed:' . mysql_error());
     }
 
-    public static function loadNotesByUser($userId){
+    public function loadNotesByUser($userId){
         return Rating::loadByUserAndNotesId($userId, $this->id);
     }
 
-    public static function upvote($userId){
+    public function upvote($userId){
         Rating::upvoteNotes($this->id, $userId);
     }
-    public static function downvote($userId){
+    public function downvote($userId){
         Rating::downvoteNotes($this->id, $userId);
     }
 
-    public static function getRating(){
+    public function getRating(){
         return Rating::getNotesRating($this->id);
     }
 
-    public static function getComments(){
+    public function getComments(){
         return Comment::getAllCommentsByNotes($this->id);
     }
 
@@ -92,7 +96,7 @@ class Notes extends DbObject {
 
     //get all notes from a specific group
     //**This function can be called from the Group class.
-    public static function getAllNotes($groupId){
+    public function getAllNotes($groupId){
         $query = sprintf(" SELECT * FROM %s WHERE groupId=%s ORDER BY timestamp DESC",
             self::DB_TABLE,
             $groupId

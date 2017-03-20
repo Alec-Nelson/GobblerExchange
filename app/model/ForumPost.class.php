@@ -78,19 +78,22 @@ class ForumPost extends DbObject {
         if(!$ex) die ('Query failed:' . mysql_error());
     }
 
-    public static function loadPostByUser($userId){
+    public function loadPostByUser($userId){
         return Rating::loadByUserAndPostId($userId, $this->id);
     }
-    public static function upvote($userId){
+
+    //userid - the userid of the person who is upvoting, not the author
+    public function upvote($userId){
         Rating::upvoteForumPost($this->id, $userId);
     }
-    public static function downvote($userId){
+    //userid - the userid of the person who is downvoting, not the author
+    public function downvote($userId){
         Rating::downvoteForumPost($this->id, $userId);
     }
-    public static function getRating(){
+    public function getRating(){
         return Rating::getPostRating($this->id);
     }
-    public static function getComments(){
+    public function getComments(){
         Comment::getAllCommentsByPost($this->id);
     }
 
@@ -98,8 +101,8 @@ class ForumPost extends DbObject {
 
     //get all posts for a group's forum
     //**This function can be called from the Forum class.
-    public static function getAllPosts($forumId){
-        $query = sprintf(" SELECT * FROM %s WHERE forumid=%s ORDER BY timestamp DESC",
+    public function getAllPosts($forumId){
+        $query = sprintf(" SELECT * FROM %s WHERE forumId=%s ORDER BY timestamp DESC",
             self::DB_TABLE,
             $forumId
         );
@@ -118,8 +121,8 @@ class ForumPost extends DbObject {
     }
 
     //**This function can be called from the Forum class.
-    public static function getAllPinnedPosts($forumId){
-        $query = sprintf(" SELECT * FROM %s WHERE forumid=%s AND pinned=1 ORDER BY timestamp DESC",
+    public function getAllPinnedPosts($forumId){
+        $query = sprintf(" SELECT * FROM %s WHERE forumId=%s AND pinned=1 ORDER BY timestamp DESC",
             self::DB_TABLE,
             $forumId
         );

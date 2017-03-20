@@ -28,6 +28,10 @@ li {
   color: #ff6600;
 }
 
+.title a:hover{
+  text-decoration: none;
+}
+
 #searchBar {
     border-radius: 5px;
     text-indent: 5px;

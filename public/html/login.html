@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang = "en">
+  <head>
+    <meta charset="utf-8">
+    <title>Gobbler Exchange</title>
+    <script src="../../public/js/jquery.min.js"></script>
+    <script src="../../public/js/bootstrap.min.js"></script>
+    <script src="../../public/js/base.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../public/css/base.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+      <!-- Website Title -->
+        <div class="col-lg-4">
+          <h1>
+            <span class="maroon">Gobbler</span>
+            <span class="orange">Exchange</span>
+          </h1>
+        </div>
+        
+        <!-- Sign in/out -->
+        <div class="col-lg-5" style="float: right; margin-top: 20px">
+          <button id = "signout" type="button" class="btn btn-primary" style="float: right; margin-top: 0">
+              Login
+          </button>
+          <div class="col-lg-5">
+            <input id = "searchBar" type="text" class="form-control" placeholder="Email" aria-label="...">
+          </div>
+          <div class="col-lg-5">
+            <input id = "searchBar" type="text" class="form-control" placeholder="Password" aria-label="...">
+          </div>
+          <h6 style="float: left; margin-left: 15px;">Already have an account? Sign in here!</h6>
+        </div>
+      </div>
+
+      <!-- Other Stuff -->
+      <div style="float: left;">
+        <img src="..\images\vatech.png" alt="VA Tech" style="margin-top: 60px;width:500px;height:250px;">
+      </div>
+
+      <!-- Registration -->
+      <div style="float: right;width:640px;">
+        <div class="row" style="margin-top: 60px;margin-right: 60px;">
+        <div class="col-xs-8 col-sm-8 col-md-8" style="float: right;">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">New to Gobbler Exchange? Create an account to get access to all of these features!</h3>
+            </div>
+            <div class="panel-body">
+              <form role="form">
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name">
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
+                    </div>
+                  </div>
+                </div>
+                
+                <input type="submit" value="Register" class="btn btn-info btn-block" style="background-color: #660000;">
+              
+              </form>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+    
+    </div>
+  </body>
+</html>
+    

@@ -2,7 +2,7 @@
 class User extends DbObject {
     // name of database table
     const DB_TABLE = 'user';
-    
+
     // database fields
     protected $id;
     protected $name;
@@ -43,7 +43,7 @@ class User extends DbObject {
     public function delete()
     {
          $db = Db::instance();
-            $query = sprintf(" DELETE FROM %s  WHERE username = '%s' AND pw = '%s' ",
+            $query = sprintf(" DELETE FROM %s  WHERE username = '%s' AND password = '%s' ",
             self::DB_TABLE,
             $this->username,
             $this->pw
@@ -61,7 +61,7 @@ class User extends DbObject {
     }
 
     // load user by username
-    public static function loadByUsername($username=null) {
+    public function loadByUsername($username=null) {
         if($username === null)
             return null;
         $query = sprintf(" SELECT id FROM %s WHERE username = '%s' ",
@@ -80,7 +80,7 @@ class User extends DbObject {
     }
 
     //load by email
-    public static function loadByEmail($email=null) {
+    public function loadByEmail($email=null) {
         if($email === null)
             return null;
         $query = sprintf(" SELECT id FROM %s WHERE email = '%s' ",
@@ -99,12 +99,12 @@ class User extends DbObject {
     }
 
     //get all groups the user is involved in
-    public static function getGroups(){
+    public function getGroups(){
         return UserGroup::getAllGroupsOfUser($this->id);
     }
 
     //checks if the username has already been taken
-    public static function checkUsernameAvailability($username){
+    public function checkUsernameAvailability($username){
         if($username === null)
             return false;
         $query = sprintf(" SELECT id FROM %s WHERE username = '%s' ",
@@ -121,7 +121,7 @@ class User extends DbObject {
     }
 
     //checks if an email is already assoicated with the account
-    public static function checkEmailAvailability($email){
+    public function checkEmailAvailability($email){
         if($email === null)
             return false;
         $query = sprintf(" SELECT id FROM %s WHERE email = '%s' ",
@@ -138,7 +138,7 @@ class User extends DbObject {
     }
 
     //Authenticates the user; returns true if the username and password are valid; false otherwise
-    public static function authenticateUser($username, $password){
+    public function authenticateUser($username, $password){
         if($username === null || $password === null)
             return false;
         $query = sprintf(" SELECT id FROM %s WHERE username = '%s' AND password= '%s' ",
@@ -152,6 +152,43 @@ class User extends DbObject {
             return false;
         else {
             return true;
+        }
+    }
+
+    //SEARCH FUNCTIONS --------------------------------------------------------
+    //search by username
+    public static function searchUsername($username) {
+        $query = sprintf(" SELECT id FROM %s WHERE username='%s'",
+            self::DB_TABLE,
+            $username
+            );
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $row = mysql_fetch_assoc($result);
+            $obj = self::loadById($row['id']);
+            return ($obj);
+        }
+    }
+
+    //search by email
+    public static function searchEmail($email) {
+        $query = sprintf(" SELECT id FROM %s WHERE email='%s'",
+            self::DB_TABLE,
+            $email
+            );
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $row = mysql_fetch_assoc($result);
+            $obj = self::loadById($row['id']);
+            return ($obj);
         }
     }
 }

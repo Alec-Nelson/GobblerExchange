@@ -7,7 +7,9 @@ class Poll extends DbObject {
     protected $id;
     protected $title;
     protected $userId;     //author
-    protected $forumId;
+    protected $groupId;
+    protected $timestamp;
+    protected $isOpen;
 
     //constructor
     public function __construct($args = array()){
@@ -15,7 +17,9 @@ class Poll extends DbObject {
             'id' => null,
             'title' => null,
             'userId' => null,
-            'forumId' => null
+            'groupId' => null,
+            'timestamp' => null,
+            'isOpen' => null
         );
 
         $args += $defaultArgs;
@@ -23,7 +27,9 @@ class Poll extends DbObject {
         $this->id = $args['id'];
         $this->title = $args['title'];
         $this->userId = $args['userId'];
-        $this->forumId = $args['forumId'];
+        $this->groupId = $args['groupId'];
+        $this->timestamp = $args['timestamp'];
+        $this->isOpen = $args['isOpen'];
     }
 
     //save changes to database
@@ -33,7 +39,9 @@ class Poll extends DbObject {
         $db_properties = array(
             'title' => $this->title,
             'userId' => $this->userId,
-            'forumId' => $this->forumId
+            'groupId' => $this->groupId,
+            'timestamp' => $this->timestamp,
+            'isOpen' => $this->isOpen
         );
 
         $db->store($this, __CLASS__, self::DB_TABLE, $db_properties);
@@ -56,8 +64,61 @@ class Poll extends DbObject {
         return $obj;
     }
 
-    public static function getPollOptions(){
+    public function getPollOptions(){
         return PollOptions::getPollOptions($this->id);
+    }
+
+    public function openPoll($pollId){
+        $poll = Poll::loadById($pollId);
+        $poll->set('isOpen', true);
+        $poll->save();
+    }
+    public function closePoll($pollId){
+        $poll = Poll::loadById($pollId);
+        $poll->set('isOpen', false);
+        $poll->save();
+    }
+
+    //get all polls for a group
+    //**This function can be called from the Group class.
+    public function getAllPolls($groupId){
+        $query = sprintf(" SELECT * FROM %s WHERE groupId=%s ORDER BY timestamp DESC",
+            self::DB_TABLE,
+            $forumId
+        );
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
+        }
+    }
+
+    //get all open polls for a group, starting with the most recent
+    //**This function can be called from the Group class.
+    public function getAllOpenPolls($groupId){
+        $query = sprintf(" SELECT * FROM %s WHERE groupId='%s' AND isOpen='true' ORDER BY timestamp DESC",
+            self::DB_TABLE,
+            $groupId
+        );
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
+        }
     }
 }
 ?>

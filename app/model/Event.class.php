@@ -47,14 +47,27 @@ class Event extends DbObject {
         $db->store($this, __CLASS__, self::DB_TABLE, $db_properties);
     }
 
-    //SQL formatted date/time
-    public function getSQLTimestamp(){
-        date("Y-m-d H:i:s", $this->timestamp);
+    // //SQL formatted date/time
+    // public function getSQLTimestamp(){
+    //     date("Y-m-d H:i:s", $this->timestamp);
+    // }
+    //
+    // //getter for date in readable format, for example: 3 15 2017
+    // public function getDate(){
+    //     return date("m d Y", $this->timestamp);
+    // }
+
+    //converts sql date to readable date
+    public function convertToReadableDate($timestamp){
+        return date("m/d/Y", strtotime($timestamp));
     }
 
-    //getter for date in readable format (ex. March 10, 2017)
-    public function getDate(){
-        return date("F j, Y", $this->timestamp);
+    //converts readable format for date (m d Y) and time (H:i) into SQl datetime
+    public function convertToSQLDateTime($date, $time){
+        list($month, $day, $year) = split(' ', $date);
+        list($hour, $minute) = split(':', $time);
+
+        return date("Y-m-d H:i:s", mktime($hour, $minute, 0, $month, $day, $year));
     }
 
     //Getters for numeric month, day, and year
@@ -98,7 +111,7 @@ class Event extends DbObject {
         return $obj;
     }
 
-    private static function getAllEventsByDate($timestamp){
+    public static function getAllEventsByDate($calendarId, $timestamp){
         //get just the database
         $year = date("Y", $timestamp);
         $month = date("m", $timestamp);
@@ -107,8 +120,44 @@ class Event extends DbObject {
         $start = date("Y-m-d H:i:s", mktime(0, 0, 0, $month, $day, $year));
         $end = date("Y-m-d H:i:s", mktime(23, 59, 59, $month, $day, $year));
 
-        $query = sprintf("SELECT * FROM TABLE WHERE timestamp BETWEEN %s and %s",
+        $query = sprintf("SELECT * FROM %s WHERE calendarId=%s AND timestamp BETWEEN %s and %s",
             self::DB_TABLE,
+            $calendarId,
+            $start,
+            $end
+        );
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
+        }
+    }
+
+    //Note: index month 1 - 12, not 0 - 11
+    private static function getAllEventsByMonth($calendarId, $month, $year){
+        //get just the database
+        $year = date("Y", $year);
+        $month = date("m", $month);
+
+        $start = date("Y-m-d H:i:s", mktime(0, 0, 0, $month, 1, $year));
+        $end = date("Y-m-d H:i:s", mktime(23, 59, 59, $month, 31, $year));
+        if($month == 2){
+                    $end = date("Y-m-d H:i:s", mktime(23, 59, 59, $month, 28, $year));
+        }
+        else if($month == 4 || $month == 6 || $month == 9 || $month == 11){
+            $end = date("Y-m-d H:i:s", mktime(23, 59, 59, $month, 30, $year));
+        }
+
+        $query = sprintf("SELECT * FROM %s WHERE calendarId=%s AND timestamp BETWEEN %s and %s",
+            self::DB_TABLE,
+            $calendarId,
             $start,
             $end
         );
@@ -129,11 +178,11 @@ class Event extends DbObject {
     // -------------------------------------------------------------------------
 
     //**This function can be called from the Calendar class.
-    private static function getAllEventsByCalendar($calendarId){
+    public function getAllEventsByCalendar($id){
 
-        $query = sprintf("SELECT * FROM TABLE WHERE calendarId=%s ",
+        $query = sprintf("SELECT * FROM %s WHERE calendarId=%s ",
             self::DB_TABLE,
-            $calendarId
+            $id
         );
 
         $db = Db::instance();

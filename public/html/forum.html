@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset="utf-8">
+        <title>Gobbler Exchange</title>
+        <script src="../../public/js/jquery.min.js"></script>
+        <script src="../../public/js/bootstrap.min.js"></script>
+        <script src="../../public/js/base.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../public/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../public/css/base.css">
+    </head>
+    <body>
+      <div class="container">
+        <div class="row">
+        <div class="col-lg-8">
+            <h1>
+                <span class="maroon">Gobbler</span>
+                <span class="orange">Exchange</span>
+            </h1>
+        </div>
+        <div class="col-lg-2">
+            <p id = "signedinas" class="description" style="float: right;">
+            Signed in as...
+            </p>
+        </div>
+        <!-- <div class="col-lg-2"> -->
+            <button id = "signout" type="button" class="btn btn-primary" style="float: right;">
+                Sign Out
+            </button>
+        <!-- </div> -->
+      </div>
+
+
+<!-- Search bar -->
+<div class="container">
+    <div class="row">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8">
+        <div class="input-group">
+          <div class="input-group-btn">
+            <button id = "searchdropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                CRN <span class="caret"><span>
+            </button>
+            <ul class="dropdown-menu" role = "menu">
+              <li><a href="#">CRN</a></li>
+              <li><a href="#">Group</a></li>
+              <li><a href="#">Username</a></li>
+              <li><a href="#">Email</a></li>
+            </ul>
+          </div><!-- /btn-group -->
+          <input id = "searchBar" type="text" class="form-control" aria-label="...">
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
+      <div class="col-lg-1">
+          <button id = "button" type="button" class="btn btn-primary" aria-label="Left Align">
+            Search
+          </button>
+      </div>
+    </div><!-- /.row -->
+</div>
+
+<br>
+
+    <!-- Class navigation (forum, calendar, notes, whiteboard) -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2" style="text-align: center;">
+            <button id = "button" type="button" class="btn btn-primary">
+                New Class
+            </button>
+        </div>
+        <div class="col-lg-8">
+            <ul class="nav nav-tabs">
+              <li id = "tab" role="presentation"><a href="#">Forum</a></li>
+              <li id = "tab" role="presentation"><a href="#">Calendar</a></li>
+              <li id = "tab" role="presentation"><a href="#">Notes</a></li>
+              <li id = "tab" role="presentation"><a href="#">Whiteboard</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-2"></div>
+      </div>
+    </div>
+
+<br>
+<div class = "container" id="classTabs">
+        <div class="row">
+            <div class="col-lg-2">
+                <a href="#" class="list-group-item">CS 3114</a>
+                <a href="#" class="list-group-item">STAT 4705</a>
+                <a href="#" class="list-group-item">ENGL 1704</a>
+            </div>
+            <div class="col-lg-7">
+
+                <!-- Main space -->
+                <div id="module">
+                <!-- START CODE -->
+                  <div class="row">
+                    <div class="col-lg-7">
+                      <h2>CS 3114 Forum</h2>
+                    </div>
+                    <div class="col-lg-5">
+                      <button id = "button" type="button" class="btn btn-primary">
+                        Create a Poll
+                      </button>
+                      <button id = "button" type="button" class="btn btn-primary">
+                        Add Forum Post
+                      </button>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-lg-8">
+                      <input id = "searchBar" type="text" class="form-control" aria-label="...">
+                    </div>
+                    <div class="col-lg-1">
+                      <button id = "button" type="button" class="btn btn-primary">
+                        Search
+                      </button>
+                    </div>
+                    <div class="col-lg-1" style="float: right;">
+                      <button id = "filterdropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: right;">
+                        Date <span class="caret"><span>
+                      </button>
+                      <ul class="dropdown-menu" role = "menu">
+                        <li><a href="#">Date</a></li>
+                        <li><a href="#">Popularity</a></li>
+                      </ul>
+                    </div>
+                  </div>
+
+
+                  <!-- forum post -->
+                  <div class="forum_post" style="padding:10px; border-bottom: 1px solid #ccc;">
+                    <!-- <div class="col-lg-2">
+                      <img src="..\images\portrait.png" alt="Portrait" style="width:75px;height:75px;">
+                    </div> -->
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <h4>FIRST TEST?!?!</h4>
+                      </div>
+                      <div class="col-lg-2" style="float: right;">
+                        <h6>02/13/2017</h6>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <img src="..\images\up_arrow.png" alt="Up" style="width:30px;height:30px; float: left;">
+                      <div class="col-lg-9">
+                        <h5>Kaity Blohm</h5>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <img src="..\images\down_arrow.png" alt="Down" style="width:30px;height:30px; float: left;">
+                      <div class="col-lg-9">
+                        When is our next test?
+                      </div>
+                    </div>
+                    <div class="row">
+                      <img src="..\images\settings.png" alt="Settings" style="width:40px;height:30px; float: right; padding-left:10px;">
+                      <button id = "button" type="button" class="btn btn-primary" style="float: right;">
+                        View Comments
+                      </button>
+                    </div>
+                  </div>
+                  <!-- end forum post -->
+
+
+                  <!-- forum post -->
+                  <div class="forum_post" style="padding:10px; border-bottom: 1px solid #ccc;">
+                    <!-- <div class="col-lg-2">
+                      <img src="..\images\portrait.png" alt="Portrait" style="width:75px;height:75px;">
+                    </div> -->
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <h4>Test coming up?</h4>
+                      </div>
+                      <div class="col-lg-2" style="float: right;">
+                        <h6>02/09/2017</h6>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <img src="..\images\up_arrow.png" alt="Up" style="width:30px;height:30px; float: left;">
+                      <div class="col-lg-9">
+                        <h5>Alex LaMontagne</h5>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <img src="..\images\down_arrow.png" alt="Down" style="width:30px;height:30px; float: left;">
+                      <div class="col-lg-9">
+                        When is our next test?
+                      </div>
+                    </div>
+                    <div class="row">
+                      <img src="..\images\settings.png" alt="Settings" style="width:40px;height:30px; float: right; padding-left:10px;">
+                      <button id = "button" type="button" class="btn btn-primary" style="float: right;">
+                        View Comments
+                      </button>
+                    </div>
+                  </div>
+                  <!-- end forum post -->
+
+
+                  <!-- forum post -->
+                  <div class="forum_post" style="padding:10px; border-bottom: 1px solid #ccc;">
+                    <!-- <div class="col-lg-2">
+                      <img src="..\images\portrait.png" alt="Portrait" style="width:75px;height:75px;">
+                    </div> -->
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <h4>Group Project</h4>
+                      </div>
+                      <div class="col-lg-2" style="float: right;">
+                        <h6>02/07/2017</h6>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <img src="..\images\up_arrow.png" alt="Up" style="width:30px;height:30px; float: left;">
+                      <div class="col-lg-9">
+                        <h5>Joe N</h5>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <img src="..\images\down_arrow.png" alt="Down" style="width:30px;height:30px; float: left;">
+                      <div class="col-lg-9">
+                        Looking for a group to work with!
+                      </div>
+                    </div>
+                    <div class="row">
+                      <img src="..\images\settings.png" alt="Settings" style="width:40px;height:30px; float: right; padding-left:10px;">
+                      <button id = "button" type="button" class="btn btn-primary" style="float: right;">
+                        View Comments
+                      </button>
+                    </div>
+                  </div>
+                  <!-- end forum post -->
+                <!-- END CODE -->
+                </div>
+
+            </div>
+            <div class="col-lg-3">
+
+                <!-- Chat box -->
+                CHAT SPACE FOR GREG :)
+                <iframe id="chat" src=""></iframe>
+
+            </div>
+        </div>
+    </div>
+
+    </body>
+</html>

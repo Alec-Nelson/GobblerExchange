@@ -6,9 +6,10 @@
         <script src="../../public/js/jquery.min.js"></script>
         <script src="../../public/js/bootstrap.min.js"></script>
         <script src="../../public/js/base.js"></script>
+        <script src="../../public/js/calendar.js"></script>
         <link rel="stylesheet" type="text/css" href="../../public/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../public/css/base.css">
-        <script src="https://use.fontawesome.com/625f8d2098.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../public/css/calendar.css">
     </head>
     <body>
       <div class="container">
@@ -49,15 +50,14 @@
               <li><a href="#">Email</a></li>
             </ul>
           </div><!-- /btn-group -->
-          <input type="hidden" name="search_param" value="all" id="search_param">
-          <input type="text" class="form-control" name="x" placeholder="Search term...">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button">
-              <i class="fa fa-search" aria-hidden="true"></i>
-            </button>
-          </span>
+          <input id = "searchBar" type="text" class="form-control" aria-label="...">
         </div><!-- /input-group -->
       </div><!-- /.col-lg-6 -->
+      <div class="col-lg-2">
+          <button id = "button" type="button" class="btn btn-primary" aria-label="Left Align">
+            Search
+          </button>
+      </div>
     </div><!-- /.row -->
 </div>
 
@@ -95,7 +95,43 @@
 
                 <!-- Main space -->
                 <div id="module">
-                    <h1> PUT YOUR CODE HERE :D </h1>  <!-- Put forum, notes, whiteboard, calendar, etc. here -->
+                  <div>
+                    <button id = "addEvent" type="button" class="btn btn-primary" style="float: right;">
+                    Add Event
+                    </button>
+                  </div>
+                  <div id = "filter" class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter by <span class="caret"><span>
+                    </button>
+                    <ul id = "filterdd" class="dropdown-menu" role = "menu">
+                      <li><a href="#">Notes</a></li>
+                      <li><a href="#">Quizzes/Tests</a></li>
+                      <li><a href="#">Events</a></li>
+                      <li><a href="#">Homework</a></li>
+                    </ul>
+                  </div><!-- /btn-group -->
+                  <div class="form-group">
+                    <label for="exampleSelect1">Month</label>
+                    <select id = "month" class="form-control" id="exampleSelect1">
+                      <option value = "1">January</option>
+                      <option value = "2">February</option>
+                      <option value = "3">March</option>
+                      <option value = "4">April</option>
+                      <option value = "5">May</option>
+                      <option value = "6">June</option>
+                      <option value = "7">July</option>
+                      <option value = "8">August</option>
+                      <option value = "9">September</option>
+                      <option value = "10">October</option>
+                      <option value = "11">November</option>
+                      <option value = "12">December</option>
+                    </select>
+                  </div>
+                  <!-- Days view -->
+                  <div id = "days">
+
+                  </div>
                 </div>
 
             </div>
@@ -104,7 +140,7 @@
                 <!-- Chat box -->
                 CHAT SPACE FOR GREG :)
                 <iframe id="chat" src=""></iframe>
-
+                
             </div>
         </div>
     </div>

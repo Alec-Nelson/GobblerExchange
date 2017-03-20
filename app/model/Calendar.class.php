@@ -23,7 +23,7 @@ class Calendar extends DbObject {
         return $obj;
     }
 
-    public static function getEvents(){
+    public function getEvents(){
         return Event::getAllEventsByCalendar($this->id);
     }
 }
