@@ -94,7 +94,7 @@ class ForumPost extends DbObject {
         return Rating::getPostRating($this->id);
     }
     public function getComments(){
-        Comment::getAllCommentsByPost($this->id);
+        return Comment::getAllCommentsByPost($this->id);
     }
 
     //-------------------------------------------------------------------------

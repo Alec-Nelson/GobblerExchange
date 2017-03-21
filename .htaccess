@@ -57,6 +57,9 @@ RewriteRule ^newnotes_submit/?$ app/controller/NotesController.php?action=newnot
 RewriteRule ^deletenotes/?$ app/controller/NotesController.php?action=deletenotes&groupId=0 [QSA,L]
 
 # Comment
+RewriteRule ^viewcomments/?$ app/controller/CommentController.php?action=viewcomments&postId=0 [QSA,L]
+RewriteRule ^viewcomments/(\d+)/?$ app/controller/CommentController.php?action=viewcomments&postId=$1 [QSA,L]
+
 RewriteRule ^editcomment/?$ app/controller/CommentController.php?action=editcomment&groupId=0 [QSA,L]
 RewriteRule ^editcomment_submit/?$ app/controller/CommentController.php?action=editcomment_submit&groupId=0 [QSA,L]
 RewriteRule ^newnotescomment/?$ app/controller/CommentController.php?action=newnotescomment&groupId=0 [QSA,L]
