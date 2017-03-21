@@ -50,7 +50,8 @@ class SiteController {
 	}
 
 	public function signup(){
-		include_once SYSTEM_PATH.'/view/signup.tpl';
+		echo 'this is being called';
+		// include_once SYSTEM_PATH.'/view/signup.tpl';
 	}
 
 	public function login(){
@@ -94,17 +95,28 @@ class SiteController {
 	// 		$userName = $user->get('username');
 	// 	}
 	}
+
 	public function register() {
 		// get post data
 		$username  = $_POST['username'];
-		$passwd = $_POST['passwd'];
+		$passwd = $_POST['password'];
+		$passwdConf = $_POST['password_confirmation'];
 		$email  = $_POST['email'];
-		$name = $_POST['name'];
+		$firstName = $_POST['first_name'];
+		$lastName = $_POST['last_name'];
+		$name = $firstName." ".$lastName;
 
 		// are all the required fields filled?
 		if ($name == '' || $username == '' || $passwd == '' || $email == '') {
 			// missing form data; send us back
-			$_SESSION['error'] = 'Please complete all registration fields.';
+			$_SESSION['error'] = -'Please complete all registration fields.';
+			header('Location: '.BASE_URL.'/signup');
+			exit();
+		}
+
+		//does email have @vt.edu
+		if (strpos($email, '@vt.edu') === false) {
+			$_SESSION['error'] = 'Your email does not contain an vt.edu domain.';
 			header('Location: '.BASE_URL.'/signup');
 			exit();
 		}
@@ -127,6 +139,13 @@ class SiteController {
 		}
 		if(preg_match('/[^A-Za-z0-9]/', $username)){
 			$_SESSION['error'] = 'Sorry, that username contains invalid characters';
+			header('Location: '.BASE_URL.'/signup');
+			exit();
+		}
+		//do the passwords match?
+		if(strcmp($passwd, $passwdConf) != 0)
+		{
+			$_SESSION['error'] = 'Sorry, your two passwords do not match';
 			header('Location: '.BASE_URL.'/signup');
 			exit();
 		}
