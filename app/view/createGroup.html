@@ -1,17 +1,9 @@
-<html lang = "en">
-    <head>
-        <meta charset="utf-8">
-        <title>Gobbler Exchange</title>
-        <script src="../../public/js/jquery.min.js"></script>
-        <script src="../../public/js/bootstrap.min.js"></script>
-        <script src="../../public/js/base.js"></script>
-        <link rel="stylesheet" type="text/css" href="../../public/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="../../public/css/base.css">
-        <script src="https://use.fontawesome.com/625f8d2098.js"></script>
-    </head>
-    <body>
+<?php
+  include_once('template.php');
+?>
 
-		<form>
+
+		<form method="POST" action="<?= BASE_URL ?>/newgroup_submit">
             Is this a class?
             <input type="checkbox" name="vehicle" value="Bike">Class<br>
 
@@ -33,5 +25,6 @@
 			</a>
 		</div>
 
-    </body>
-</html>
+<?php
+  include_once('templateBottom.php');
+?>

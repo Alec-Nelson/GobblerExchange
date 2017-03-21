@@ -68,7 +68,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-2" style="text-align: center;">
-          <form method="POST" action="<?= BASE_URL ?>/jsontable">
+          <form method="POST" action="<?= BASE_URL ?>/newgroup">
             <button id = "button" type="submit" class="btn btn-primary">
                 New Group
             </button>

@@ -42,9 +42,9 @@ class GroupController {
 	 * Page variables: N/A
 	 */
     public function newGroup() {
-		SiteController::loggedInCheck();
+		// SiteController::loggedInCheck();
 
-		include_once SYSTEM_PATH.'/view/newgroup.tpl';								//TODO: check tpl name
+		include_once SYSTEM_PATH.'/view/createGroup.html';								//TODO: check tpl name
 	}
 
 	/* Creates/publishes a new group
@@ -52,7 +52,7 @@ class GroupController {
 	 * Page variables: SESSION[error]
 	 */
 	public function newGroup_submit() {
-		SiteController::loggedInCheck();
+		// SiteController::loggedInCheck();
 
 		//user canceled new group
 		if (isset($_POST['Cancel'])) {
