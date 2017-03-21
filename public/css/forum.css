@@ -18,3 +18,11 @@
 .comments_button {
     float:right;
 }
+
+/*.addforumpost{
+  float:left;
+  /*color: red;*/
+}*/
+form{
+  all: none;
+}

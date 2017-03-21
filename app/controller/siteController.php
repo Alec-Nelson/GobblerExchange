@@ -170,7 +170,8 @@ class SiteController {
 		session_destroy();
 
 		// redirect to home page
-		header('Location: '.BASE_URL);
+		// header('Location: '.BASE_URL);
+		include_once SYSTEM_PATH.'/view/login.html';
 	}
 
 	public function jsontable(){

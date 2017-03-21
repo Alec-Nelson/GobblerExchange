@@ -5,12 +5,12 @@
 					<!-- So the idea here is that all of these tags will be filled in and could keep going as long as we want to display stuff, like an arraylist in Java, not sure what needs to be done for that. -->
 
 			<div class="row-fluid">
-				<a href="notesAdd.html">
+				<a href="<?= BASE_URL ?>/newnotes">
 					<button id = "button" type="button" class="btn btn-primary">
 						Add Note
 					</button>
 				</a>
-				<a href="notesDelete.html">
+				<a href="<?= BASE_URL ?>/deletenotes">
 					<button id = "button" type="button" class="btn btn-primary">
 						Delete Note
 					</button>
@@ -40,7 +40,7 @@
 			<button id = "button" type="button" class="btn btn-primary">
 				Show More Notes
 			</button>
-		</div>    
+		</div>
 <?php
 include_once('templateBottom.php');
 

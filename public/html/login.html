@@ -3,16 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>Gobbler Exchange</title>
-    <!-- <script src="../../public/js/jquery.min.js"></script>
+    <script src="../../public/js/jquery.min.js"></script>
     <script src="../../public/js/bootstrap.min.js"></script>
     <script src="../../public/js/base.js"></script>
     <link rel="stylesheet" type="text/css" href="../../public/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../../public/css/base.css"> -->
-    <script src="<?= BASE_URL ?>/public/js/jquery.min.js"></script>
-    <script src="<?= BASE_URL ?>/public/js/bootstrap.min.js"></script>
-    <script src="<?= BASE_URL ?>/public/js/base.js"></script>
-    <link href="<?= BASE_URL ?>/public/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-    <link href="<?= BASE_URL ?>/public/css/template.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/base.css');?>" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../public/css/base.css">
   </head>
   <body>
     <div class="container">
@@ -20,8 +15,8 @@
       <!-- Website Title -->
         <div class="col-lg-4">
           <h1>
-            <a class="title" href="<?= BASE_URL ?>" style="text-decoration:none"><span class="maroon">Gobbler</span></a>
-            <a class="title" href="<?= BASE_URL ?>" style="text-decoration:none"><span class="orange">Exchange</span></a>
+            <span class="maroon">Gobbler</span>
+            <span class="orange">Exchange</span>
           </h1>
         </div>
 
@@ -31,7 +26,7 @@
               Login
           </button>
           <div class="col-lg-5">
-            <input id = "searchBar" type="text" class="form-control" placeholder="Email or Username" aria-label="...">
+            <input id = "searchBar" type="text" class="form-control" placeholder="Email" aria-label="...">
           </div>
           <div class="col-lg-5">
             <input id = "searchBar" type="text" class="form-control" placeholder="Password" aria-label="...">
@@ -42,7 +37,7 @@
 
       <!-- Other Stuff -->
       <div style="float: left;">
-        <img src="<?= BASE_URL ?>\public\images\vatech.png" alt="VA Tech" style="margin-top: 60px;width:500px;height:250px;">
+        <img src="..\images\vatech.png" alt="VA Tech" style="margin-top: 60px;width:500px;height:250px;">
       </div>
 
       <!-- Registration -->
@@ -70,10 +65,6 @@
 
                 <div class="form-group">
                   <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
-                </div>
-
-                <div class="form-group">
-                  <input type="username" name="username" id="username" class="form-control input-sm" placeholder="Username">
                 </div>
 
                 <div class="row">

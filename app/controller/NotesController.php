@@ -122,9 +122,9 @@ class NotesController {
 	 * Page variables: N/A
 	 */
 	public function newnotes(){
-        SiteController::loggedInCheck();
+        // SiteController::loggedInCheck();
 
-		include_once SYSTEM_PATH.'/view/newnotes.tpl';                             //TODO make sure the tpl is correct
+		include_once SYSTEM_PATH.'/view/createNotes.html';                             //TODO make sure the tpl is correct
 	}
 
 	/* Publishes new notes
@@ -177,7 +177,7 @@ class NotesController {
 	 * Page variables: SESSION[info]
 	 */
 	public function deletenotes(){
-    	SiteController::loggedInCheck();
+    	// SiteController::loggedInCheck();
 
 		$notesId = $_POST['notesId'];
 		$notes = Notes::loadById($notesId);

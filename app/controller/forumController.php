@@ -140,9 +140,9 @@ class ForumController {
 	 * Page variables: N/A
 	 */
 	public function newpost(){
-        SiteController::loggedInCheck();
+        // SiteController::loggedInCheck();
 
-		include_once SYSTEM_PATH.'/view/newpost.tpl';                             //TODO make sure the tpl is correct
+		include_once SYSTEM_PATH.'/view/createForumPost.html';                             //TODO make sure the tpl is correct
 	}
 
 	/* Publishes new post
@@ -150,7 +150,7 @@ class ForumController {
 	 * Page variables: N/A
 	 */
 	public function newpost_submit(){
-        SiteController::loggedInCheck();
+        // SiteController::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
 			header('Location: '.BASE_URL);
@@ -161,10 +161,9 @@ class ForumController {
 		$description = $_POST['description'];
 		$tag = $_POST['tag'];
 		$timestamp = date("Y-m-d", time());
-		$author = $_SESSION['username'];
 
 		//get author's id
-		$user_row = User::loadByUsername($author);
+		$user_row = User::loadById($_SESSION['userId']);
 		$userid = $user_row->get('id');
 
 		//add a rating
@@ -182,7 +181,7 @@ class ForumController {
 		$post->set('ratingId', $rating->get('id'));
 
 		//get forum id from group
-		$groupId = $_POST['groupId'];
+		$groupId = $_SESSION['groupId'];
 		$group = Group::loadById($groupId);
 		$forumId = $group->get('forumId');
 		$post->set('forumId', $forumId);
@@ -192,7 +191,9 @@ class ForumController {
         //add postId to rating
 		$rating->set('postId', $post->get('id'));
 		$rating->save();
+		echo "hello";
 		header('Location: '.BASE_URL);
+		echo "noooo";
 	}
 
 	/* Deletes a post
