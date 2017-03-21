@@ -55,7 +55,7 @@ class SiteController {
 	}
 
 	public function login(){
-		include_once SYSTEM_PATH.'/view/login.tpl';
+		include_once SYSTEM_PATH.'/view/login.html';
 	}
 
 	public function postlogin(){
@@ -110,43 +110,43 @@ class SiteController {
 		if ($name == '' || $username == '' || $passwd == '' || $email == '') {
 			// missing form data; send us back
 			$_SESSION['error'] = -'Please complete all registration fields.';
-			header('Location: '.BASE_URL.'/signup');
+			header('Location: '.BASE_URL.'/login');
 			exit();
 		}
 
 		//does email have @vt.edu
 		if (strpos($email, '@vt.edu') === false) {
 			$_SESSION['error'] = 'Your email does not contain an vt.edu domain.';
-			header('Location: '.BASE_URL.'/signup');
+			header('Location: '.BASE_URL.'/login');
 			exit();
 		}
 
 		//are fields too long?
 		if(strlen($name) > 100){
 			$_SESSION['error'] = 'Sorry, that name is too long.';
-			header('Location: '.BASE_URL.'/signup');
+			header('Location: '.BASE_URL.'/login');
 			exit();
 		}
 		if(strlen($username) > 20){
 			$_SESSION['error'] = 'Sorry, that username is too long.';
-			header('Location: '.BASE_URL.'/signup');
+			header('Location: '.BASE_URL.'/login');
 			exit();
 		}
 		if(strlen($passwd) > 30){
 			$_SESSION['error'] = 'Sorry, that password is too long.';
-			header('Location: '.BASE_URL.'/signup');
+			header('Location: '.BASE_URL.'/login');
 			exit();
 		}
 		if(preg_match('/[^A-Za-z0-9]/', $username)){
 			$_SESSION['error'] = 'Sorry, that username contains invalid characters';
-			header('Location: '.BASE_URL.'/signup');
+			header('Location: '.BASE_URL.'/login');
 			exit();
 		}
 		//do the passwords match?
 		if(strcmp($passwd, $passwdConf) != 0)
 		{
 			$_SESSION['error'] = 'Sorry, your two passwords do not match';
-			header('Location: '.BASE_URL.'/signup');
+			header('Location: '.BASE_URL.'/login');
 			exit();
 		}
 
@@ -155,7 +155,7 @@ class SiteController {
 		if(!is_null($user)) {
 			// username already in use; send us back
 			$_SESSION['error'] = 'Sorry, that username is already in use. Please pick a unique one.';
-			header('Location: '.BASE_URL.'/signup');
+			header('Location: '.BASE_URL.'/login');
 			exit();
 		}
 
@@ -164,7 +164,7 @@ class SiteController {
 		if(!is_null($user)) {
 			// email is in use
 			$_SESSION['error'] = 'Sorry, that email is already in use. Please pick a different one.';
-			header('Location: '.BASE_URL.'/signup');
+			header('Location: '.BASE_URL.'/login');
 			exit();
 		}
 
