@@ -169,7 +169,7 @@ class SiteController {
 	public function jsontable(){
 		// header('Content-Type: application/json');
 		$cmd = "generate-classes-json.rb";
-		echo exec("ruby ".$cmd);
+		// echo exec("ruby ".$cmd);
 		echo system($cmd);
 		echo $cmd;
 		// echo "test";
