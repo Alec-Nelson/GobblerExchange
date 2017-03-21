@@ -37,7 +37,8 @@ class CommentController {
 				break;
 
             case 'newpostcomment':
-                $this->newPostComment();
+				$postId = $_GET['postId'];
+                $this->newPostComment($postId);
                 break;
             case 'newpostcomment_submit':
                 $this->newPostComment_submit();
@@ -194,10 +195,25 @@ class CommentController {
 	 * Prereq (POST variables): N/A
 	 * Page variables: N/A
 	 */
-	public function newPostComment(){
-        SiteController::loggedInCheck();
+	public function newPostComment($postId){
+        //SiteController::loggedInCheck();
 
-		include_once SYSTEM_PATH.'/view/newpostcomment.tpl';                             //TODO make sure the tpl is correct
+		//get post info
+		$post = ForumPost::loadById($postId);
+		$title = $post->get('title');
+		$timestamp = $post->get('timestamp');
+		$authorId = $post->get('userId');
+		$description = $post->get('description');
+		$tag = $post->get('tag');
+
+		//convert SQL timestamp to readable date format
+		$date = Event::convertToReadableDate($timestamp);
+
+		//get username of author
+		$author = User::loadById($authorId);
+		$authorUsername = $author->get('username');
+
+		include_once SYSTEM_PATH.'/view/createComment.html';                             //TODO make sure the tpl is correct
 	}
 
 	/* Publishes new comment for a forum post
@@ -205,7 +221,9 @@ class CommentController {
 	 * Page variables: N/A
 	 */
 	public function newPostComment_submit(){
-        SiteController::loggedInCheck();
+        //SiteController::loggedInCheck();
+
+	//	include_once SYSTEM_PATH.'/view/forumcomment.html';
 
 		if (isset($_POST['Cancel'])) {
 			header('Location: '.BASE_URL);
@@ -213,21 +231,19 @@ class CommentController {
 		}
 
 		$timestamp = date("Y-m-d", time());
-		$comment = $_POST['comment'];
+		$text = $_POST['comment'];
 		$postId = $_POST['postId'];
 
 		//get author's id
-		$author = $_SESSION['username'];
-		$user = User::loadByUsername($author);
-		$userid = $user->get('id');
+		$authorId = $_SESSION['userId'];
 
 		$comment = new Comment();
 		$comment->set('timestamp', $timestamp);
-		$comment->set('comment', $comment);
+		$comment->set('comment', $text);
 		$comment->set('postId', $postId);
-		$comment->set('userId', $userid);
+		$comment->set('userId', $authorId);
 		$comment->save();
 
-		header('Location: '.BASE_URL);                                            //update
+		header('Location: '.BASE_URL.'/viewcomments/'.$postId);
 	}
 }
