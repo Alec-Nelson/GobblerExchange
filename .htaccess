@@ -33,19 +33,15 @@ RewriteRule ^newpost_submit/?$ app/controller/ForumController.php?action=newpost
 RewriteRule ^deletepost/?$ app/controller/ForumController.php?action=deletepost&groupId=0 [QSA,L]
 
 # Calendar
-RewriteRule ^calendar/?$ app/controller/CalendarController.php?action=calendar&groupId=0 [QSA,L]
-RewriteRule ^calendar/(\d+)/?$ app/controller/CalendarController.php?action=calendar&groupId=$1 [QSA,L]
-
-RewriteRule ^editevent/?$ app/controller/ForumController.php?action=editEvent&groupId=0 [QSA,L]
-RewriteRule ^editevent_submit/?$ app/controller/ForumController.php?action=editEvent_submit&groupId=0 [QSA,L]
-RewriteRule ^newevent/?$ app/controller/ForumController.php?action=newEvent&groupId=0 [QSA,L]
-RewriteRule ^newevent_submit/?$ app/controller/ForumController.php?action=newEvent_submit&groupId=0 [QSA,L]
-RewriteRule ^deleteevent/?$ app/controller/ForumController.php?action=deleteEvent&groupId=0 [QSA,L]
+RewriteRule ^calendar/?$ app/controller/CalendarController.php?action=calendar [QSA,L]
+RewriteRule ^editevent/?$ app/controller/CalendarController.php?action=editEvent&groupId=0 [QSA,L]
+RewriteRule ^editevent_submit/?$ app/controller/CalendarController.php?action=editEvent_submit&groupId=0 [QSA,L]
+RewriteRule ^newevent/?$ app/controller/CalendarController.php?action=newEvent&groupId=0 [QSA,L]
+RewriteRule ^newevent_submit/?$ app/controller/CalendarController.php?action=newEvent_submit&groupId=0 [QSA,L]
+RewriteRule ^deleteevent/?$ app/controller/CalendarController.php?action=deleteEvent&groupId=0 [QSA,L]
 
 # Poll
-RewriteRule ^polls/?$ app/controller/PollController.php?action=polls&groupId=0 [QSA,L]
-RewriteRule ^polls/(\d+)/?$ app/controller/PollController.php?action=polls&groupId=$1 [QSA,L]
-
+RewriteRule ^polls/?$ app/controller/PollController.php?action=polls [QSA,L]
 RewriteRule ^editpoll/?$ app/controller/PollController.php?action=editpoll&groupId=0 [QSA,L]
 RewriteRule ^editpoll_submit/?$ app/controller/PollController.php?action=editpoll_submit&groupId=0 [QSA,L]
 RewriteRule ^newpoll/?$ app/controller/PollController.php?action=newpoll&groupId=0 [QSA,L]
@@ -53,9 +49,7 @@ RewriteRule ^newpoll_submit/?$ app/controller/PollController.php?action=newpoll_
 RewriteRule ^deletepoll/?$ app/controller/PollController.php?action=deletepoll&groupId=0 [QSA,L]
 
 # Notes
-RewriteRule ^notes/?$ app/controller/NotesController.php?action=notes&groupId=0 [QSA,L]
-RewriteRule ^notes/(\d+)/?$ app/controller/NotesController.php?action=notes&groupId=$1 [QSA,L]
-
+RewriteRule ^notes/?$ app/controller/NotesController.php?action=notes [QSA,L]
 RewriteRule ^editnotes/?$ app/controller/NotesController.php?action=editnotes&groupId=0 [QSA,L]
 RewriteRule ^editnotes_submit/?$ app/controller/NotesController.php?action=editnotes_submit&groupId=0 [QSA,L]
 RewriteRule ^newnotes/?$ app/controller/NotesController.php?action=newnotes&groupId=0 [QSA,L]

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2017 at 05:59 PM
+-- Generation Time: Mar 21, 2017 at 11:03 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -140,7 +140,7 @@ CREATE TABLE `forumpost` (
 --
 
 INSERT INTO `forumpost` (`id`, `userId`, `timestamp`, `title`, `description`, `ratingId`, `tag`, `pinned`, `forumId`) VALUES
-(1, 1, '2017-03-19 08:27:29', 'HELP with HW 2', 'I don''t understand question 2!', 1, 'hw2', 0, 1);
+(2, 1, '2017-03-21 00:00:00', 'Help!', 'I dont understand hw2', 1, 'homework', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -459,7 +459,7 @@ ALTER TABLE `forum`
 -- AUTO_INCREMENT for table `forumpost`
 --
 ALTER TABLE `forumpost`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `groups`
 --

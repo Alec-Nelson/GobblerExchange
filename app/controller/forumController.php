@@ -15,7 +15,6 @@ class ForumController {
 	public function route($action) {
 		switch($action) {
 			case 'forum':
-				//$groupId = $_GET['groupId'];
 				$this->forum();
 				break;
 
