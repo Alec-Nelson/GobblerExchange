@@ -27,9 +27,11 @@
             </p>
         </div>
         <!-- <div class="col-lg-2"> -->
-            <button id = "signout" type="button" class="btn btn-primary" style="float: right;">
+        <form action="logout">
+            <button id = "signout" type="submit"  class="btn btn-primary" style="float: right;">
                 Sign Out
             </button>
+          </form>
         <!-- </div> -->
       </div>
 
