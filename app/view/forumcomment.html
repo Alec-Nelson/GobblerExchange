@@ -16,6 +16,13 @@
       <span style="float:right;">Tagged as: <?php echo $tag ?></span></div>
 </div>
 
+<?php $newcomment_action = BASE_URL."/newpostcomment/".$id ?>
+<form action=<?php echo $newcomment_action ?> >
+    <button id = "button" type="submit" class="btn btn-primary">
+      New Comment
+    </button>
+</form>
+
 <!-- Comments: -->
 <h4> Comments: </h4>
 
