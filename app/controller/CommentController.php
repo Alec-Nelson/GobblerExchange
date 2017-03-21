@@ -14,14 +14,18 @@ class CommentController {
 	// route us to the appropriate class method for this action
 	public function route($action) {
 		switch($action) {
+			case 'viewcomments':
+				$postId = $_GET['postId'];
+				$this->viewComments($postId);
+				break;
 
             case 'editcomment':
                 $this->editComment();
                 break;
-            case: 'editcomment_submit':
+            case 'editcomment_submit':
                 $this->editComment_submit();
                 break;
-            case: 'deletecomment':
+            case 'deletecomment':
                 $this->deleteComment();
                 break;
 
@@ -39,6 +43,31 @@ class CommentController {
                 $this->newPostComment_submit();
                 break;
 		}
+	}
+
+	/* Opens edit comment form
+	 * Prereq (POST variables): N/A
+	 * Page variables: post {title, date, authorUsername, description, tag}
+	 */
+	public function viewComments($postId){
+		//get post info
+		$post = ForumPost::loadById($postId);
+		$title = $post->get('title');
+		$timestamp = $post->get('timestamp');
+		$authorId = $post->get('userId');
+		$description = $post->get('description');
+		$tag = $post->get('tag');
+
+		//convert SQL timestamp to readable date format
+		$date = Event::convertToReadableDate($timestamp);
+
+		//get username of author
+		$author = User::loadById($authorId);
+		$authorUsername = $author->get('username');
+
+		// get comments
+		$comments = $post->getComments();
+		include_once SYSTEM_PATH.'/view/forumcomment.html';
 	}
 
     /* Opens edit comment form

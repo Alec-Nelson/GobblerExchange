@@ -1,0 +1,46 @@
+<?php
+  include_once('template.php');
+?>
+
+<link href="<?= BASE_URL ?>/public/css/comment.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/comment.css');?>" type="text/css" rel="stylesheet">
+
+<!-- The forum post: -->
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><?php echo $title ?></h3>
+  </div>
+  <div class="panel-body">
+    <?php echo $description ?>
+  </div>
+  <div class="panel-footer">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?>
+      <span style="float:right;">Tagged as: <?php echo $tag ?></span></div>
+</div>
+
+<!-- Comments: -->
+<h4> Comments: </h4>
+
+      <?php
+                  if($comments != null){
+                        foreach($comments as $comment){
+                            $commenterId = $comment->get('userId');
+                            $commenter = User::loadById($commenterId);
+                            $commenterUsername = $commenter->get('username');
+
+                            $commenttimestamp = $comment->get('timestamp');
+                            $commentdate = Event::convertToReadableDate($commenttimestamp);
+
+                            $text = $comment->get('comment');
+                  ?>
+
+                  <div class="panel panel-default">
+                      <div class="panel-body">
+                          <?php echo $text ?>
+                      </div>
+                      <div class="panel-footer">Posted by: <?php echo $commenterUsername ?> on <?php echo $commentdate ?></div>
+                      </div>
+
+
+                  <?php }} ?>
+  <?php
+    include_once('templateBottom.php');
+  ?>
