@@ -15,7 +15,8 @@ class NotesController {
 	public function route($action) {
 		switch($action) {
 			case 'notes':
-				$this->notes();
+				$groupId = $_GET['groupId'];
+				$this->notes($groupId);
 				break;
 
 			case 'editnotes':
@@ -42,11 +43,12 @@ class NotesController {
 	 * Prereq (POST variables): groupId
 	 * Page variables: $notes
 	 */
-    public function notes() {
+    public function notes($groupId) {
 		//SiteController::loggedInCheck();
 
+		$_SESSION['groupId'] = $groupId;
+
 		//Get polls associated with the current group
-		$groupId = 1; //$_POST['groupId'];											//TODO implement
 		$group = Group::loadById($groupId);
 		$notes = $group->getNotes();
 

@@ -14,6 +14,11 @@ class GroupController {
 	// route us to the appropriate class method for this action
 	public function route($action) {
 		switch($action) {
+			case 'viewgroup':
+				$groupId = $_GET['groupId'];
+				$this->viewGroup($groupId);
+				break;
+
 			case 'newGroup':
 				$this->newGroup();
 				break;
@@ -25,6 +30,11 @@ class GroupController {
 				$this->search();
 				break;
 		}
+	}
+
+	public function viewGroup($groupId){
+		$_SESSION['groupId'] = $groupId;
+		include_once SYSTEM_PATH.'/view/viewgroup.html';
 	}
 
 	/* Opens form for creating a new group

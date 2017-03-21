@@ -15,7 +15,8 @@ class ForumController {
 	public function route($action) {
 		switch($action) {
 			case 'forum':
-				$this->forum();
+				$groupId = $_GET['groupId'];
+				$this->forum($groupId);
 				break;
 
 			case 'editpost':
@@ -42,12 +43,12 @@ class ForumController {
 	 * Prereq (POST variables): groupId
 	 * Page variables: posts, pinned_posts, polls
 	 */
-    public function forum() {
+    public function forum($groupId) {
 		// SiteController::loggedInCheck();
 
+		$_SESSION['groupId'] = $groupId;
+
 		//Get forumid associated with the current group
-		// $groupId = $_POST['groupId'];										//TODO implement
-		$groupId = 1;															//TODO remove placeholder
 		$group_entry = Group::loadById($groupId);
 		$forumId = $group_entry->get('forumId');
         $forum = Forum::loadById($forumId);

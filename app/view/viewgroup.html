@@ -1,0 +1,47 @@
+<?php
+  include_once('template.php');
+
+?>
+
+<?php
+    $group = Group::loadById($_SESSION['groupId']);
+
+    $number = $group->get('number'); //might be null!
+    $group_name = $group->get('group_name');
+
+    $creatorId = $group->get('userId');
+    $creator = User::loadById($creatorId);
+    $creatorUsername = $creator->get('username');
+
+    $numUsers = $group->getNumUsers();
+    $users = $group->getUsers();
+?>
+
+<h1> <?php echo $group_name ?></h1>
+
+<?php
+    if($number != null){
+?>
+        <h4><i> CRN: <?php echo $number ?></i></h4>
+<?php } ?>
+
+<h5> Group created by: <?php echo $creatorUsername ?></h5>
+<h5> Number of users: <?php echo $numUsers ?></h5>
+<br>
+<h5> Users in this group: </h5>
+<?php
+    foreach($users as $usergroup){
+        $userId = $usergroup->get('userId');
+        $user = user::loadById($userId);
+        $username = $user->get('username');
+?>
+    <p> <?php echo $username ?></p>
+<?php } ?>
+
+
+
+
+
+<?php
+  include_once('templateBottom.php');
+?>

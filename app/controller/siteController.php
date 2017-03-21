@@ -73,7 +73,10 @@ class SiteController {
 			header('Location: '.BASE_URL);
 		}
 	}
-																					//TODO uncomment once authenitification is done
+
+
+							//TODO uncomment once authenitification is done
+							//TODO change 'username' to 'userId' in session variable
 	public function loggedInCheck(){
 		//checks if user  is logged in
 		// if not redirects to sign up page

@@ -102,6 +102,10 @@ class Group extends DbObject {
         return UserGroup::getAllUsersInGroup($this->id);
     }
 
+    public function getNumUsers(){
+        return count(self::getUsers());
+    }
+
     //get all notes for this group
     public function getNotes(){
         return Notes::getAllNotes($this->id);

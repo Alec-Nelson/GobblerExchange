@@ -15,7 +15,8 @@ class PollController {
 	public function route($action) {
 		switch($action) {
 			case 'polls':
-				$this->polls();
+				$groupId = $_GET['groupId'];
+				$this->polls($groupId);
 				break;
 
 			case 'editpoll':
@@ -42,11 +43,12 @@ class PollController {
 	 * Prereq (POST variables): groupId
 	 * Page variables: $polls
 	 */
-	public function polls() {
+	public function polls($groupId) {
 		//SiteController::loggedInCheck();
 
+		$_SESSION['groupId'] = $groupId;
+
 		//Get polls associated with the current group
-		$groupId = 1;// $_POST['groupId'];											//TODO IMPLEMENT!
 		$group = Group::loadById($groupId);
 		$polls = $group->getAllPolls();
 
