@@ -47,6 +47,10 @@ class PollController {
 		//SiteController::loggedInCheck();
 
 		$_SESSION['groupId'] = $groupId;
+		//do nothing if the user didn't select a group first
+		if ($groupId == 0){
+			header('Location: '.BASE_URL);
+		}
 
 		//Get polls associated with the current group
 		$group = Group::loadById($groupId);

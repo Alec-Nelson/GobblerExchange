@@ -46,6 +46,11 @@ class ForumController {
     public function forum($groupId) {
 		// SiteController::loggedInCheck();
 
+		//do nothing if the user didn't select a group first
+		if ($groupId == 0){
+			header('Location: '.BASE_URL);
+		}
+
 		$_SESSION['groupId'] = $groupId;
 
 		//Get forumid associated with the current group
