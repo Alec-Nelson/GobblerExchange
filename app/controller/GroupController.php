@@ -97,7 +97,7 @@ class GroupController {
 		$group->set('whiteboardId', $whiteboard->get('id'));
 		$group->save();
 
-		header('Location: '.BASE_URL);
+		header('Location: '.BASE_URL.'/');
 		exit();
 	}
 
@@ -123,5 +123,6 @@ class GroupController {
 			case "email":
 				$result = User::searchEmail($search_term);
 		}
+		include_once SYSTEM_PATH.'/view/search.html';
 	}
 }

@@ -40,6 +40,7 @@
       <div class="col-lg-8">
         <div class="input-group">
           <div class="input-group-btn">
+            <form method="POST" action="search">
             <button id = "searchdropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 CRN <span class="caret"><span>
             </button>
@@ -50,12 +51,13 @@
               <li><a href="#">Email</a></li>
             </ul>
           </div><!-- /btn-group -->
-          <input type="hidden" name="search_param" value="all" id="search_param">
-          <input type="text" class="form-control" name="x" placeholder="Search term...">
+          <input type="hidden" name="type" value="all" id="search_param">
+          <input type="text" class="form-control" name="search" placeholder="Search term...">
           <span class="input-group-btn">
-            <button class="btn btn-default" type="button">
+            <button class="btn btn-default" type="submit">
               <i class="fa fa-search" aria-hidden="true"></i>
             </button>
+          </form>
           </span>
         </div><!-- /input-group -->
       </div><!-- /.col-lg-6 -->
