@@ -43,14 +43,14 @@ class NotesController {
 	 * Page variables: $notes
 	 */
     public function notes() {
-		SiteController::loggedInCheck();
+		//SiteController::loggedInCheck();
 
 		//Get polls associated with the current group
-		$groupId = $_POST['groupId'];
+		$groupId = 1; //$_POST['groupId'];											//TODO implement
 		$group = Group::loadById($groupId);
 		$notes = $group->getNotes();
 
-		include_once SYSTEM_PATH.'/view/notes.tpl';                               //TODO: make sure this is the correct tpl
+		include_once SYSTEM_PATH.'/view/notes.html';                               //TODO: make sure this is the correct tpl
 	}
 
 	/* Opens edit notes form

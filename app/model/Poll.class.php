@@ -65,7 +65,7 @@ class Poll extends DbObject {
     }
 
     public function getPollOptions(){
-        return PollOptions::getPollOptions($this->id);
+        return PollOption::getPollOptions($this->id);
     }
 
     public function openPoll($pollId){
@@ -84,7 +84,7 @@ class Poll extends DbObject {
     public function getAllPolls($groupId){
         $query = sprintf(" SELECT * FROM %s WHERE groupId=%s ORDER BY timestamp DESC",
             self::DB_TABLE,
-            $forumId
+            $groupId
         );
 
         $db = Db::instance();

@@ -1,0 +1,38 @@
+<?php
+  include_once('template.php');
+?>
+
+  <?php
+  if($polls != null){
+        foreach($polls as $poll){
+
+            $title = $poll->get('title');
+            $timestamp = $poll->get('timestamp');
+            $options = $poll->getPollOptions();
+            $authorId = $poll->get('userId');
+            $open = $poll->get('isOpen');
+
+            //convert SQL timestamp to readable date format
+            $date = Event::convertToReadableDate($timestamp);
+
+            //get username of author
+            $author = User::loadById($authorId);
+            $authorUsername = $author->get('username');
+  ?>
+
+  <form action="">
+      <p><?php echo $title ?></p>
+      <?php
+        foreach($options as $opt){
+            $optStr = $opt->get('poll_option');
+      ?>
+        <input type="radio" value="opt"><?php echo $optStr ?><br>
+      <?php } ?>
+       <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+
+  <?php }} ?>
+
+  <?php
+    include_once('templateBottom.php');
+  ?>

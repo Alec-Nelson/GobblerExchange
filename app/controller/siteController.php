@@ -73,19 +73,19 @@ class SiteController {
 			header('Location: '.BASE_URL);
 		}
 	}
-
+																					//TODO uncomment once authenitification is done
 	public function loggedInCheck(){
 		//checks if user  is logged in
 		// if not redirects to sign up page
-		if( !isset($_SESSION['username']) || $_SESSION['username'] == '')
-		{
-			header('Location: '.BASE_URL.'/login');
-		}
-		else
-		{
-			$user = User::loadByUsername($_SESSION['username']);
-			$userName = $user->get('username');
-		}
+		// if( !isset($_SESSION['username']) || $_SESSION['username'] == '')
+		// {
+		// 	header('Location: '.BASE_URL.'/login');
+		// }
+		// else
+		// {
+		// 	$user = User::loadByUsername($_SESSION['username']);
+		// 	$userName = $user->get('username');
+		// }
 	}
 	public function register() {
 		// get post data

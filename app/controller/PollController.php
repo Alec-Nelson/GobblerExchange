@@ -43,14 +43,14 @@ class PollController {
 	 * Page variables: $polls
 	 */
 	public function polls() {
-		SiteController::loggedInCheck();
+		//SiteController::loggedInCheck();
 
 		//Get polls associated with the current group
-		$groupId = $_POST['groupId'];
+		$groupId = 1;// $_POST['groupId'];											//TODO IMPLEMENT!
 		$group = Group::loadById($groupId);
 		$polls = $group->getAllPolls();
 
-		include_once SYSTEM_PATH.'/view/polls.tpl';                               //TODO: make sure this is the correct tpl
+		include_once SYSTEM_PATH.'/view/polls.html';                               //TODO: make sure this is the correct tpl
 	}
 
 	/* Opens edit poll form

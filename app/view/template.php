@@ -79,7 +79,8 @@
             <ul class="nav nav-tabs">
               <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/forum">Forum</a></li>
               <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/calendar">Calendar</a></li>
-              <li id = "tab" role="presentation"><a href="#">Notes</a></li>
+              <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/notes">Notes</a></li>
+              <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/polls">Polls</a></li>
               <li id = "tab" role="presentation"><a href="#">Whiteboard</a></li>
             </ul>
         </div>
