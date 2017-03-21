@@ -33,7 +33,6 @@
         <!-- </div> -->
       </div>
 
-
 <!-- Search bar -->
 <div class="container">
     <div class="row">
@@ -77,9 +76,16 @@
         </div>
         <div class="col-lg-8">
             <ul class="nav nav-tabs">
-              <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/forum">Forum</a></li>
-              <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/calendar">Calendar</a></li>
-              <li id = "tab" role="presentation"><a href="#">Notes</a></li>
+                <?php
+                    $forumlink = BASE_URL."/forum/".$_SESSION['groupId'];
+                    $calendarlink = BASE_URL."/calendar/".$_SESSION['groupId'];
+                    $noteslink = BASE_URL."/notes/".$_SESSION['groupId'];
+                    $pollslink = BASE_URL."/polls/".$_SESSION['groupId'];
+                ?>
+              <li id = "tab" role="presentation"><a href=<?php echo $forumlink ?>>Forum</a></li>
+              <li id = "tab" role="presentation"><a href=<?php echo $calendarlink ?>>Calendar</a></li>
+              <li id = "tab" role="presentation"><a href=<?php echo $noteslink ?>>Notes</a></li>
+              <li id = "tab" role="presentation"><a href=<?php echo $pollslink ?>>Polls</a></li>
               <li id = "tab" role="presentation"><a href="#">Whiteboard</a></li>
             </ul>
         </div>
@@ -91,9 +97,21 @@
 <div class = "container" id="classTabs">
         <div class="row">
             <div class="col-lg-2">
-                <a href="#" class="list-group-item">CS 3114</a>
-                <a href="#" class="list-group-item">STAT 4705</a>
-                <a href="#" class="list-group-item">ENGL 1704</a>
+                <?php
+                    $user = User::loadByid(1/*$_SESSION['userId']*/);                   //TODO IMPLEMENT
+                    $usergroups = $user->getGroups(); //class UserGroup, not Group!
+                    if ($usergroups != null){
+                            foreach($usergroups as $usergroup){
+                                $usergroupId = $usergroup->get('id');
+                                $group = Group::loadById($usergroupId);
+
+                                $id = $group->get('id');
+                                $groupname = $group->get('group_name');
+                                $link = BASE_URL.'/viewgroup/'.$id;
+                ?>
+                <a href=<?php echo $link ?> class="list-group-item"><?php echo $groupname ?></a>
+
+                <?php }} ?>
             </div>
             <div class="col-lg-7">
 

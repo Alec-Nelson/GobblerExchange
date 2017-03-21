@@ -15,54 +15,65 @@ RewriteRule ^jsontable/?$ app/controller/siteController.php?action=jsontable [QS
 
 
 # Group
-RewriteRule ^chat/?$ app/controller/GroupController.php?action=chat [QSA,L]
+RewriteRule ^viewgroup/?$ app/controller/GroupController.php?action=viewgroup&groupId=0 [QSA,L]
+RewriteRule ^viewgroup/(\d+)/?$ app/controller/GroupController.php?action=viewgroup&groupId=$1 [QSA,L]
+
+RewriteRule ^chat/?$ app/controller/GroupController.php?action=chat&groupId=0 [QSA,L]
 RewriteRule ^newgroup/?$ app/controller/GroupController.php?action=newGroup [QSA,L]
 RewriteRule ^newgroup_submit/?$ app/controller/GroupController.php?action=newGroup_submit [QSA,L]
 RewriteRule ^search/?$ app/controller/GroupController.php?action=search [QSA,L]
 
 # Forum
-RewriteRule ^forum/?$ app/controller/ForumController.php?action=forum [QSA,L]
-RewriteRule ^editpost/?$ app/controller/ForumController.php?action=editpost [QSA,L]
-RewriteRule ^editpost_submit/?$ app/controller/ForumController.php?action=editpost_submit [QSA,L]
-RewriteRule ^newpost/?$ app/controller/ForumController.php?action=newpost [QSA,L]
-RewriteRule ^newpost_submit/?$ app/controller/ForumController.php?action=newpost_submit [QSA,L]
-RewriteRule ^deletepost/?$ app/controller/ForumController.php?action=deletepost [QSA,L]
+RewriteRule ^forum/?$ app/controller/ForumController.php?action=forum&groupId=0 [QSA,L]
+RewriteRule ^forum/(\d+)/?$ app/controller/ForumController.php?action=forum&groupId=$1 [QSA,L]
+
+RewriteRule ^editpost/?$ app/controller/ForumController.php?action=editpost&groupId=0 [QSA,L]
+RewriteRule ^editpost_submit/?$ app/controller/ForumController.php?action=editpost_submit&groupId=0 [QSA,L]
+RewriteRule ^newpost/?$ app/controller/ForumController.php?action=newpost&groupId=0 [QSA,L]
+RewriteRule ^newpost_submit/?$ app/controller/ForumController.php?action=newpost_submit&groupId=0 [QSA,L]
+RewriteRule ^deletepost/?$ app/controller/ForumController.php?action=deletepost&groupId=0 [QSA,L]
 
 # Calendar
-RewriteRule ^calendar/?$ app/controller/CalendarController.php?action=calendar [QSA,L]
-RewriteRule ^editevent/?$ app/controller/ForumController.php?action=editEvent [QSA,L]
-RewriteRule ^editevent_submit/?$ app/controller/ForumController.php?action=editEvent_submit [QSA,L]
-RewriteRule ^newevent/?$ app/controller/ForumController.php?action=newEvent [QSA,L]
-RewriteRule ^newevent_submit/?$ app/controller/ForumController.php?action=newEvent_submit [QSA,L]
-RewriteRule ^deleteevent/?$ app/controller/ForumController.php?action=deleteEvent [QSA,L]
+RewriteRule ^calendar/?$ app/controller/CalendarController.php?action=calendar&groupId=0 [QSA,L]
+RewriteRule ^calendar/(\d+)/?$ app/controller/CalendarController.php?action=calendar&groupId=$1 [QSA,L]
+
+RewriteRule ^editevent/?$ app/controller/ForumController.php?action=editEvent&groupId=0 [QSA,L]
+RewriteRule ^editevent_submit/?$ app/controller/ForumController.php?action=editEvent_submit&groupId=0 [QSA,L]
+RewriteRule ^newevent/?$ app/controller/ForumController.php?action=newEvent&groupId=0 [QSA,L]
+RewriteRule ^newevent_submit/?$ app/controller/ForumController.php?action=newEvent_submit&groupId=0 [QSA,L]
+RewriteRule ^deleteevent/?$ app/controller/ForumController.php?action=deleteEvent&groupId=0 [QSA,L]
 
 # Poll
-RewriteRule ^polls/?$ app/controller/PollController.php?action=polls [QSA,L]
-RewriteRule ^editpoll/?$ app/controller/PollController.php?action=editpoll [QSA,L]
-RewriteRule ^editpoll_submit/?$ app/controller/PollController.php?action=editpoll_submit [QSA,L]
-RewriteRule ^newpoll/?$ app/controller/PollController.php?action=newpoll [QSA,L]
-RewriteRule ^newpoll_submit/?$ app/controller/PollController.php?action=newpoll_submit [QSA,L]
-RewriteRule ^deletepoll/?$ app/controller/PollController.php?action=deletepoll [QSA,L]
+RewriteRule ^polls/?$ app/controller/PollController.php?action=polls&groupId=0 [QSA,L]
+RewriteRule ^polls/(\d+)/?$ app/controller/PollController.php?action=polls&groupId=$1 [QSA,L]
+
+RewriteRule ^editpoll/?$ app/controller/PollController.php?action=editpoll&groupId=0 [QSA,L]
+RewriteRule ^editpoll_submit/?$ app/controller/PollController.php?action=editpoll_submit&groupId=0 [QSA,L]
+RewriteRule ^newpoll/?$ app/controller/PollController.php?action=newpoll&groupId=0 [QSA,L]
+RewriteRule ^newpoll_submit/?$ app/controller/PollController.php?action=newpoll_submit&groupId=0 [QSA,L]
+RewriteRule ^deletepoll/?$ app/controller/PollController.php?action=deletepoll&groupId=0 [QSA,L]
 
 # Notes
-RewriteRule ^notes/?$ app/controller/NotesController.php?action=notes [QSA,L]
-RewriteRule ^editnotes/?$ app/controller/NotesController.php?action=editnotes [QSA,L]
-RewriteRule ^editnotes_submit/?$ app/controller/NotesController.php?action=editnotes_submit [QSA,L]
-RewriteRule ^newnotes/?$ app/controller/NotesController.php?action=newnotes [QSA,L]
-RewriteRule ^newnotes_submit/?$ app/controller/NotesController.php?action=newnotes_submit [QSA,L]
-RewriteRule ^deletenotes/?$ app/controller/NotesController.php?action=deletenotes [QSA,L]
+RewriteRule ^notes/?$ app/controller/NotesController.php?action=notes&groupId=0 [QSA,L]
+RewriteRule ^notes/(\d+)/?$ app/controller/NotesController.php?action=notes&groupId=$1 [QSA,L]
+
+RewriteRule ^editnotes/?$ app/controller/NotesController.php?action=editnotes&groupId=0 [QSA,L]
+RewriteRule ^editnotes_submit/?$ app/controller/NotesController.php?action=editnotes_submit&groupId=0 [QSA,L]
+RewriteRule ^newnotes/?$ app/controller/NotesController.php?action=newnotes&groupId=0 [QSA,L]
+RewriteRule ^newnotes_submit/?$ app/controller/NotesController.php?action=newnotes_submit&groupId=0 [QSA,L]
+RewriteRule ^deletenotes/?$ app/controller/NotesController.php?action=deletenotes&groupId=0 [QSA,L]
 
 # Comment
-RewriteRule ^editcomment/?$ app/controller/CommentController.php?action=editcomment [QSA,L]
-RewriteRule ^editcomment_submit/?$ app/controller/CommentController.php?action=editcomment_submit [QSA,L]
-RewriteRule ^newnotescomment/?$ app/controller/CommentController.php?action=newnotescomment [QSA,L]
-RewriteRule ^newnotescomment_submit/?$ app/controller/CommentController.php?action=newnotescomment_submit [QSA,L]
-RewriteRule ^newpostcomment/?$ app/controller/CommentController.php?action=newpostcomment [QSA,L]
-RewriteRule ^newpostcomment_submit/?$ app/controller/CommentController.php?action=newpostcomment_submit [QSA,L]
-RewriteRule ^deletecomment/?$ app/controller/CommentController.php?action=deletecomment [QSA,L]
+RewriteRule ^editcomment/?$ app/controller/CommentController.php?action=editcomment&groupId=0 [QSA,L]
+RewriteRule ^editcomment_submit/?$ app/controller/CommentController.php?action=editcomment_submit&groupId=0 [QSA,L]
+RewriteRule ^newnotescomment/?$ app/controller/CommentController.php?action=newnotescomment&groupId=0 [QSA,L]
+RewriteRule ^newnotescomment_submit/?$ app/controller/CommentController.php?action=newnotescomment_submit&groupId=0 [QSA,L]
+RewriteRule ^newpostcomment/?$ app/controller/CommentController.php?action=newpostcomment&groupId=0 [QSA,L]
+RewriteRule ^newpostcomment_submit/?$ app/controller/CommentController.php?action=newpostcomment_submit&groupId=0 [QSA,L]
+RewriteRule ^deletecomment/?$ app/controller/CommentController.php?action=deletecomment&groupId=0 [QSA,L]
 
 # Rating
-RewriteRule ^upvotepost/?$ app/controller/ForumController.php?action=upvotepost [QSA,L]
-RewriteRule ^downvotepost/?$ app/controller/ForumController.php?action=downvotepost [QSA,L]
-RewriteRule ^upvotenotes/?$ app/controller/NotesController.php?action=upvotenotes [QSA,L]
-RewriteRule ^downvotenotes/?$ app/controller/NotesController.php?action=downvotenotes [QSA,L]
+RewriteRule ^upvotepost/?$ app/controller/ForumController.php?action=upvotepost&groupId=0 [QSA,L]
+RewriteRule ^downvotepost/?$ app/controller/ForumController.php?action=downvotepost&groupId=0 [QSA,L]
+RewriteRule ^upvotenotes/?$ app/controller/NotesController.php?action=upvotenotes&groupId=0 [QSA,L]
+RewriteRule ^downvotenotes/?$ app/controller/NotesController.php?action=downvotenotes&groupId=0 [QSA,L]

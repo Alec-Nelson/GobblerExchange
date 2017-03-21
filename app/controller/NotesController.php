@@ -15,7 +15,8 @@ class NotesController {
 	public function route($action) {
 		switch($action) {
 			case 'notes':
-				$this->notes();
+				$groupId = $_GET['groupId'];
+				$this->notes($groupId);
 				break;
 
 			case 'editnotes':
@@ -42,15 +43,19 @@ class NotesController {
 	 * Prereq (POST variables): groupId
 	 * Page variables: $notes
 	 */
-    public function notes() {
-		SiteController::loggedInCheck();
+    public function notes($groupId) {
+		//SiteController::loggedInCheck();
+		//do nothing if the user didn't select a group first
+		if ($groupId == 0){
+			header('Location: '.BASE_URL);
+		}
+		$_SESSION['groupId'] = $groupId;
 
 		//Get polls associated with the current group
-		$groupId = $_POST['groupId'];
 		$group = Group::loadById($groupId);
 		$notes = $group->getNotes();
 
-		include_once SYSTEM_PATH.'/view/notes.tpl';                               //TODO: make sure this is the correct tpl
+		include_once SYSTEM_PATH.'/view/notes.html';                               //TODO: make sure this is the correct tpl
 	}
 
 	/* Opens edit notes form
