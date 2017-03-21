@@ -86,6 +86,9 @@ class ForumController {
 		// 	header('Location: '.BASE_URL);
 		// 	exit();
 		// } else {
+			//hidden variables:
+			$postId = $post_row->get('id');
+
 			//allow access to edit post
 			$title = $post_row->get('title');
 			$body = $post_row->get('description');
@@ -99,15 +102,25 @@ class ForumController {
 	 * Page variables: N/A
 	 */
 	public function editpost_submit(){
-        SiteController::loggedInCheck();
+        //SiteController::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
 			header('Location: '.BASE_URL);
 			exit();
 		}
 
-		$postid = $_POST['postid'];
+		$postid = $_POST['postId'];
 		$post = ForumPost::loadById($postid);
+
+		if (isset($_POST['Delete'])) {
+			// if($post->get('userId') == $_SESSION['userId']){
+				$post->delete();
+			// } else {
+			//	$_SESSION['info'] = "You can only delete posts you have created.";
+			// }												
+			header('Location: '.BASE_URL);
+			exit();
+		}
 
 		$title = $_POST['title'];
 		$body = $_POST['description'];

@@ -29,8 +29,7 @@ RewriteRule ^forum/(\d+)/?$ app/controller/ForumController.php?action=forum&grou
 RewriteRule ^editpost/?$ app/controller/ForumController.php?action=editpost&postId=0 [QSA,L]
 RewriteRule ^editpost/(\d+)/?$ app/controller/ForumController.php?action=editpost&postId=$1 [QSA,L]
 
-RewriteRule ^editpost/?$ app/controller/ForumController.php?action=editpost&groupId=0 [QSA,L]
-RewriteRule ^editpost_submit/?$ app/controller/ForumController.php?action=editpost_submit&groupId=0 [QSA,L]
+RewriteRule ^editpost_submit/?$ app/controller/ForumController.php?action=editpost_submit [QSA,L]
 RewriteRule ^newpost/?$ app/controller/ForumController.php?action=newpost&groupId=0 [QSA,L]
 RewriteRule ^newpost_submit/?$ app/controller/ForumController.php?action=newpost_submit&groupId=0 [QSA,L]
 RewriteRule ^deletepost/?$ app/controller/ForumController.php?action=deletepost&groupId=0 [QSA,L]
