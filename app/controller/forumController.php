@@ -141,9 +141,9 @@ class ForumController {
 	 * Page variables: N/A
 	 */
 	public function newpost(){
-        SiteController::loggedInCheck();
+        // SiteController::loggedInCheck();
 
-		include_once SYSTEM_PATH.'/view/newpost.tpl';                             //TODO make sure the tpl is correct
+		include_once SYSTEM_PATH.'/view/createForumPost.html';                             //TODO make sure the tpl is correct
 	}
 
 	/* Publishes new post

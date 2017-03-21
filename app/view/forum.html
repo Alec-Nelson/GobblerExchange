@@ -5,18 +5,23 @@
           <link href="<?= BASE_URL ?>/public/css/forum.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/forum.css');?>" type="text/css" rel="stylesheet">
                 <!-- START CODE -->
                   <div class="row">
-                    <div class="col-lg-7">
+                    <div class="col-lg-5">
                       <h2>CS 3114 Forum</h2>
                     </div>
-                    <div class="col-lg-5">
-                      <button id = "button" type="button" class="btn btn-primary">
+                    <div class="col-lg-3">
+
+                      <!-- <button id = "button" type="button" class="btn btn-primary">
                         Create a Poll
-                      </button>
-                      <button id = "button" type="button" class="btn btn-primary">
-                        Add Forum Post
-                      </button>
+                      </button> -->
                     </div>
-                  </div>
+                      <div class="col-lg-4">
+                      <form action="<?= BASE_URL ?>/newpost" >
+                      <button id = "button" type="submit" class="btn btn-primary addforumpost">
+                        Create Forum Post
+                      </button>
+                      </form>
+                    </div>
+                </div>
 
 
                   <div class="row">
