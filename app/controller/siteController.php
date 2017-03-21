@@ -42,6 +42,10 @@ class SiteController {
 	//redirects to forum
     public function home() {														//TODO uncomment logincheck once login page complete
 		// self::loggedInCheck();
+
+		//TODO Update these hardcoded values
+		$_SESSION['groupId'] = 0;
+		$_SESSION['userId'] = 1;
 		include_once SYSTEM_PATH.'/view/testHome.html';
 	}
 
@@ -77,18 +81,18 @@ class SiteController {
 
 							//TODO uncomment once authenitification is done
 							//TODO change 'username' to 'userId' in session variable
-	public function loggedInCheck(){
-		//checks if user  is logged in
-		// if not redirects to sign up page
-		// if( !isset($_SESSION['username']) || $_SESSION['username'] == '')
-		// {
-		// 	header('Location: '.BASE_URL.'/login');
-		// }
-		// else
-		// {
-		// 	$user = User::loadByUsername($_SESSION['username']);
-		// 	$userName = $user->get('username');
-		// }
+	 public function loggedInCheck(){
+	// 	// checks if user  is logged in
+	// 	// if not redirects to sign up page
+	// 	if( !isset($_SESSION['userId']) || $_SESSION['userId'] == '')
+	// 	{
+	// 		header('Location: '.BASE_URL.'/login');
+	// 	}
+	// 	else
+	// 	{
+	// 		$user = User::loadById($_SESSION['userId']);
+	// 		$userName = $user->get('username');
+	// 	}
 	}
 	public function register() {
 		// get post data

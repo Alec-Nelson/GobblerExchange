@@ -15,8 +15,7 @@ class PollController {
 	public function route($action) {
 		switch($action) {
 			case 'polls':
-				$groupId = $_GET['groupId'];
-				$this->polls($groupId);
+				$this->polls();
 				break;
 
 			case 'editpoll':
@@ -43,10 +42,11 @@ class PollController {
 	 * Prereq (POST variables): groupId
 	 * Page variables: $polls
 	 */
-	public function polls($groupId) {
+	public function polls() {
 		//SiteController::loggedInCheck();
 
-		$_SESSION['groupId'] = $groupId;
+		$groupId = $_SESSION['groupId'];
+
 		//do nothing if the user didn't select a group first
 		if ($groupId == 0){
 			header('Location: '.BASE_URL);

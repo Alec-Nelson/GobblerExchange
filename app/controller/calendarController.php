@@ -15,8 +15,7 @@ class CalendarController {
 	public function route($action) {
 		switch($action) {
 			case 'calendar':
-				$groupId = $_GET['groupId'];
-				$this->calendar($groupId);
+				$this->calendar();
 				break;
 
 			case 'newEvent':
@@ -43,15 +42,15 @@ class CalendarController {
 	 * Prereq (POST variables): groupId
 	 * Page variables: $events - list of events in the calendar
 	 */
-    public function calendar($groupId) {
+    public function calendar() {
 		// SiteController::loggedInCheck();
-		
+
+		$groupId = $_SESSION['groupId'];
+
 		//do nothing if the user didn't select a group first
 		if ($groupId == 0){
 			header('Location: '.BASE_URL);
 		}
-
-		$_SESSION['groupId'] = $groupId;
 
 		//get calendar id from group
 		$group = Group::loadById($groupId);

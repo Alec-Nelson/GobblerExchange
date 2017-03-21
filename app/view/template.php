@@ -76,16 +76,10 @@
         </div>
         <div class="col-lg-8">
             <ul class="nav nav-tabs">
-                <?php
-                    $forumlink = BASE_URL."/forum/".$_SESSION['groupId'];
-                    $calendarlink = BASE_URL."/calendar/".$_SESSION['groupId'];
-                    $noteslink = BASE_URL."/notes/".$_SESSION['groupId'];
-                    $pollslink = BASE_URL."/polls/".$_SESSION['groupId'];
-                ?>
-              <li id = "tab" role="presentation"><a href=<?php echo $forumlink ?>>Forum</a></li>
-              <li id = "tab" role="presentation"><a href=<?php echo $calendarlink ?>>Calendar</a></li>
-              <li id = "tab" role="presentation"><a href=<?php echo $noteslink ?>>Notes</a></li>
-              <li id = "tab" role="presentation"><a href=<?php echo $pollslink ?>>Polls</a></li>
+              <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/forum">Forum</a></li>
+              <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/calendar">Calendar</a></li>
+              <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/notes">Notes</a></li>
+              <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/polls">Polls</a></li>
               <li id = "tab" role="presentation"><a href="#">Whiteboard</a></li>
             </ul>
         </div>

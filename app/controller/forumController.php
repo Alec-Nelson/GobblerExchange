@@ -15,8 +15,8 @@ class ForumController {
 	public function route($action) {
 		switch($action) {
 			case 'forum':
-				$groupId = $_GET['groupId'];
-				$this->forum($groupId);
+				//$groupId = $_GET['groupId'];
+				$this->forum();
 				break;
 
 			case 'editpost':
@@ -44,15 +44,15 @@ class ForumController {
 	 * Prereq (POST variables): groupId
 	 * Page variables: posts, pinned_posts, polls
 	 */
-    public function forum($groupId) {
-		// SiteController::loggedInCheck();
+    public function forum() {
+	//	SiteController::loggedInCheck();
+
+		$groupId = $_SESSION['groupId'];
 
 		//do nothing if the user didn't select a group first
 		if ($groupId == 0){
 			header('Location: '.BASE_URL);
 		}
-
-		$_SESSION['groupId'] = $groupId;
 
 		//Get forumid associated with the current group
 		$group_entry = Group::loadById($groupId);
@@ -117,7 +117,7 @@ class ForumController {
 				$post->delete();
 			// } else {
 			//	$_SESSION['info'] = "You can only delete posts you have created.";
-			// }												
+			// }
 			header('Location: '.BASE_URL);
 			exit();
 		}
