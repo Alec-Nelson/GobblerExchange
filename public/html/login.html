@@ -6,23 +6,24 @@
     <script src="../../public/js/jquery.min.js"></script>
     <script src="../../public/js/bootstrap.min.js"></script>
     <script src="../../public/js/base.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../public/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../../public/css/base.css">
+    <link href="../../public/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="../../public/css/template.css?ver=<?php echo filemtime('../../public/css/base.css');?>" type="text/css" rel="stylesheet">
+    <link href="../../public/css/login.css" type="text/css" rel="stylesheet">
+    <script src="https://use.fontawesome.com/625f8d2098.js"></script>
   </head>
   <body>
     <div class="container">
       <div class="row">
-      <!-- Website Title -->
         <div class="col-lg-4">
           <h1>
-            <span class="maroon">Gobbler</span>
-            <span class="orange">Exchange</span>
+            <a class="title" href="../.." style="text-decoration:none"><span class="maroon">Gobbler</span></a>
+            <a class="title" href="../.." style="text-decoration:none"><span class="orange">Exchange</span></a>
           </h1>
         </div>
 
         <!-- Sign in/out -->
-        <div class="col-lg-5" style="float: right; margin-top: 20px">
-          <button id = "signout" type="button" class="btn btn-primary" style="float: right; margin-top: 0">
+        <div id="login_section" class="col-lg-5">
+          <button id="login_button" type="button" class="btn btn-primary">
               Login
           </button>
           <div class="col-lg-5">
@@ -31,19 +32,19 @@
           <div class="col-lg-5">
             <input id = "searchBar" type="text" class="form-control" placeholder="Password" aria-label="...">
           </div>
-          <h6 style="float: left; margin-left: 15px;">Already have an account? Sign in here!</h6>
+          <h6 id="login_directions">Already have an account? Sign in here!</h6>
         </div>
       </div>
 
-      <!-- Other Stuff -->
-      <div style="float: left;">
-        <img src="..\images\vatech.png" alt="VA Tech" style="margin-top: 60px;width:500px;height:250px;">
+      <!-- Picture-->
+      <div id="ad_section">
+        <img id="va_tech_img" src="..\images\vatech.png" alt="VA Tech">
       </div>
 
       <!-- Registration -->
-      <div style="float: right;width:640px;">
-        <div class="row" style="margin-top: 60px;margin-right: 60px;">
-        <div class="col-xs-8 col-sm-8 col-md-8" style="float: right;">
+      <div id="reg_section">
+        <div class="row" id="reg_row">
+        <div class="col-xs-8 col-sm-8 col-md-8" id="reg_box">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">New to Gobbler Exchange? Create an account to get access to all of these features!</h3>
@@ -80,7 +81,7 @@
                   </div>
                 </div>
 
-                <input type="submit" value="Register" class="btn btn-info btn-block" style="background-color: #660000;">
+                <input type="submit" value="Register" class="btn btn-info btn-block" id="reg_button">
 
               </form>
             </div>

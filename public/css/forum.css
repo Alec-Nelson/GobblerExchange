@@ -1,3 +1,4 @@
+/* start forum post */
 .forum_post {
     padding:10px;
     border-bottom: 1px solid #ccc;
@@ -9,14 +10,40 @@
     float: left;
 }
 
-.settings_button {
+.settings_img {
     width:30px;
     height:30px;
     float:left;
 }
 
+.settings_button {
+    border: 0;
+    background: transparent;
+}
+
 .comments_button {
     float:right;
+}
+/* end forum post */
+
+#filterdropdown {
+    float:right;
+}
+
+.dropdown-menu {
+
+}
+
+.right_column {
+    float:right;
+}
+
+.left_squish {
+  padding-left: 0px;
+}
+
+.right_squish {
+  padding-right: 0px;
 }
 
 /*.addforumpost{

@@ -1,0 +1,51 @@
+/* start login */
+#login_section {
+	float: right;
+	margin-top: 20px;
+}
+
+#login_button {
+    color: white;
+    background-color: #660000;
+	float: right;
+}
+
+#login_directions {
+	float: left;
+	margin-left: 15px;
+}
+/* end login */
+
+
+/* start ad */
+#ad_section {
+	float: left;
+}
+
+#va_tech_img {
+	margin-top: 60px;
+	width: 500px;
+	height: 250px;
+}
+/* end ad */
+
+
+/* start registration */
+#reg_section {
+	float: right;
+	width: 640px;
+}
+
+#reg_row {
+	margin-top: 60px;
+	margin-right: 60px;
+}
+
+#reg_box {
+	float: right;
+}
+
+#reg_button {
+	background-color: #660000;
+}
+/* end registration */
