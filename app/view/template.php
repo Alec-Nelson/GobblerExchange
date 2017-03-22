@@ -11,6 +11,7 @@
         <script src="https://use.fontawesome.com/625f8d2098.js"></script>
     </head>
     <body>
+      <div id="banner">
       <div class="container">
         <div class="row">
         <div class="col-lg-8">
@@ -90,6 +91,8 @@
         <div class="col-lg-2"></div>
       </div>
     </div>
+  </div>
+</div>
 
 <br>
 <div class = "container" id="classTabs">
