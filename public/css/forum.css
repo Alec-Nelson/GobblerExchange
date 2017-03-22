@@ -10,10 +10,9 @@
     float: left;
 }
 
-.settings_img {
+.settings_button {
     width:30px;
     height:30px;
-    float:left;
 }
 
 .settings_button {
@@ -22,7 +21,7 @@
 }
 
 .comments_button {
-    float:right;
+    
 }
 /* end forum post */
 
