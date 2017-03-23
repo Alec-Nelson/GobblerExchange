@@ -55,11 +55,14 @@ class CalendarController {
 		//get calendar id from group
 		$group = Group::loadById($groupId);
 		$calendarId = $group->get('calendarId');
+		$calendar = Calendar::loadById($calendarId);
 
-		//retrieve all events
-        $calendar = Calendar::loadById($calendarId);
-        $events = $calendar->getEvents();
-		include_once SYSTEM_PATH.'/view/calendar.html';                            //TODO: make sure this is the right tpl
+		$year = date("Y", time());
+
+		//retrieve events
+		$events = $calendar->getAllEventsAfterToday();
+
+		include_once SYSTEM_PATH.'/view/calendar.html';                           
 	}
 
 	/* Opens the form to fill out a new event

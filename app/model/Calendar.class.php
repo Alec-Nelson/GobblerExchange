@@ -26,5 +26,13 @@ class Calendar extends DbObject {
     public function getEvents(){
         return Event::getAllEventsByCalendar($this->id);
     }
+
+    public function getEventsByMonth($month, $year){
+        return Event::getAllEventsByMonth($this->id, $month, $year);
+    }
+
+    public function getAllEventsAfterToday(){
+        return Event::getAllEventsAfterToday($this->id);
+    }
 }
 ?>
