@@ -52,6 +52,10 @@ li {
     background-color: #660000;
 }
 
+.btn-primary{
+  border-color: white;
+}
+
 /*tab refers to the navigation tabs (Forum, Calendar, Notes, Whiteboard)*/
 #tab a{
     color: white;
