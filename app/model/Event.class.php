@@ -66,10 +66,12 @@ class Event extends DbObject {
         return date("m/d/Y", strtotime($timestamp));
     }
 
-    //converts readable format for date (m d Y) and time (H:i) into SQl datetime
-    public function convertToSQLDateTime($date, $time){
-        list($month, $day, $year) = split(' ', $date);
-        list($hour, $minute) = split(':', $time);
+    //converts readable format for date (Y-m-d) and time (H:i) into SQl datetime
+    public function convertToSQLDateTime($date, $time, $pm){
+        list($year, $month, $day) = explode('-', $date);
+        list($hour, $minute) = explode(':', $time);
+
+        if($pm) $hour += 12;
 
         return date("Y-m-d H:i:s", mktime($hour, $minute, 0, $month, $day, $year));
     }
@@ -115,34 +117,34 @@ class Event extends DbObject {
         return $obj;
     }
 
-    public static function getAllEventsByDate($calendarId, $timestamp){
-        //get just the database
-        $year = date("Y", $timestamp);
-        $month = date("m", $timestamp);
-        $day = date("d", $timestamp);
-
-        $start = date("Y-m-d H:i:s", mktime(0, 0, 0, $month, $day, $year));
-        $end = date("Y-m-d H:i:s", mktime(23, 59, 59, $month, $day, $year));
-
-        $query = sprintf("SELECT * FROM %s WHERE calendarId=%s AND timestamp BETWEEN %s and %s",
-            self::DB_TABLE,
-            $calendarId,
-            $start,
-            $end
-        );
-
-        $db = Db::instance();
-        $result = $db->lookup($query);
-        if(!mysql_num_rows($result))
-            return null;
-        else {
-            $objects = array();
-            while($row = mysql_fetch_assoc($result)) {
-                $objects[] = self::loadById($row['id']);
-            }
-            return ($objects);
-        }
-    }
+    // public static function getAllEventsByDate($calendarId, $timestamp){
+    //     //get just the database
+    //     $year = date("Y", $timestamp);
+    //     $month = date("m", $timestamp);
+    //     $day = date("d", $timestamp);
+    //
+    //     $start = date("Y-m-d H:i:s", mktime(0, 0, 0, $month, $day, $year));
+    //     $end = date("Y-m-d H:i:s", mktime(23, 59, 59, $month, $day, $year));
+    //
+    //     $query = sprintf("SELECT * FROM %s WHERE calendarId=%s AND timestamp BETWEEN %s and %s",
+    //         self::DB_TABLE,
+    //         $calendarId,
+    //         $start,
+    //         $end
+    //     );
+    //
+    //     $db = Db::instance();
+    //     $result = $db->lookup($query);
+    //     if(!mysql_num_rows($result))
+    //         return null;
+    //     else {
+    //         $objects = array();
+    //         while($row = mysql_fetch_assoc($result)) {
+    //             $objects[] = self::loadById($row['id']);
+    //         }
+    //         return ($objects);
+    //     }
+    // }
 
     //Note: index month 1 - 12, not 0 - 11
     // public static function getAllEventsByMonth($calendarId, $month, $year){

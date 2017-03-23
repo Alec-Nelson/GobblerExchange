@@ -22,7 +22,7 @@ class CalendarController {
 				$this->newEvent();
 				break;
 			case 'newEvent_submit':
-				$this->newEvent();
+				$this->newEvent_submit();
 				break;
 
 			case 'editEvent':
@@ -62,7 +62,7 @@ class CalendarController {
 		//retrieve events
 		$events = $calendar->getAllEventsAfterToday();
 
-		include_once SYSTEM_PATH.'/view/calendar.html';                           
+		include_once SYSTEM_PATH.'/view/calendar.html';
 	}
 
 	/* Opens the form to fill out a new event
@@ -70,17 +70,17 @@ class CalendarController {
 	 * Page variables: N/A
 	 */
 	public function newEvent() {
-		SiteController::loggedInCheck();
+		//SiteController::loggedInCheck();
 
-		include_once SYSTEM_PATH.'/view/newevent.tpl';								//TODO: check tpl name
+		include_once SYSTEM_PATH.'/view/createCalendarEvent.html';
 	}
 
 	/* Submits the new event form
-	 * Prereq (POST variables): Cancel, location, description, date, time, title
+	 * Prereq (POST variables): Cancel, location, description, date, time, title, am, pm
 	 * Page variables: N/A
 	 */
 	public function newEvent_submit() {
-		SiteController::loggedInCheck();
+		//SiteController::loggedInCheck();
 
 		//user canceled new event
 		if (isset($_POST['Cancel'])) {
@@ -90,28 +90,33 @@ class CalendarController {
 
 		$location = $_POST['location'];
 		$description = $_POST['description'];
-		$time = $_POST['date'];
-		$date = $_POST['time'];														//TODO worry about am/pm
-		$timestamp = Event::convertToSQLDateTime($date, $time);
-		$author = $_SESSION['username'];
+		$authorId = $_SESSION['userId'];
 		$title = $_POST['title'];
+		$date = $_POST['date'];
+		$time = $_POST['time'];
+		$ampm =$_POST['ampm'];
+
+		$year = "";
+		$month = "";
+		$day = "";
+		$hour = "";
+		$minute = "";
+
+		if($ampm == "pm") $timestamp = Event::convertToSQLDateTime($date, $time, true);
+		else $timestamp = Event::convertToSQLDateTime($date, $time, false);
 
 		//get calendar id from group
-		$groupId = $_POST['groupId'];
+		$groupId = $_SESSION['groupId'];
 		$group = Group::loadById($groupId);
 		$calendarId = $group->get('calendarId');
 
-		//get author's id
-		$user_row = User::loadByUsername($author);
-		$userid = $user_row->get('id');
-
 		$event = new Event();
 		$event->set('timestamp', $timestamp);
-		$event->set('userId', $userid);
 		$event->set('location', $location);
 		$event->set('description', $description);
 		$event->set('calendarId', $calendarId);
 		$event->set('title', $title);
+		$event->set('userId', $authorId);
 		$event->save();
 
 		header('Location: '.BASE_URL.'/calendar');

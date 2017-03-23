@@ -36,8 +36,8 @@ RewriteRule ^deletepost/?$ app/controller/ForumController.php?action=deletepost&
 RewriteRule ^calendar/?$ app/controller/CalendarController.php?action=calendar [QSA,L]
 RewriteRule ^editevent/?$ app/controller/CalendarController.php?action=editEvent&groupId=0 [QSA,L]
 RewriteRule ^editevent_submit/?$ app/controller/CalendarController.php?action=editEvent_submit&groupId=0 [QSA,L]
-RewriteRule ^newevent/?$ app/controller/CalendarController.php?action=newEvent&groupId=0 [QSA,L]
-RewriteRule ^newevent_submit/?$ app/controller/CalendarController.php?action=newEvent_submit&groupId=0 [QSA,L]
+RewriteRule ^newevent/?$ app/controller/CalendarController.php?action=newEvent [QSA,L]
+RewriteRule ^newevent_submit/?$ app/controller/CalendarController.php?action=newEvent_submit [QSA,L]
 RewriteRule ^deleteevent/?$ app/controller/CalendarController.php?action=deleteEvent&groupId=0 [QSA,L]
 
 # Poll

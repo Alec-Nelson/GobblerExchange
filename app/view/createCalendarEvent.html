@@ -2,29 +2,31 @@
 include_once('template.php');
 
 ?>
-<body>
+
 <h2>Create a Calendar Event</h2>
 </body>
- <form>
+ <form method="POST" action="<?= BASE_URL ?>/newevent_submit">
   <div class="form-group">
     <label for="title">Title</label>
-    <input class="form-control" id="title" type="text">
+    <input class="form-control" id="title" type="text" name="title">
   </div>
-  <div class="form-group">
+  <div class="form-group time-group">
     <label for="startTime">Start Time</label>
-    <input class="form-control" id="startTime" type="text">
+    <input class="form-control" id="startTime" type="text" placeholder="00:00" name="time">
+    <label class="radio-inline"><input type="radio" name="ampm" value="am">am</label>
+    <label class="radio-inline"><input type="radio" name="ampm" value="pm">pm</label>
   </div>
   <div class="form-group">
     <label for="startTime">Date</label>
-    <input class="form-control" id="date" type="text">
+    <input class="form-control" id="date" type="text" placeholder="yyyy-mm-dd" name="date">
   </div>
   <div class="form-group">
     <label for="location">Location</label>
-    <input class="form-control" id="location" type="text">
+    <input class="form-control" id="location" type="text" name="location">
   </div>
    <div class="form-group">
     <label for="comment">Description:</label>
-    <textarea class="form-control" rows="5" id="description"></textarea>
+    <textarea class="form-control" rows="5" id="description" name="description"></textarea>
   </div>
   <!-- <div class="form-group">
       <label for="tag">Tag:</label>

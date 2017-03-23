@@ -6,7 +6,22 @@
 ?>
 <link href="<?= BASE_URL ?>/public/css/calendar.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/calendar.css');?>" type="text/css" rel="stylesheet">
 
-<h2> Your Agenda: </h2>
+<div class="row">
+  <div class="col-lg-6">
+      <h2> Upcoming Events: </h2>
+  </div>
+  <div class="col-lg-6">
+      <form action="<?= BASE_URL ?>/newevent">
+      <button id = "button" type="submit" class="btn btn-primary newevent_button">
+        Create an Event
+      </button>
+      </form>
+  </div>
+</div>
+
+
+
+
 <!-- <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/public/css/calendar.css"> -->
 <!-- <div class="form-group">
   <label for="exampleSelect1">Month</label>
