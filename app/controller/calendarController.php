@@ -26,7 +26,8 @@ class CalendarController {
 				break;
 
 			case 'editEvent':
-				$this->editEvent();
+				$eventId = $_GET['eventId'];
+				$this->editEvent($eventId);
 				break;
 			case 'editEvent_submit':
 				$this->editEvent_submit();
@@ -96,12 +97,6 @@ class CalendarController {
 		$time = $_POST['time'];
 		$ampm =$_POST['ampm'];
 
-		$year = "";
-		$month = "";
-		$day = "";
-		$hour = "";
-		$minute = "";
-
 		if($ampm == "pm") $timestamp = Event::convertToSQLDateTime($date, $time, true);
 		else $timestamp = Event::convertToSQLDateTime($date, $time, false);
 
@@ -127,60 +122,74 @@ class CalendarController {
 	 * Prereq (POST variables): edit (event id)
 	 * Page variables: location, description, date, time, title
 	 */
-	public function editEvent(){
-        SiteController::loggedInCheck();
+	public function editEvent($eventId){
+        //SiteController::loggedInCheck();
 
         //retrieve the event
-		$eventid = $_POST['edit'];
-		$event_row = Event::loadById($eventid);
+		$event= Event::loadById($eventId);
 
         //retrieve event author's username
-		$authorid = $event_row->get('userId');
-		$user = User::loadById($authorid);
-		$username = $user->get('username');
+		$authorid = $event->get('userId');
 
 		//check if author of the event is the logged in user
-		if($_SESSION['username'] != $username){
-			$_SESSION['info'] = "You can only edit events of which you are the author of.";
-			header('Location: '.BASE_URL);
-			exit();
-		} else {
+		// if($_SESSION['userId'] != $authorid){
+		// 	$_SESSION['info'] = "You can only edit events of which you are the author of.";
+		// 	header('Location: '.BASE_URL);
+		// 	exit();
+		// } else {
 			//allow access to edit event
-			$location = $event_row->get('location');
-			$description = $event_row->get('description');
-			$date = $event_row->getDate();												//TODO worry about am/pm
-			$time = $event_row->getTime();
-			$title = $event_row->get('title');
-			include_once SYSTEM_PATH.'/view/editevent.tpl';                           //TODO: check tpl is correct
-		}
+			$id = $event->get('id');
+			$title = $event->get('title');
+			$location = $event->get('location');
+			$description = $event->get('description');
+			$date = $event->getDate();												//TODO worry about am/pm
+			$time = $event->getTime();
+			$isPM = $event->isPM();
+			$ampm = "am";
+			if($isPM) $ampm = "pm";
+			$title = $event->get('title');
+			include_once SYSTEM_PATH.'/view/editCalendarEvent.html';
+		//}
 	}
 
 	/* Publishes edited event
-	 * Prereq (POST variables): Cancel, eventId, location, description, date, time
+	 * Prereq (POST variables): Cancel, eventId, location, description, date, time, title
 	 * Page variables: N/A
 	 */
 	public function editEvent_submit(){
-        SiteController::loggedInCheck();
+        //SiteController::loggedInCheck();
 
-		//user canceled editing of event
+		//user canceled new event
 		if (isset($_POST['Cancel'])) {
-			header('Location: '.BASE_URL);
+			header('Location: '.BASE_URL.'/calendar');
 			exit();
 		}
 
-		$eventid = $_POST['eventId'];
-		$event = Event::loadById($eventid);
+		$eventId = $_POST['eventId'];
+		$event = Event::loadById($eventId);
+
+		if (isset($_POST['Delete'])) {
+			// if($event->get('userId') == $_SESSION['userId']){
+				$event->delete();
+			// } else {
+			//	$_SESSION['info'] = "You can only delete events you have created.";
+			// }
+			header('Location: '.BASE_URL.'/calendar');
+			exit();
+		}
 
 		$location = $_POST['location'];
 		$description = $_POST['description'];
-		$date = $_POST['date'];																//TODO worry about am/pm
-		$time = $_POST['time'];
 		$title = $_POST['title'];
-		$timestamp = Event::convertToSQLDateTime($date, $time);
+		$date = $_POST['date'];
+		$time = $_POST['time'];
+		$ampm =$_POST['ampm'];
+		
+		if($ampm == "pm") $timestamp = Event::convertToSQLDateTime($date, $time, true);
+		else $timestamp = Event::convertToSQLDateTime($date, $time, false);
 
-		$event = Event::loadById($eventid);
 		$event->set('location', $location);
-		$event->set('description', $body);
+		$event->set('description', $description);
 		$event->set('timestamp', $timestamp);
 		$event->set('title', $title);
 		$event->save();

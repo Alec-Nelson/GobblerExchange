@@ -47,9 +47,15 @@
     if(count($events) > 0){
 
     foreach($events as $event){
+        $id = $event->get('id');
+
         $timestamp = $event->get('timestamp');
         $date = Event::convertToReadableDate($timestamp);
         $time = $event->getTime();
+        $isPM = $event->isPM();
+
+        $ampm = "am";
+        if ($isPM) $ampm = "pm";
 
         $authorId = $event->get('userId');
         $author = User::loadById($authorId);
@@ -61,9 +67,22 @@
         ?>
 
         <div class="panel panel-primary">
-            <div class="panel-heading"><h4><?php echo $title ?><span style="float:right;"><?php echo $date ?> at <?php echo $time ?></span></h4></div>
+            <div class="panel-heading">
+                <h4><?php echo $title ?><span style="float:right;"><?php echo $date ?> at <?php echo $time; echo $ampm ?> in <?php echo $location ?></span></h4>
+
+            </div>
             <div class="panel-body"><p><?php echo $description ?></p></div>
-            <div class="panel-footer"><p>Posted by: <?php echo $username ?><span style="float:right;">Location: <?php echo $location ?></span></div>
+            <div class="panel-footer">Posted by: <?php echo $username ?>
+
+
+                <?php $edit_action = BASE_URL."/editevent/".$id ?>
+                <form id="edit_button_form" action=<?php echo $edit_action ?>>
+                    <button class="settings_button" type="submit">
+                        <img class="settings_img" src="<?= BASE_URL ?>/public/images/settings.png" />
+                    </button>
+              </form>
+              <div class="clearfix"></div>
+          </div>
         </div>
 
         <?php }} ?>

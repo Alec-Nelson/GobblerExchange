@@ -56,10 +56,11 @@ class Event extends DbObject {
     //     date("Y-m-d H:i:s", $this->timestamp);
     // }
     //
-    // //getter for date in readable format, for example: 3 15 2017
-    // public function getDate(){
-    //     return date("m d Y", $this->timestamp);
-    // }
+
+    //getter for date in readable format, for example: 2017-03-15
+    public function getDate(){
+        return date("Y-m-d", strtotime($this->timestamp));
+    }
 
     //converts sql date to readable date
     public function convertToReadableDate($timestamp){
@@ -89,7 +90,12 @@ class Event extends DbObject {
 
     //Getter for the time in a readable format (ex. 2:30)
     public function getTime(){
-        return date("g:i A", strtotime($this->timestamp));
+        return date("g:i", strtotime($this->timestamp));
+    }
+    public function isPM(){
+        $ampm = date("A", strtotime($this->timestamp));
+        if ($ampm == "PM") return true;
+        return false;
     }
 
     // //Getters for the numeric hour, minute
