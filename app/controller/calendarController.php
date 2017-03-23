@@ -138,7 +138,6 @@ class CalendarController {
 		// 	exit();
 		// } else {
 			//allow access to edit event
-			$id = $event->get('id');
 			$title = $event->get('title');
 			$location = $event->get('location');
 			$description = $event->get('description');
@@ -184,7 +183,7 @@ class CalendarController {
 		$date = $_POST['date'];
 		$time = $_POST['time'];
 		$ampm =$_POST['ampm'];
-		
+
 		if($ampm == "pm") $timestamp = Event::convertToSQLDateTime($date, $time, true);
 		else $timestamp = Event::convertToSQLDateTime($date, $time, false);
 

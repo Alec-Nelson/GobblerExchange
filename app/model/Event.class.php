@@ -72,7 +72,9 @@ class Event extends DbObject {
         list($year, $month, $day) = explode('-', $date);
         list($hour, $minute) = explode(':', $time);
 
-        if($pm) $hour += 12;
+        if($hour == '12' && !$pm) $hour = 0;
+        else if ($hour == '12' && $pm) $hour = 12;
+        else if ($pm) $hour += 12;
 
         return date("Y-m-d H:i:s", mktime($hour, $minute, 0, $month, $day, $year));
     }
