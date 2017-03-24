@@ -24,7 +24,7 @@
         </div>
         <div class="col-lg-2">
             <p id = "signedinas" class="description" style="float: right;">
-            Signed in as...
+            Signed in as <?php //echo $_SESSION['username']?>
             </p>
         </div>
         <!-- <div class="col-lg-2"> -->
@@ -75,7 +75,7 @@
         <div class="col-lg-2" style="text-align: center;">
           <form method="POST" action="<?= BASE_URL ?>/newgroup">
             <button id = "button" type="submit" class="btn btn-primary">
-                New Group
+                Create New Group
             </button>
           </form>
         </div>
