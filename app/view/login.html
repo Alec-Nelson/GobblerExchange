@@ -34,7 +34,7 @@
             <input id = "searchBar" type="text" class="form-control" placeholder="Email or Username" aria-label="...">
           </div>
           <div class="col-lg-5">
-            <input id = "searchBar" type="text" class="form-control" placeholder="Password" aria-label="...">
+            <input id = "searchBar" type="password" class="form-control" placeholder="Password" aria-label="...">
           </div>
           <h6 style="float: left; margin-left: 15px;">Already have an account? Sign in here!</h6>
         </div>
@@ -54,6 +54,16 @@
               <h3 class="panel-title">New to Gobbler Exchange? Create an account to get access to all of these features!</h3>
             </div>
             <div class="panel-body">
+              <?php
+                  if(isset($_SESSION['error']))
+                  {
+                    if($_SESSION['error'] != '')
+                    {
+                      echo "<div class='alert alert-danger' role='alert'>".$_SESSION['error']."</div>";
+                      $_SESSION['error'] = '';
+                    }
+                  }
+                ?>
               <form method="POST" action="register" role="form">
                 <div class="row">
                   <div class="col-xs-6 col-sm-6 col-md-6">

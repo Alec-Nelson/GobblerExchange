@@ -35,7 +35,7 @@ $(function(){
         </div>
         <div class="col-lg-2">
             <p id = "signedinas" class="description" style="float: right;">
-            Signed in as...
+            Signed in as <?php //echo $_SESSION['username']?>
             </p>
         </div>
         <!-- <div class="col-lg-2"> -->
@@ -86,7 +86,7 @@ $(function(){
         <div class="col-lg-2" style="text-align: center;">
           <form method="POST" action="<?= BASE_URL ?>/newgroup">
             <button id = "button" type="submit" class="btn btn-primary">
-                New Group
+                Create New Group
             </button>
           </form>
         </div>
@@ -105,7 +105,8 @@ $(function(){
   </div>
 </div>
 
-<br>
+
+<!-- <br> -->
 <div class = "container" id="classTabs">
         <div class="row">
             <div class="col-lg-2">
@@ -129,3 +130,15 @@ $(function(){
 
                 <!-- Main space -->
                 <div id="module">
+
+
+                  <?php
+                      if(isset($_SESSION['error']))
+                      {
+                        if($_SESSION['error'] != '')
+                        {
+                          echo "<div class='alert alert-danger' role='alert'>".$_SESSION['error']."</div>";
+                          $_SESSION['error'] = '';
+                        }
+                      }
+                    ?>
