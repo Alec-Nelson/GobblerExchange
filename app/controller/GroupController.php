@@ -123,7 +123,7 @@ class GroupController {
 				include_once SYSTEM_PATH.'/view/searchgroup.html';
 			break;
 			case "username":
-				$results = User::searchUsername($search_term);
+				$result = User::searchUsername($search_term);
 				include_once SYSTEM_PATH.'/view/searchuser.html';
 			break;
 			case "email":
@@ -131,7 +131,7 @@ class GroupController {
 				include_once SYSTEM_PATH.'/view/searchuser.html';
 			default: //crn
 				$type="crn";
-				$result = Group::searchCRN($search_term);
+				$results = Group::searchCRN($search_term);
 				include_once SYSTEM_PATH.'/view/searchgroup.html';
 		}
 		include_once SYSTEM_PATH.'/view/test.html';
