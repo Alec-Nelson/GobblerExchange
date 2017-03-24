@@ -48,6 +48,7 @@ class ForumController {
 
 		$groupId = $_SESSION['groupId'];
 
+
 		//do nothing if the user didn't select a group first
 		if ($groupId == 0){
 			header('Location: '.BASE_URL);
@@ -55,6 +56,7 @@ class ForumController {
 
 		//Get forumid associated with the current group
 		$group_entry = Group::loadById($groupId);
+		$group_name = $group_entry->get('group_name');
 		$forumId = $group_entry->get('forumId');
         $forum = Forum::loadById($forumId);
 
@@ -191,9 +193,7 @@ class ForumController {
         //add postId to rating
 		$rating->set('postId', $post->get('id'));
 		$rating->save();
-		echo "hello";
-		header('Location: '.BASE_URL);
-		echo "noooo";
+		header('Location: '.BASE_URL.'/forum');
 	}
 
 	/* Deletes a post
