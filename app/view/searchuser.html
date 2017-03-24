@@ -1,0 +1,28 @@
+<?php
+  include_once('template.php');
+?>
+
+<!-- <body> -->
+   <h2>Search Results</h2>
+    <div class="row">
+      <div class="col-sm-3">Name</div>
+      <div class="col-sm-3">Username</div>
+      <div class="col-sm-3">Email</div>
+    </div>
+
+<?php if($result != null){
+        $username = $result->get('username');
+        $name = $result->get('name');
+        $email = $result->get('email');
+        ?>
+  <div class="row">
+      <div class="col-sm-3"></div> <br>
+      <div class="col-sm-3"><h4><?php echo $name ?></h4></div>
+      <div class="col-sm-3"><h4><?php echo $username ?></div>
+      <div class="col-sm-3"><h4><?php echo $email ?></h4></div>
+    </div>
+    <?php } ?>
+<!-- </body> -->
+<?php
+  include_once('templateBottom.php');
+?>

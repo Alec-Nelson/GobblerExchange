@@ -1,0 +1,27 @@
+<?php
+  include_once('template.php');
+?>
+
+<!-- <body> -->
+   <h2>Search Results</h2>
+    <div class="row">
+      <div class="col-sm-3">Course</div>
+      <?php if($type == "crn"){?><div class="col-sm-3">CRN</div><?php } ?>
+    </div>
+
+<?php if($result != null){
+        $groupname = $result->get('group_name');
+        $number = $result->get('number');
+        ?>
+  <div class="row">
+      <div class="col-sm-3"></div> <br>
+      <div class="col-sm-3"><h4><?php echo $groupname ?></h4></div>
+      <?php if($number != null)?><div class="col-sm-3"><h4><?php echo $number ?></h4></div><? } ?>
+      <div class="col-sm-3"><button id = "button" type="button" class="btn btn-primary"   aria-label="Left Align">Join</button>
+      </div>
+    </div>
+    <?php } ?>
+<!-- </body> -->
+<?php
+  include_once('templateBottom.php');
+?>

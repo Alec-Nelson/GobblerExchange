@@ -17,7 +17,6 @@ RewriteRule ^jsontable/?$ app/controller/siteController.php?action=jsontable [QS
 # Group
 RewriteRule ^viewgroup/?$ app/controller/GroupController.php?action=viewgroup&groupId=0 [QSA,L]
 RewriteRule ^viewgroup/(\d+)/?$ app/controller/GroupController.php?action=viewgroup&groupId=$1 [QSA,L]
-
 RewriteRule ^chat/?$ app/controller/GroupController.php?action=chat&groupId=0 [QSA,L]
 RewriteRule ^newgroup/?$ app/controller/GroupController.php?action=newGroup [QSA,L]
 RewriteRule ^newgroup_submit/?$ app/controller/GroupController.php?action=newGroup_submit [QSA,L]

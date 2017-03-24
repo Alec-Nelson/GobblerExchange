@@ -9,6 +9,17 @@
         <link href="<?= BASE_URL ?>/public/css/bootstrap.min.css" type="text/css" rel="stylesheet">
         <link href="<?= BASE_URL ?>/public/css/template.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/template.css');?>" type="text/css" rel="stylesheet">
         <script src="https://use.fontawesome.com/625f8d2098.js"></script>
+<script>
+$(function(){
+    //Listen for a click on any of the dropdown items
+    $(".type li").click(function(){
+        //Get the value
+        var value = $(this).attr("value");
+        //Put the retrieved value into the hidden input
+        $("input[name='type']").val(value);
+    });
+});
+</script>
     </head>
     <body>
       <div id="banner">
@@ -43,18 +54,18 @@
       <div class="col-lg-8">
         <div class="input-group">
           <div class="input-group-btn">
-            <form method="POST" action="search">
+            <form method="POST" action="search" id="searchForm">
             <button id = "searchdropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 CRN <span class="caret"><span>
             </button>
-            <ul class="dropdown-menu" role = "menu">
-              <li><a href="#">CRN</a></li>
-              <li><a href="#">Group</a></li>
-              <li><a href="#">Username</a></li>
-              <li><a href="#">Email</a></li>
+            <ul class="dropdown-menu type" role = "menu" name="types">
+              <li value="crn"><a href="#">CRN</a></li>
+              <li value="group"><a href="#">Group</a></li>
+              <li value="username"><a href="#">Username</a></li>
+              <li value="email"><a href="#">Email</a></li>
             </ul>
           </div><!-- /btn-group -->
-          <input type="hidden" name="type" value="all" id="search_param">
+          <input type="hidden" name="type">
           <input type="text" class="form-control" name="search" placeholder="Search term...">
           <span class="input-group-btn">
             <button class="btn btn-default" type="submit">

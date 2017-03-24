@@ -113,20 +113,23 @@ class GroupController {
 		$type = $_POST['type']; //crn, group, username or email
 		$search_term = $_POST['search']; //entered into search bar
 
-		$result = "";
 		switch ($type) {
-			case "crn":
-				$result = Group::searchCRN($search_term);
-			break;
 			case "group":
 				$result = Group::searchGroupName($search_term);
+				include_once SYSTEM_PATH.'/view/searchgroup.html';
 			break;
 			case "username":
 				$result = User::searchUsername($search_term);
+				include_once SYSTEM_PATH.'/view/searchuser.html';
 			break;
 			case "email":
 				$result = User::searchEmail($search_term);
+				include_once SYSTEM_PATH.'/view/searchuser.html';
+			default: //crn
+				$type="crn";
+				$result = Group::searchCRN($search_term);
+				include_once SYSTEM_PATH.'/view/searchgroup.html';
 		}
-		include_once SYSTEM_PATH.'/view/search.html';
+		include_once SYSTEM_PATH.'/view/test.html';
 	}
 }
