@@ -138,7 +138,8 @@ class Group extends DbObject {
 
     //search by group name
     public static function searchGroupName($group_name) {
-        $query = sprintf(" SELECT id FROM %s WHERE group_name='%s'",
+        // $query = sprintf(" SELECT id FROM %s WHERE group_name='%s'",
+        $query = sprintf(" SELECT id FROM %s WHERE group_name LIKE '%%%s%%'",
             self::DB_TABLE,
             $group_name
             );
