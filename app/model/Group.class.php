@@ -120,7 +120,7 @@ class Group extends DbObject {
 
     //search by CRN
     public static function searchCRN($crn) {
-        $query = sprintf(" SELECT id FROM %s WHERE number='%s'",
+        $query = sprintf(" SELECT id FROM %s WHERE number LIKE '%s'",
             self::DB_TABLE,
             $crn
             );
@@ -130,9 +130,11 @@ class Group extends DbObject {
         if(!mysql_num_rows($result))
             return null;
         else {
-            $row = mysql_fetch_assoc($result);
-            $obj = self::loadById($row['id']);
-            return ($obj);
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
         }
     }
 
@@ -149,9 +151,11 @@ class Group extends DbObject {
         if(!mysql_num_rows($result))
             return null;
         else {
-            $row = mysql_fetch_assoc($result);
-            $obj = self::loadById($row['id']);
-            return ($obj);
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
         }
     }
 }

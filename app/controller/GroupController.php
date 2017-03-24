@@ -119,11 +119,11 @@ class GroupController {
 
 		switch ($type) {
 			case "group":
-				$result = Group::searchGroupName($search_term);
+				$results = Group::searchGroupName($search_term);
 				include_once SYSTEM_PATH.'/view/searchgroup.html';
 			break;
 			case "username":
-				$result = User::searchUsername($search_term);
+				$results = User::searchUsername($search_term);
 				include_once SYSTEM_PATH.'/view/searchuser.html';
 			break;
 			case "email":

@@ -9,7 +9,8 @@
       <?php if($type == "crn"){?><div class="col-sm-3">CRN</div><?php } ?>
     </div>
 
-<?php if($result != null){
+<?php if($results != null){
+    foreach($results as $result){
         $groupId = $result->get('id');
         $groupname = $result->get('group_name');
         $number = $result->get('number');
@@ -26,7 +27,7 @@
 
       </div>
     </div>
-    <?php } ?>
+    <?php }} ?>
 <!-- </body> -->
 <?php
   include_once('templateBottom.php');
