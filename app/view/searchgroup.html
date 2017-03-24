@@ -10,6 +10,7 @@
     </div>
 
 <?php if($result != null){
+        $groupId = $result->get('id');
         $groupname = $result->get('group_name');
         $number = $result->get('number');
         ?>
@@ -17,7 +18,12 @@
       <div class="col-sm-3"></div> <br>
       <div class="col-sm-3"><h4><?php echo $groupname ?></h4></div>
       <?php if($number != null)?><div class="col-sm-3"><h4><?php echo $number ?></h4></div><? } ?>
-      <div class="col-sm-3"><button id = "button" type="button" class="btn btn-primary"   aria-label="Left Align">Join</button>
+      <div class="col-sm-3">
+          <?php
+          If (!UserGroup::isUserInGroup($_SESSION['userId'], $groupId)){ ?>
+          <button id = "button" type="button" class="btn btn-primary"   aria-label="Left Align">Join</button>
+          <?php } ?>
+
       </div>
     </div>
     <?php } ?>
