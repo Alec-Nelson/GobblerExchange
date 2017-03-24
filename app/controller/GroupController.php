@@ -61,19 +61,18 @@ class GroupController {
 		}
 
 		//Check if group name is available (doesn't already exist)
-		$groupName = $_POST['group_name'];
+		$groupName = $_POST['groupName'];
 		if(!Group::checkGroupNameAvailability($groupName)){
 			//unavailable group name
 			$_SESSION['error'] = 'Sorry, that group name is already taken.';	  //TODO make sure SESSION[error] is available in tpl
-			header('Location: '.BASE_URL);											//TODO update location?
+			header('Location: '.BASE_URL.'/newgroup');											//TODO update location?
 			exit();
 		}
 
-		$type = $_POST['type'];		//is it a class or not?
 
 		 // if class, number = crn; null otherwise
 		 $number = NULL;
-		if($type == "crn"){
+		if($_POST['checkBox'] == "1"){
 			$number = $_POST['number'];
 		}
 
@@ -99,7 +98,7 @@ class GroupController {
 		//add creator to the group
 		$usrgrp = new UserGroup();
 		$usrgrp->set('userId', $userId);
-		$usrgrp->se('groupId', $group->get('id'));
+		$usrgrp->set('groupId', $group->get('id'));
 
 		header('Location: '.BASE_URL.'/');
 		exit();

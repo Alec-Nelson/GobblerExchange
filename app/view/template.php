@@ -94,7 +94,8 @@
   </div>
 </div>
 
-<br>
+
+<!-- <br> -->
 <div class = "container" id="classTabs">
         <div class="row">
             <div class="col-lg-2">
@@ -118,3 +119,15 @@
 
                 <!-- Main space -->
                 <div id="module">
+
+
+                  <?php
+                      if(isset($_SESSION['error']))
+                      {
+                        if($_SESSION['error'] != '')
+                        {
+                          echo "<div class='alert alert-danger' role='alert'>".$_SESSION['error']."</div>";
+                          $_SESSION['error'] = '';
+                        }
+                      }
+                    ?>
