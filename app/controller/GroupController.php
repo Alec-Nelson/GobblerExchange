@@ -103,6 +103,7 @@ class GroupController {
 		$usrgrp = new UserGroup();
 		$usrgrp->set('userId', $userId);
 		$usrgrp->set('groupId', $group->get('id'));
+		$usrgrp->save();
 
 		header('Location: '.BASE_URL.'/');
 		exit();
