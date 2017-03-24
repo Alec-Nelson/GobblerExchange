@@ -2,28 +2,29 @@
   include_once('template.php');
 ?>
 
+  <script src="<?= BASE_URL ?>/public/js/createGroup.js"></script>
 
-		<form method="POST" action="<?= BASE_URL ?>/newgroup_submit">
-            Is this a class?
-            <input type="checkbox" name="vehicle" value="Bike">Class<br>
+		<form method="POST" action="<?= BASE_URL ?>/newgroup_submit" class="form-group">
+			<label class="checkbox"><input id="isClassCB" type="checkbox" value="">Is this a Class?</label>
 
             <!-- This will be visible if the checkbox is selected -->
-            Enter CRN:<br>
-			<input type="text" name="groupName"><br/>
+          <label>Enter CRN:</label>
+			<input id="CRNform" class="form-control " type="text" name="groupName" disabled><br/>
 
             <!-- This will be visible if the checkbox is NOT selected (autofilled if it is a CRN) -->
-			Group name:<br>
-			<input type="text" name="groupName"><br/>
-		</form>
+            <label>Enter Group Name:</label>
+			<input id="groupform" class="form-control" type="text" name="groupName"><br/>
 
-		<div class="col-lg-2" style="text-align: center;">
+
+		<!-- <div class="col-lg-2" style="text-align: center;"> -->
 
 			<a href="base.html">
-				<button id = "button" type="button" class="btn btn-primary">
+				<button id = "button" type="submit" class="btn btn-primary">
 					Create group
 				</button>
 			</a>
-		</div>
+    </form>
+		<!-- </div> -->
 
 <?php
   include_once('templateBottom.php');
