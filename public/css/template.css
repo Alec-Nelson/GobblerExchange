@@ -92,6 +92,12 @@ li {
     background-color: #ff6600;
 }
 
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover{
+    color: white !important;
+    background-color: #ff6600 !important;
+    border-color: white;
+}
+
 /*turns the navigation tab orange when clicked*/
 #tab a:focus {
     background-color: #ff6600;

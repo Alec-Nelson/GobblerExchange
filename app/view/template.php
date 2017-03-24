@@ -7,7 +7,7 @@
         <script src="<?= BASE_URL ?>/public/js/bootstrap.min.js"></script>
         <script src="<?= BASE_URL ?>/public/js/base.js"></script>
         <link href="<?= BASE_URL ?>/public/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-        <link href="<?= BASE_URL ?>/public/css/template.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/base.css');?>" type="text/css" rel="stylesheet">
+        <link href="<?= BASE_URL ?>/public/css/template.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/template.css');?>" type="text/css" rel="stylesheet">
         <script src="https://use.fontawesome.com/625f8d2098.js"></script>
     </head>
     <body>
@@ -110,7 +110,7 @@
                                 $groupname = $group->get('group_name');
                                 $link = BASE_URL.'/viewgroup/'.$id;
                 ?>
-                <a href=<?php echo $link ?> class="list-group-item"><?php echo $groupname ?></a>
+                <a href=<?php echo $link ?> class="list-group-item <?php if($_SESSION['groupId'] == $id) echo 'active' ?>"><?php echo $groupname ?></a>
 
                 <?php }} ?>
             </div>

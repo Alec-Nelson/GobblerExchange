@@ -78,8 +78,7 @@ class GroupController {
 		}
 
 		//get author's id
-		$user_row = User::loadByUsername($_SESSION['username']);
-		$userid = $user_row->get('id');
+		$userId = $_SESSION['userId'];
 
 		//create modules for the group
 		$calendar = new Calendar();
@@ -90,12 +89,17 @@ class GroupController {
 		$group = new Group();
 		$group->set('number', $number);
 		$group->set('group_name', $groupName);
-		$group->set('userId', $userid);
+		$group->set('userId', $userId);
 		$group->set('calendarId', $calendar->get('id'));
 		$group->set('forumId', $forum->get('id'));
 		$group->set('chatId', $chat->get('id'));
 		$group->set('whiteboardId', $whiteboard->get('id'));
 		$group->save();
+
+		//add creator to the group
+		$usrgrp = new UserGroup();
+		$usrgrp->set('userId', $userId);
+		$usrgrp->se('groupId', $group->get('id'));
 
 		header('Location: '.BASE_URL.'/');
 		exit();
