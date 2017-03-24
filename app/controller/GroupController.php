@@ -81,9 +81,13 @@ class GroupController {
 
 		//create modules for the group
 		$calendar = new Calendar();
+		$calendar->save();
 		$forum = new Forum();
+		$forum->save();
 		$chat = new Chat();
+		$chat->save();
 		$whiteboard = new Whiteboard();
+		$whiteboard->save();
 
 		$group = new Group();
 		$group->set('number', $number);
