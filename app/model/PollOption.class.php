@@ -53,6 +53,25 @@ class PollOption extends DbObject {
         return $obj;
     }
 
+    //load by poll option 
+    public function loadByPollOption($opt=null) {
+        if($opt === null)
+            return null;
+        $query = sprintf(" SELECT id FROM %s WHERE poll_option = '%s' ",
+            self::DB_TABLE,
+            $opt
+            );
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $row = mysql_fetch_assoc($result);
+            $obj = self::loadById($row['id']);
+            return ($obj);
+        }
+    }
+
     // -------------------------------------------------------------------------
     //**This function can be called from the Poll class.
     public function getPollOptions($pollId){

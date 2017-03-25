@@ -44,8 +44,9 @@ RewriteRule ^deleteevent/?$ app/controller/CalendarController.php?action=deleteE
 RewriteRule ^polls/?$ app/controller/PollController.php?action=polls [QSA,L]
 RewriteRule ^editpoll/?$ app/controller/PollController.php?action=editpoll&groupId=0 [QSA,L]
 RewriteRule ^editpoll_submit/?$ app/controller/PollController.php?action=editpoll_submit&groupId=0 [QSA,L]
-RewriteRule ^newpoll/?$ app/controller/PollController.php?action=newpoll&groupId=0 [QSA,L]
-RewriteRule ^newpoll_submit/?$ app/controller/PollController.php?action=newpoll_submit&groupId=0 [QSA,L]
+RewriteRule ^newpoll/?$ app/controller/PollController.php?action=newpoll [QSA,L]
+RewriteRule ^newpoll_submit/?$ app/controller/PollController.php?action=newpoll_submit [QSA,L]
+RewriteRule ^vote/?$ app/controller/PollController.php?action=vote [QSA,L]
 RewriteRule ^deletepoll/?$ app/controller/PollController.php?action=deletepoll&groupId=0 [QSA,L]
 
 # Notes

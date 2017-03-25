@@ -35,6 +35,10 @@ class PollController {
 			case 'deletepoll':
 				$this->deletepoll();
 				break;
+
+			case 'vote':
+				$this->vote();
+				break;
 		}
 	}
 
@@ -56,7 +60,7 @@ class PollController {
 		$group = Group::loadById($groupId);
 		$polls = $group->getAllPolls();
 
-		include_once SYSTEM_PATH.'/view/polls.html';                               //TODO: make sure this is the correct tpl
+		include_once SYSTEM_PATH.'/view/polls.html';
 	}
 
 	/* Opens edit poll form
@@ -204,5 +208,33 @@ class PollController {
 
 		//refresh page
 		header('Location: '.BASE_URL);											//TODO update
+	}
+
+	/* Saves a user's selection on a poll
+	 * Prereq (POST variables): pollid
+	 * Page variables: SESSION[info]
+	 */
+	public function vote(){
+    	//SiteController::loggedInCheck();
+
+		//load the id of the poll and option the user selected
+		$pollId = $_POST['pollId'];
+		$selectedOpt = $_POST['polloption'];
+		$pollOption = PollOption::loadByPollOption($selectedOpt);
+		$optId = $pollOption->get('id');
+
+		//check if user previously voted. if so, update, otherwise, create new entry
+		$pollopt = null;
+	    if (($pollopt = UserPollOption::getOldSelection($pollId, $_SESSION['userId'])) == null){
+			$pollopt = new UserPollOption();
+			$pollopt->set('pollOptionId', $optId);
+			$pollopt->set('userId', $_SESSION['userId']);
+			$pollopt->save();
+		} else {
+			$pollopt->set('pollOptionId', $optId);
+			$pollopt->save();
+		}
+
+		header('Location: '.BASE_URL.'/polls');
 	}
 }

@@ -51,5 +51,62 @@ class UserPollOption extends DbObject {
         $obj = $db->fetchById($id, __CLASS__, self::DB_TABLE);
         return $obj;
     }
+
+    //load by polloptionid nad userid
+    public function loadByPollOptionAndUser($optId, $userId) {
+        if($optId === null || $userId === null)
+            return null;
+        $query = sprintf(" SELECT id FROM %s WHERE pollOptionId = '%s' AND userId = '%s'",
+            self::DB_TABLE,
+            $optId,
+            $userId
+            );
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $row = mysql_fetch_assoc($result);
+            $obj = self::loadById($row['id']);
+            return ($obj);
+        }
+    }
+
+    //get the polloptions the user has selected
+    public function getUserSelections($userId){
+        $query = sprintf(" SELECT * FROM %s WHERE userId=%s",
+            self::DB_TABLE,
+            $userId
+        );
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
+        }
+    }
+
+    //gets the user's old selection for this poll
+    public static function getOldSelection($pollId, $userId) {
+        if($pollId === null || $userId === null)
+            return null;
+
+        //get all options in poll
+        $poll = Poll::loadById($pollId);
+        $options = $poll->getPollOptions($pollId);
+        foreach($options as $option){
+            $id = $option->get('id');
+            if ($userpollopt = self::loadByPollOptionAndUser($id, $userId)){
+                return $userpollopt;
+            }
+        }
+        return null;
+    }
 }
 ?>
