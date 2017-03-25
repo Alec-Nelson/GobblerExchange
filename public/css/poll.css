@@ -1,3 +1,17 @@
 .newpoll{
     float:right;
 }
+
+.settings_img {
+    width:30px;
+    height:30px;
+}
+
+.settings_button {
+    border: 0;
+    background: transparent;
+}
+
+#edit_button_form{
+    float:right;
+}

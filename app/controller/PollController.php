@@ -19,7 +19,8 @@ class PollController {
 				break;
 
 			case 'editpoll':
-				$this->editpoll();
+				$pollId = $_GET['pollId'];
+				$this->editpoll($pollId);
 				break;
 			case 'editpoll_submit':
 				$this->editpoll_submit();
@@ -67,29 +68,26 @@ class PollController {
 	 * Prereq (POST variables): edit (poll id)
 	 * Page variables: title, options
 	 */
-	public function editpoll(){
-        SiteController::loggedInCheck();
+	public function editpoll($pollId){
+        //SiteController::loggedInCheck();
 
         //retrieve the poll
-		$pollid = $_POST['edit'];
-		$poll = Poll::loadById($pollid);
+		$poll = Poll::loadById($pollId);
 
         //retrieve poll author's username
 		$authorid = $poll->get('userId');
-		$user = User::loadById($authorid);
-		$username = $user->get('username');
 
 		//check if author of the poll is the logged in user
-		if($_SESSION['username'] != $username){
-			$_SESSION['info'] = "You can only edit polls of which you are the author of.";
-			header('Location: '.BASE_URL);
-			exit();
-		} else {
+		// if($_SESSION['userId'] != $authorId){
+		// 	$_SESSION['info'] = "You can only edit polls of which you are the author of.";
+		// 	header('Location: '.BASE_URL);											 //TODO: check tpl is correct
+		// 	exit();
+		// } else {
 			//allow access to edit poll
 			$title = $poll->get('title');
             $options = $poll->getPollOptions();
-			include_once SYSTEM_PATH.'/view/editpoll.tpl';                           //TODO: check tpl is correct
-		}
+			include_once SYSTEM_PATH.'/view/editPoll.html';
+		// }
 	}
 
 	/* Publishes an edited poll
@@ -97,18 +95,20 @@ class PollController {
 	 * Page variables: N/A
 	 */
 	public function editpoll_submit(){
-        SiteController::loggedInCheck();
+        //SiteController::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
 			header('Location: '.BASE_URL);
 			exit();
 		}
 
-		$pollid = $_POST['pollid'];
+		$pollid = $_POST['pollId'];
 		$poll = Poll::loadById($pollid);
 
 		$title = $_POST['title'];
 		$options = $_POST['options'];
+		$optionsArray = split (",", $options);
+		$optionsArray=array_map('trim',$optionsArray);
 		$timestamp = date("Y-m-d", time());
 
 		$poll->set('title', $title);
@@ -116,20 +116,20 @@ class PollController {
 		$poll->save();
 
         //remove old options
-        $old_options = Poll::getPollOptions();
+        $old_options = $poll->getPollOptions();
         foreach($old_options as $opt){
-            $opt->delete();
+			$opt->delete();
         }
 
         //update options
-        foreach ($options as $option){
+        foreach ($optionsArray as $option){
             $poll_option = new PollOption();
             $poll_option->set('pollId', $pollid);
             $poll_option->set('poll_option', $option);
             $poll_option->save();
         }
 
-		header('Location: '.BASE_URL);
+		header('Location: '.BASE_URL.'/polls');
 	}
 
 	/* Opens form for a new poll forum poll
