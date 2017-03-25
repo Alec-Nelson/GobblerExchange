@@ -72,26 +72,6 @@ class UserPollOption extends DbObject {
         }
     }
 
-    //get the polloptions the user has selected
-    public function getUserSelections($userId){
-        $query = sprintf(" SELECT * FROM %s WHERE userId=%s",
-            self::DB_TABLE,
-            $userId
-        );
-
-        $db = Db::instance();
-        $result = $db->lookup($query);
-        if(!mysql_num_rows($result))
-            return null;
-        else {
-            $objects = array();
-            while($row = mysql_fetch_assoc($result)) {
-                $objects[] = self::loadById($row['id']);
-            }
-            return ($objects);
-        }
-    }
-
     //gets the user's old selection for this poll
     public static function getOldSelection($pollId, $userId) {
         if($pollId === null || $userId === null)

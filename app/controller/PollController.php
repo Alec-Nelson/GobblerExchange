@@ -137,9 +137,9 @@ class PollController {
 	 * Page variables: N/A
 	 */
 	public function newpoll(){
-        SiteController::loggedInCheck();
+        //SiteController::loggedInCheck();
 
-		include_once SYSTEM_PATH.'/view/newpoll.tpl';                             //TODO make sure the tpl is correct
+		include_once SYSTEM_PATH.'/view/createpoll.html';
 	}
 
 	/* Publishes new poll to the forum
@@ -147,43 +147,38 @@ class PollController {
 	 * Page variables: N/A
 	 */
 	public function newpoll_submit(){
-        SiteController::loggedInCheck();
+        //SiteController::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
 			header('Location: '.BASE_URL);
 			exit();
 		}
 
-		//get forumId from the group
-		$groupId = $_POST['groupId'];
-		$group_entry = Group::loadById($groupId);
-		$forumId = $group_entry->get('forumId');
-
+		//get data
 		$title = $_POST['title'];
-		$author = $_SESSION['username'];
+		$options = $_POST['options'];
 		$timestamp = date("Y-m-d", time());
-		$options = $_POST['options']; //array
-
-		//get author's id
-		$user_row = User::loadByUsername($author);
-		$userid = $user_row->get('id');
 
 		//create poll
 		$poll = new Poll();
-		$poll->set('userId', $userid);
 		$poll->set('title', $title);
-		$poll->set('forumId', $forumId);
+		$poll->set('userId', $_SESSION['userId']);
+		$poll->set('groupId', $_SESSION['groupId']);
 		$poll->set('timestamp', $timestamp);
+		$poll->set('isOpen', '1');
 		$poll->save();
 
-		//add options
-		foreach ($options as $option){
+		//format options into array:
+		$optionsArray = split (",", $options);
+
+		foreach($optionsArray as $opt){
 			$poll_option = new PollOption();
 			$poll_option->set('pollId', $poll->get('id'));
-			$poll_option->set('poll_option', $option);
+			$poll_option->set('poll_option', trim($opt));
 			$poll_option->save();
 		}
-		header('Location: '.BASE_URL);												//TODO update
+
+		header('Location: '.BASE_URL.'/polls');
 	}
 
 

@@ -4,16 +4,16 @@
 ?>
 
 Create a New Poll
-<form>
+<form method="POST" action="<?= BASE_URL ?>/newpoll_submit">
 
  <div class="form-group">
    <label for="title">Title:</label>
-   <input class="form-control" id="comment" type="text">
+   <input class="form-control" id="comment" type="text" name="title">
  </div>
 
  <div class="form-group">
   <label for="options">Options:</label>
-  <textarea class="form-control" rows="10" id="options"></textarea>
+  <textarea class="form-control" rows="10" id="options" placeholder="Option 1, Option 2, Option 3, ..." name="options"></textarea>
 </div>
 
    <button type="submit" class="btn btn-default">Create</button>

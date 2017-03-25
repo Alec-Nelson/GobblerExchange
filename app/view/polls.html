@@ -46,6 +46,7 @@
           <div class="panel-body">
               <input type="hidden" name="pollId" value="<?php echo $id ?>">
               <?php
+              if($options != null){
                 foreach($options as $opt){
                     $optId = $opt->get('id');
                     $optStr = $opt->get('poll_option');
@@ -58,7 +59,7 @@
 
                     ?>
                     <input type="radio" value="<?php echo $optStr ?>" name="polloption" <?php if($select) echo 'checked="checked"' ?>><?php echo $optStr ?><br>
-                    <?php } ?>
+                    <?php }} ?>
                     <button type="submit" class="btn btn-default">Submit</button>
           </div>
           <div class="panel-footer">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?></div>
