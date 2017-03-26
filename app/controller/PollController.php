@@ -98,12 +98,23 @@ class PollController {
         //SiteController::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
-			header('Location: '.BASE_URL);
+			header('Location: '.BASE_URL.'/polls');
 			exit();
 		}
 
+		//load poll
 		$pollid = $_POST['pollId'];
 		$poll = Poll::loadById($pollid);
+
+		if (isset($_POST['Delete'])) {
+			// if($poll->get('userId') == $_SESSION['userId']){
+				$poll->delete();
+			// } else {
+			//	$_SESSION['info'] = "You can only delete polls you have created.";
+			// }
+			header('Location: '.BASE_URL.'/polls');
+			exit();
+		}
 
 		$title = $_POST['title'];
 		$options = $_POST['options'];
