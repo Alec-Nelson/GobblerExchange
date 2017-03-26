@@ -52,7 +52,8 @@ RewriteRule ^deletepoll/?$ app/controller/PollController.php?action=deletepoll&g
 
 # Notes
 RewriteRule ^notes/?$ app/controller/NotesController.php?action=notes [QSA,L]
-RewriteRule ^editnotes/?$ app/controller/NotesController.php?action=editnotes&groupId=0 [QSA,L]
+RewriteRule ^editnotes/?$ app/controller/NotesController.php?action=editnotes&notesId=0 [QSA,L]
+RewriteRule ^editnotes/(\d+)/?$ app/controller/NotesController.php?action=editnotes&notesId=$1 [QSA,L]
 RewriteRule ^editnotes_submit/?$ app/controller/NotesController.php?action=editnotes_submit&groupId=0 [QSA,L]
 RewriteRule ^newnotes/?$ app/controller/NotesController.php?action=newnotes&groupId=0 [QSA,L]
 RewriteRule ^newnotes_submit/?$ app/controller/NotesController.php?action=newnotes_submit&groupId=0 [QSA,L]

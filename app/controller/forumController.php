@@ -106,7 +106,7 @@ class ForumController {
         //SiteController::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
-			header('Location: '.BASE_URL);
+			header('Location: '.BASE_URL.'/forum');
 			exit();
 		}
 
@@ -119,7 +119,7 @@ class ForumController {
 			// } else {
 			//	$_SESSION['info'] = "You can only delete posts you have created.";
 			// }
-			header('Location: '.BASE_URL);
+			header('Location: '.BASE_URL.'/forum');
 			exit();
 		}
 
@@ -134,7 +134,7 @@ class ForumController {
 		$post->set('timestamp', $timestamp);
 		$post->save();
 
-		header('Location: '.BASE_URL);
+		header('Location: '.BASE_URL.'/forum');
 	}
 
 	/* Opens form for a new post
