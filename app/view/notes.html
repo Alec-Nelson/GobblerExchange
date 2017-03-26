@@ -5,18 +5,11 @@
 					<!-- So the idea here is that all of these tags will be filled in and could keep going as long as we want to display stuff, like an arraylist in Java, not sure what needs to be done for that. -->
 <link href="<?= BASE_URL ?>/public/css/notes.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/notes.css');?>" type="text/css" rel="stylesheet">
 
-			<div class="row-fluid">
-				<a href="<?= BASE_URL ?>/newnotes">
-					<button id = "button" type="button" class="btn btn-primary">
-						Add Note
-					</button>
-				</a>
-				<a href="<?= BASE_URL ?>/deletenotes">
-					<button id = "button" type="button" class="btn btn-primary">
-						Delete Note
-					</button>
-				</a>
-			</div>
+    		<a href="<?= BASE_URL ?>/newnotes">
+    			<button id = "button" type="button" class="btn btn-primary">
+    				Add Note
+    			</button>
+    		</a>
 
 			<ul>
                 <?php
