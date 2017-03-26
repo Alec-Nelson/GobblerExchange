@@ -81,6 +81,11 @@ class NotesController {
 			//allow user to edit notes
 			$title = $notes->get('title');
 			$noteslink = $notes->get('link');
+
+			//get just the file name:
+			$path = explode("\\", $noteslink);
+			$filename = $path[count($path) - 1];
+
 			$tag = $notes->get('tag');
 			include_once SYSTEM_PATH.'/view/editNote.html';                           //TODO: check tpl is correct
 	//   }
@@ -115,11 +120,57 @@ class NotesController {
 		$tag = $_POST['tag'];
 		$timestamp = date("Y-m-d", time());
 
+		//update fields (except for 'link')
 		$notes->set('timestamp', $timestamp);
 		$notes->set('title', $title);
 		$notes->set('tag', $tag);
 		$notes->save();
 
+		//update 'link' if user specified a file
+		if(isset($_FILES['attached'])){
+		      $errors = array();
+		      $file_name = $_FILES['attached']['name'];
+		      $file_size = $_FILES['attached']['size'];
+		      $file_tmp  = $_FILES['attached']['tmp_name'];
+		      $file_type = $_FILES['attached']['type'];
+			  $file_error= $_FILES['attached']['error'];
+			  $file_ext=strtolower(end(explode('.',$_FILES['attached']['name'])));
+			  $allowed_extensions = array("pdf");
+			  //there was a problem uploading the file
+			  if ($file_error !== UPLOAD_ERR_OK) {
+				     $error = self::getPictureUploadError($file_error);
+					 $_SESSION['error'] = "<b>Uh oh!</b> There was an error uploading your file: ".$error;
+ 					 header('Location: '.BASE_URL.'/notes');
+			  }
+			  //make sure user uploaded the correct file extension
+		      else if(in_array($file_ext, $allowed_extensions) === false){
+				 $_SESSION['error'] = "<b>Uh oh!</b> <i>.".$file_ext."</i> files are not allowed, must be a .pdf.";
+				 header('Location: '.BASE_URL.'/notes');
+		      }
+			  //attempt to store the file in the file system
+		      else if (empty($errors) == true){
+				 $temp_path = realpath(dirname(dirname(getcwd())));
+				 //Path on local system (CHANGE IF HOST CHANGES)
+				 $path = $temp_path."\\public\\notes\\".$file_name;
+				 //check if file name already exists
+				 if(file_exists($path)){
+					 $_SESSION['error'] = "File with that name already exists. Please rename your file and resubmit.";
+					 header('Location: '.BASE_URL.'/notes');
+					 exit();
+				 }
+		         move_uploaded_file($file_tmp,$path);
+		         $_SESSION['success'] = "<b>Success!</b> Your file has been uploaded.";
+
+				  //Update link!
+				  $notes->set('link', $path);
+				  $notes->save();
+		      }
+              //There's an error with the file system.
+			  else{
+				 $_SESSION['error'] = "<b>FILE SYSTEM ERROR</b> Could not save the file.";
+				 header('Location: '.BASE_URL.'/notes');
+		      }
+		  }
 		header('Location: '.BASE_URL.'/notes');
 	}
 

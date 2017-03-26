@@ -5,18 +5,19 @@
 
 Edit Notes
 
-<form method="POST" action="<?= BASE_URL ?>/editnotes_submit">
+<form method="POST" action="<?= BASE_URL ?>/editnotes_submit" enctype="multipart/form-data">
     <input type="hidden" name="notesId" value="<?php echo $notesId ?>">
 
  <div class="form-group">
    <label for="title">Title:</label>
-   <input class="form-control" id="comment" type="text" name="title" value="<?php echo $title ?>">
+   <input class="form-control" type="text" name="title" value="<?php echo $title ?>">
  </div>
 
- <!-- <div class="form-group">
-   <label for="title">Attachment:</label>
+
+ <div class="form-group">
+   <label for="title">Attachment: <?php echo $filename ?></label>
    <INPUT TYPE="file" NAME="attached" MAXLENGTH=50 ALLOW="text/*" >
- </div> -->
+ </div>
 
 <div class="form-group">
     <label for="tag">Tag:</label>
