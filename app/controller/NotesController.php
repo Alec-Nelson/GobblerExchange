@@ -161,6 +161,9 @@ class NotesController {
 		         move_uploaded_file($file_tmp,$path);
 		         $_SESSION['success'] = "<b>Success!</b> Your file has been uploaded.";
 
+				 //attempt to delete old file
+				 unlink($notes->get('link'));
+
 				  //Update link!
 				  $notes->set('link', $path);
 				  $notes->save();
