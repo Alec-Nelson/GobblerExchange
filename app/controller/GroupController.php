@@ -6,8 +6,8 @@ include_once '../global.php';
 $action = $_GET['action'];
 
 // instantiate a GroupController and route it
-$sc = new GroupController();
-$sc->route($action);
+$gc = new GroupController();
+$gc->route($action);
 
 class GroupController {
 
@@ -42,7 +42,7 @@ class GroupController {
 	 * Page variables: N/A
 	 */
     public function newGroup() {
-		// SiteController::loggedInCheck();
+		User::loggedInCheck();
 
 		include_once SYSTEM_PATH.'/view/createGroup.html';								//TODO: check tpl name
 	}
@@ -52,7 +52,7 @@ class GroupController {
 	 * Page variables: SESSION[error]
 	 */
 	public function newGroup_submit() {
-		// SiteController::loggedInCheck();
+		// User::loggedInCheck();
 
 		//user canceled new group
 		if (isset($_POST['Cancel'])) {

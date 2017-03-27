@@ -44,7 +44,7 @@ class CalendarController {
 	 * Page variables: $events - list of events in the calendar
 	 */
     public function calendar() {
-		// SiteController::loggedInCheck();
+		User::loggedInCheck();
 
 		$groupId = $_SESSION['groupId'];
 
@@ -71,7 +71,7 @@ class CalendarController {
 	 * Page variables: N/A
 	 */
 	public function newEvent() {
-		//SiteController::loggedInCheck();
+		User::loggedInCheck();
 
 		include_once SYSTEM_PATH.'/view/createCalendarEvent.html';
 	}
@@ -81,7 +81,7 @@ class CalendarController {
 	 * Page variables: N/A
 	 */
 	public function newEvent_submit() {
-		//SiteController::loggedInCheck();
+		User::loggedInCheck();
 
 		//user canceled new event
 		if (isset($_POST['Cancel'])) {
@@ -123,7 +123,7 @@ class CalendarController {
 	 * Page variables: location, description, date, time, title
 	 */
 	public function editEvent($eventId){
-        //SiteController::loggedInCheck();
+        User::loggedInCheck();
 
         //retrieve the event
 		$event= Event::loadById($eventId);
@@ -156,7 +156,7 @@ class CalendarController {
 	 * Page variables: N/A
 	 */
 	public function editEvent_submit(){
-        //SiteController::loggedInCheck();
+        User::loggedInCheck();
 
 		//user canceled new event
 		if (isset($_POST['Cancel'])) {
@@ -201,7 +201,7 @@ class CalendarController {
 	 * Page variables: SESSION[info]
 	 */
 	public function deleteEvent(){
-    	SiteController::loggedInCheck();
+    	User::loggedInCheck();
 
 		$eventid = $_POST['delete'];
 		$event_row = Event::loadById($eventid);

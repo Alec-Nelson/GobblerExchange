@@ -36,7 +36,7 @@ class RatingController {
      * Page variables: N/A
      */
     public function upvoteNotes(){
-        SiteController::loggedInCheck();
+        User::loggedInCheck();
 
         //get notes
         $notesId = $_POST['notesId'];
@@ -58,7 +58,7 @@ class RatingController {
      * Page variables: N/A
      */
     public function downvoteNotes(){
-        SiteController::loggedInCheck();
+        User::loggedInCheck();
 
         //get notes
         $notesId = $_POST['notesId'];
@@ -81,7 +81,7 @@ class RatingController {
      * Page variables: N/A
      */
     public function upvoteForumPost(){
-        SiteController::loggedInCheck();
+        User::loggedInCheck();
 
         //get post
         $postId = $_POST['upvote'];
@@ -103,7 +103,7 @@ class RatingController {
      * Page variables: N/A
      */
     public function downvoteForumPost(){
-        SiteController::loggedInCheck();
+        User::loggedInCheck();
 
         //get post
         $postId = $_POST['downvote'];

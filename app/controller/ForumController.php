@@ -44,7 +44,7 @@ class ForumController {
 	 * Page variables: posts, pinned_posts, polls
 	 */
     public function forum() {
-	//	SiteController::loggedInCheck();
+		User::loggedInCheck();
 
 		$groupId = $_SESSION['groupId'];
 
@@ -72,7 +72,7 @@ class ForumController {
 	 * Page variables: title, body, tag
 	 */
 	public function editpost($postId){
-    //    SiteController::loggedInCheck();
+       User::loggedInCheck();
 
         //retrieve the post
 		//$postid = $_POST['edit'];
@@ -103,7 +103,7 @@ class ForumController {
 	 * Page variables: N/A
 	 */
 	public function editpost_submit(){
-        //SiteController::loggedInCheck();
+        User::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
 			header('Location: '.BASE_URL.'/forum');
@@ -142,7 +142,7 @@ class ForumController {
 	 * Page variables: N/A
 	 */
 	public function newpost(){
-        // SiteController::loggedInCheck();
+        User::loggedInCheck();
 
 		include_once SYSTEM_PATH.'/view/createForumPost.html';                             //TODO make sure the tpl is correct
 	}
@@ -152,7 +152,7 @@ class ForumController {
 	 * Page variables: N/A
 	 */
 	public function newpost_submit(){
-        // SiteController::loggedInCheck();
+        User::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
 			header('Location: '.BASE_URL);
@@ -201,7 +201,7 @@ class ForumController {
 	 * Page variables: SESSION[info]
 	 */
 	public function deletepost(){
-    	SiteController::loggedInCheck();
+    	User::loggedInCheck();
 
 		$postid = $_POST['delete'];
 		$post_row = ForumPost::loadById($postid);

@@ -191,4 +191,20 @@ class User extends DbObject {
             return ($obj);
         }
     }
+
+    public static function loggedInCheck(){
+ 	// 	// checks if user  is logged in
+ 	// 	// if not redirects to sign up page
+ 		if( !isset($_SESSION['userId']) || $_SESSION['userId'] == '')
+ 		{
+ 			header('Location: '.BASE_URL.'/login');
+ 		}
+ 		else
+ 		{
+ 			$user = User::loadById($_SESSION['userId']);
+ 			$userName = $user->get('username');
+ 		// 	header('Location: '.BASE_URL.'/'.$userName);
+
+ 		}
+ 	}
 }
