@@ -2,21 +2,21 @@
   include_once('template.php');
 
 ?>
-		<form>
+		<form method="POST" action="<?= BASE_URL ?>/newnotes_submit" enctype="multipart/form-data">
             <div class="form-group">
               <label for="title">Title:</label>
-              <input class="form-control" id="comment" type="text">
+              <input class="form-control" id="comment" type="text" name="title">
             </div>
 
             <div class="form-group">
               <label for="title">Attachment:</label>
-              <INPUT TYPE="file" NAME="attachedfile" MAXLENGTH=50 ALLOW="text/*" >
-              <input class="form-control" id="comment" type="text">
+              <input type="file" name="attached">
+              <!-- <input class="form-control" id="comment" type="text"> -->
             </div>
 
             <div class="form-group">
                 <label for="tag">Tag:</label>
-                <select class="form-control" id="tag">
+                <select class="form-control" id="tag" name="tag">
                   <option value="studyGroup">Study Group</option>
                   <option value="exam">Exam</option>
                   <option value="study">Study</option>

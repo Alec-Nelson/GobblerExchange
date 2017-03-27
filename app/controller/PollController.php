@@ -86,6 +86,7 @@ class PollController {
 			//allow access to edit poll
 			$title = $poll->get('title');
             $options = $poll->getPollOptions();
+			$poll_status = $poll->get('isOpen');
 			include_once SYSTEM_PATH.'/view/editPoll.html';
 		// }
 	}
@@ -98,18 +99,36 @@ class PollController {
         //SiteController::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
-			header('Location: '.BASE_URL);
+			header('Location: '.BASE_URL.'/polls');
 			exit();
 		}
 
+		//load poll
 		$pollid = $_POST['pollId'];
 		$poll = Poll::loadById($pollid);
+
+		if (isset($_POST['Delete'])) {
+			// if($poll->get('userId') == $_SESSION['userId']){
+				$poll->delete();
+			// } else {
+			//	$_SESSION['info'] = "You can only delete polls you have created.";
+			// }
+			header('Location: '.BASE_URL.'/polls');
+			exit();
+		}
 
 		$title = $_POST['title'];
 		$options = $_POST['options'];
 		$optionsArray = split (",", $options);
 		$optionsArray=array_map('trim',$optionsArray);
 		$timestamp = date("Y-m-d", time());
+		$poll_status = $_POST['poll_status'];
+
+		if($poll_status == "open"){
+			$poll->set('isOpen', 1);
+		} else {
+			$poll->set('isOpen', 0);
+		}
 
 		$poll->set('title', $title);
 		$poll->set('timestamp', $timestamp);

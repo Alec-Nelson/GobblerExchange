@@ -44,7 +44,7 @@
 <div id = "days">
 
     <?php
-    if(count($events) > 0){
+    if($events != null){
 
     foreach($events as $event){
         $id = $event->get('id');
@@ -85,7 +85,14 @@
           </div>
         </div>
 
-        <?php }} ?>
+        <?php
+            }
+        } else {
+            ?>
+            <p><i> There doesn't seem to be any events coming up. </i></p>
+            <?php
+        }
+        ?>
 </div>
 
 <?php

@@ -52,7 +52,8 @@ RewriteRule ^deletepoll/?$ app/controller/PollController.php?action=deletepoll&g
 
 # Notes
 RewriteRule ^notes/?$ app/controller/NotesController.php?action=notes [QSA,L]
-RewriteRule ^editnotes/?$ app/controller/NotesController.php?action=editnotes&groupId=0 [QSA,L]
+RewriteRule ^editnotes/?$ app/controller/NotesController.php?action=editnotes&notesId=0 [QSA,L]
+RewriteRule ^editnotes/(\d+)/?$ app/controller/NotesController.php?action=editnotes&notesId=$1 [QSA,L]
 RewriteRule ^editnotes_submit/?$ app/controller/NotesController.php?action=editnotes_submit&groupId=0 [QSA,L]
 RewriteRule ^newnotes/?$ app/controller/NotesController.php?action=newnotes&groupId=0 [QSA,L]
 RewriteRule ^newnotes_submit/?$ app/controller/NotesController.php?action=newnotes_submit&groupId=0 [QSA,L]
@@ -61,14 +62,17 @@ RewriteRule ^deletenotes/?$ app/controller/NotesController.php?action=deletenote
 # Comment
 RewriteRule ^viewcomments/?$ app/controller/CommentController.php?action=viewcomments&postId=0 [QSA,L]
 RewriteRule ^viewcomments/(\d+)/?$ app/controller/CommentController.php?action=viewcomments&postId=$1 [QSA,L]
+RewriteRule ^viewnotescomments/?$ app/controller/CommentController.php?action=viewnotescomments&notesId=0 [QSA,L]
+RewriteRule ^viewnotescomments/(\d+)/?$ app/controller/CommentController.php?action=viewnotescomments&notesId=$1 [QSA,L]
 RewriteRule ^newpostcomment/?$ app/controller/CommentController.php?action=newpostcomment&postId=0 [QSA,L]
 RewriteRule ^newpostcomment/(\d+)/?$ app/controller/CommentController.php?action=newpostcomment&postId=$1 [QSA,L]
 RewriteRule ^newpostcomment_submit/?$ app/controller/CommentController.php?action=newpostcomment_submit [QSA,L]
+RewriteRule ^newnotescomment/?$ app/controller/CommentController.php?action=newnotescomment&notesId=0 [QSA,L]
+RewriteRule ^newnotescomment/?$ app/controller/CommentController.php?action=newnotescomment&notesId=$1 [QSA,L]
+RewriteRule ^newnotescomment_submit/?$ app/controller/CommentController.php?action=newnotescomment_submit [QSA,L]
 
 RewriteRule ^editcomment/?$ app/controller/CommentController.php?action=editcomment&groupId=0 [QSA,L]
 RewriteRule ^editcomment_submit/?$ app/controller/CommentController.php?action=editcomment_submit&groupId=0 [QSA,L]
-RewriteRule ^newnotescomment/?$ app/controller/CommentController.php?action=newnotescomment&groupId=0 [QSA,L]
-RewriteRule ^newnotescomment_submit/?$ app/controller/CommentController.php?action=newnotescomment_submit&groupId=0 [QSA,L]
 RewriteRule ^deletecomment/?$ app/controller/CommentController.php?action=deletecomment&groupId=0 [QSA,L]
 
 # Rating

@@ -35,7 +35,12 @@ $(function(){
         </div>
         <div class="col-lg-2">
             <p id = "signedinas" class="description" style="float: right;">
-            Signed in as <?php //echo $_SESSION['username']?>
+                <?php
+                    $userId = $_SESSION['userId'];
+                    $user = User::loadById($userId);
+                    $username = $user->get('username');
+                ?>
+            Signed in as <?php echo $username ?>
             </p>
         </div>
         <!-- <div class="col-lg-2"> -->
