@@ -86,6 +86,7 @@ class PollController {
 			//allow access to edit poll
 			$title = $poll->get('title');
             $options = $poll->getPollOptions();
+			$poll_status = $poll->get('isOpen');
 			include_once SYSTEM_PATH.'/view/editPoll.html';
 		// }
 	}
@@ -121,6 +122,13 @@ class PollController {
 		$optionsArray = split (",", $options);
 		$optionsArray=array_map('trim',$optionsArray);
 		$timestamp = date("Y-m-d", time());
+		$poll_status = $_POST['poll_status'];
+
+		if($poll_status == "open"){
+			$poll->set('isOpen', 1);
+		} else {
+			$poll->set('isOpen', 0);
+		}
 
 		$poll->set('title', $title);
 		$poll->set('timestamp', $timestamp);
