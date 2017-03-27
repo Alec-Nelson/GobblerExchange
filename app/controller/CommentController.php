@@ -18,6 +18,10 @@ class CommentController {
 				$postId = $_GET['postId'];
 				$this->viewComments($postId);
 				break;
+			case 'viewnotescomments':
+				$notesId = $_GET['notesId'];
+				$this->viewNotesComments($notesId);
+				break;
 
             case 'editcomment':
                 $this->editComment();
@@ -30,7 +34,8 @@ class CommentController {
                 break;
 
 			case 'newnotescomment':
-				$this->newNotesComment();
+				$notesId = $_GET['notesId'];
+				$this->newNotesComment($notesId);
 				break;
 			case 'newnotescomment_submit':
 				$this->newNotesComment_submit();
@@ -46,7 +51,7 @@ class CommentController {
 		}
 	}
 
-	/* Opens edit comment form
+	/* View post comments
 	 * Prereq (POST variables): N/A
 	 * Page variables: post {title, date, authorUsername, description, tag}
 	 */
@@ -69,6 +74,32 @@ class CommentController {
 		// get comments
 		$comments = $post->getComments();
 		include_once SYSTEM_PATH.'/view/forumcomment.html';
+	}
+
+	/* View notes comments
+	 * Prereq (POST variables): N/A
+	 * Page variables: post {title, date, authorUsername, description, tag}
+	 */
+	public function viewNotesComments($notesId){
+		//get post info
+		$notes = Notes::loadById($notesId);
+
+		$title = $notes->get('title');
+		$timestamp = $notes->get('timestamp');
+		$authorId = $notes->get('userId');
+		$tag = $notes->get('tag');
+		$link = $notes->get('link');
+
+		//convert SQL timestamp to readable date format
+		$date = Event::convertToReadableDate($timestamp);
+
+		//get username of author
+		$author = User::loadById($authorId);
+		$authorUsername = $author->get('username');
+
+		// get comments
+		$comments = $notes->getComments();
+		include_once SYSTEM_PATH.'/view/notescomment.html';
 	}
 
     /* Opens edit comment form
@@ -152,10 +183,18 @@ class CommentController {
 	 * Prereq (POST variables): N/A
 	 * Page variables: N/A
 	 */
-	public function newNotesComment(){
-        SiteController::loggedInCheck();
-
-		include_once SYSTEM_PATH.'/view/newnotescomment.tpl';                             //TODO make sure the tpl is correct
+	public function newNotesComment($notesId){
+        //SiteController::loggedInCheck();
+		$notes = Notes::loadById($notesId);
+		$title = $notes->get('title');
+		$noteslink = $notes->get('link');
+		$userId = $notes->get('userId');
+		$author = User::loadById($userId);
+		$authorUsername = $author->get('username');
+		$timestamp = $notes->get('timestamp');
+		$date = Event::convertToReadableDate($timestamp);
+		$tag = $notes->get('tag');
+		include_once SYSTEM_PATH.'/view/createNotesComment.html';
 	}
 
 	/* Publishes new comment for notes
@@ -163,7 +202,7 @@ class CommentController {
 	 * Page variables: N/A
 	 */
 	public function newNotesComment_submit(){
-        SiteController::loggedInCheck();
+        //SiteController::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
 			header('Location: '.BASE_URL);
@@ -173,11 +212,7 @@ class CommentController {
 		$timestamp = date("Y-m-d", time());
 		$comment = $_POST['comment'];
 		$notesId = $_POST['notesId'];
-
-		//get author's id
-		$author = $_SESSION['username'];
-		$user = User::loadByUsername($author);
-		$userid = $user->get('id');
+		$userid = $_SESSION['userId'];
 
 		$comment_entry = new Comment();
 		$comment_entry->set('timestamp', $timestamp);
@@ -186,7 +221,7 @@ class CommentController {
 		$comment_entry->set('userId', $userid);
 		$comment_entry->save();
 
-		header('Location: '.BASE_URL);                                            //update
+		header('Location: '.BASE_URL.'/viewnotescomments/'.$notesId);
 	}
 
     // -------------- POST FUNCTIONS -------------------------------------------

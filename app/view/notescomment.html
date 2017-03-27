@@ -1,0 +1,59 @@
+<?php
+  include_once('template.php');
+?>
+
+<link href="<?= BASE_URL ?>/public/css/comment.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/comment.css');?>" type="text/css" rel="stylesheet">
+
+<!-- The notes: -->
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><a href="<?php echo $link ?>" download><?php echo $title ?></a></h3>
+  </div>
+  <div class="panel-body">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?>
+      <span style="float:right;">Tagged as: <?php echo $tag ?></span>
+  </div>
+</div>
+
+<?php $newcomment_action = BASE_URL."/newnotescomment"?>
+<form action=<?php echo $newcomment_action ?> >
+    <input type="hidden" name="notesId" value="<?php echo $notesId ?>">
+    <button id = "button" type="submit" class="btn btn-primary">
+      New Comment
+    </button>
+</form>
+
+<!-- Comments: -->
+<h4> Comments: </h4>
+
+      <?php
+                  if($comments != null){
+                        foreach($comments as $comment){
+                            $commenterId = $comment->get('userId');
+                            $commenter = User::loadById($commenterId);
+                            $commenterUsername = $commenter->get('username');
+
+                            $commenttimestamp = $comment->get('timestamp');
+                            $commentdate = Event::convertToReadableDate($commenttimestamp);
+
+                            $text = $comment->get('comment');
+                  ?>
+
+                  <div class="panel panel-default">
+                      <div class="panel-body">
+                          <?php echo $text ?>
+                      </div>
+                      <div class="panel-footer">Posted by: <?php echo $commenterUsername ?> on <?php echo $commentdate ?></div>
+                      </div>
+
+
+                  <?php
+                        }
+                    } else {
+                        ?>
+                        <p><i> There doesn't seem to be any comments yet. </i></p>
+                        <?php
+                    }
+                   ?>
+  <?php
+    include_once('templateBottom.php');
+  ?>
