@@ -96,11 +96,11 @@ $(function(){
         </div>
         <div class="col-lg-8">
             <ul class="nav nav-tabs">
-              <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/forum">Forum</a></li>
-              <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/calendar">Calendar</a></li>
-              <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/notes">Notes</a></li>
-              <li id = "tab" role="presentation"><a href="<?= BASE_URL ?>/polls">Polls</a></li>
-              <li id = "tab" role="presentation"><a href="#">Whiteboard</a></li>
+              <li id = "forum" role="presentation"><a href="<?= BASE_URL ?>/forum">Forum</a></li>
+              <li id = "calendar" role="presentation"><a href="<?= BASE_URL ?>/calendar">Calendar</a></li>
+              <li id = "notes" role="presentation"><a href="<?= BASE_URL ?>/notes">Notes</a></li>
+              <li id = "polls" role="presentation"><a href="<?= BASE_URL ?>/polls">Polls</a></li>
+              <li id = "whiteboard" role="presentation"><a href="#">Whiteboard</a></li>
             </ul>
         </div>
         <div class="col-lg-2"></div>

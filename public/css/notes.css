@@ -4,3 +4,6 @@
     border: 0;
     background: transparent;
 }
+#notes a{
+  background-color: #ff6600;
+}

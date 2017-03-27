@@ -12,7 +12,7 @@
   </div>
   <div class="col-lg-6">
       <form action="<?= BASE_URL ?>/newevent">
-      <button id = "button" type="submit" class="btn btn-primary newevent_button">
+      <button id = "addEvent" type="submit" class="btn btn-primary newevent_button">
         Create an Event
       </button>
       </form>
@@ -67,12 +67,12 @@
         ?>
 
         <div class="panel panel-primary">
-            <div class="panel-heading">
+            <div id = "heading" class="panel-heading">
                 <h4><?php echo $title ?><span style="float:right;"><?php echo $date ?> at <?php echo $time; echo $ampm ?> in <?php echo $location ?></span></h4>
 
             </div>
-            <div class="panel-body"><p><?php echo $description ?></p></div>
-            <div class="panel-footer">Posted by: <?php echo $username ?>
+            <div id = "body" class="panel-body"><p><?php echo $description ?></p></div>
+            <div id = "footer" class="panel-footer">Posted by: <?php echo $username ?>
 
 
                 <?php $edit_action = BASE_URL."/editevent/".$id ?>

@@ -56,17 +56,6 @@ li {
   border-color: white;
 }
 
-/*tab refers to the navigation tabs (Forum, Calendar, Notes, Whiteboard)*/
-#tab a{
-    color: white;
-    background-color: #660000;
-}
-
-/*turns the navigation tab orange when hovered over*/
-#tab a:hover{
-    color: white;
-    background-color: #ff6600;
-}
 
 #classTabs {
     margin-top: 25px;
@@ -91,16 +80,18 @@ li {
 #classTabs a:active {
     background-color: #ff6600;
 }
+#navigation {
+  
+}
+
+#navigation a:active {
+    background-color: #ff6600;
+}
 
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover{
     color: white !important;
     background-color: #ff6600 !important;
     border-color: white;
-}
-
-/*turns the navigation tab orange when clicked*/
-#tab a:focus {
-    background-color: #ff6600;
 }
 
 #signedinas{
@@ -146,3 +137,17 @@ li {
   background-color: rgba(255, 255, 255, .7);
   /*border-radius: 10px;*/
 }
+
+
+/*tab refers to the navigation tabs (Forum, Calendar, Notes, Whiteboard)*/
+.nav-tabs > li > a{
+    color: white;
+    background-color: #660000;
+}
+
+/*turns the navigation tab orange when hovered over*/
+.nav-tabs > li > a:hover{
+    color: white;
+    background-color: #ff6600;
+}
+
