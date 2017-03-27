@@ -62,18 +62,32 @@ class GroupController {
 
 		//Check if group name is available (doesn't already exist)
 		$groupName = $_POST['groupName'];
-		if(!Group::checkGroupNameAvailability($groupName)){
-			//unavailable group name
-			$_SESSION['error'] = 'Sorry, that group name is already taken.';	  //TODO make sure SESSION[error] is available in tpl
-			header('Location: '.BASE_URL.'/newgroup');											//TODO update location?
-			exit();
+		// if class, number = crn; null otherwise
+		$number = $_POST['crn'];
+		if($_POST['checkBox'] == "1"){
+			//Pull info from JSON:
+	        $str = file_get_contents(BASE_URL."/public/json/timetable.json");
+	        $json_a = json_decode($str);
+	        $a = 0;
+	        foreach($json_a->courses as $course) {
+	        	$a = $a + 1;
+	            if($course->crn == $number) {
+	            	$groupName = $course->name;
+	            	$_SESSION['error'] = $course->name."  -  ".$course->number;
+	            }
+	        }
+	        #$_SESSION['error'] = $a;
+	        #$_SESSION['error'] = var_dump($json_a);
 		}
 
-
-		 // if class, number = crn; null otherwise
-		 $number = NULL;
-		if($_POST['checkBox'] == "1"){
-			$number = $_POST['number'];
+		#TODO FOR MICHAEL:
+		//handle if they put invalid crn
+		//Cleanup
+		if(!Group::checkGroupNameAvailability($groupName)){
+			//unavailable group name
+			//$_SESSION['error'] = 'Sorry, that group name, '.$groupName.' is already taken.';	  //TODO make sure SESSION[error] is available in tpl
+			header('Location: '.BASE_URL.'/newgroup');											//TODO update location?
+			exit();
 		}
 
 		//get author's id
@@ -88,6 +102,8 @@ class GroupController {
 		$chat->save();
 		$whiteboard = new Whiteboard();
 		$whiteboard->save();
+
+
 
 		$group = new Group();
 		$group->set('number', $number);
