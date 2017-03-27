@@ -26,6 +26,10 @@
     float:right;
 }
 
+#forum a{
+  background-color: #ff6600;
+}
+
 .dropdown-menu {
 
 }
@@ -41,6 +45,7 @@
 .right_squish {
   padding-right: 0px;
 }
+
 
 /*.addforumpost{
   float:left;

@@ -47,3 +47,7 @@
 #footer{
   background: rgba(204,204,204,0.5);
 }
+
+#calendar a{
+  background-color: #ff6600;
+}
