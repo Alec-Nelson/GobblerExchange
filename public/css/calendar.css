@@ -1,9 +1,12 @@
 
 #addEvent{
   background-color: #660000;
-  text: white;
+  color: white;
   position: relative;
+  margin-top: 20px;
+  float: right;
 }
+
 #filter{
   float: right;
   position: relative;
@@ -31,4 +34,16 @@
 
 #edit_button_form{
     float:right;
+}
+
+#heading{
+  color: white;
+  background-color: #660000;
+}
+#body{
+  
+}
+
+#footer{
+  background: rgba(204,204,204,0.5);
 }
