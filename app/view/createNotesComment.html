@@ -1,0 +1,35 @@
+<?php
+  include_once('template.php');
+
+?>
+
+<!-- The notes: -->
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><a href="<?php echo $noteslink ?>" download><?php echo $title ?></a></h3>
+  </div>
+  <div class="panel-body">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?>
+      <span style="float:right;">Tagged as: <?php echo $tag ?></span>
+  </div>
+</div>
+
+<form method="POST" action="<?= BASE_URL ?>/newnotescomment_submit">
+
+    <div class="form-group">
+      <label for="title">Type your Comment:</label>
+      <input class="form-control" name="comment" type="text">
+      <input class="form-control" name="notesId" type="hidden" value=<?php echo $notesId ?>>
+    </div>
+
+    <button id = "button" type="submit" class="btn btn-success">
+      Publish
+    </button>
+    <button id = "button" type="submit" name="Cancel" class="btn btn-warning">
+      Cancel
+    </button>
+</form>
+
+
+<?php
+  include_once('templateBottom.php');
+?>

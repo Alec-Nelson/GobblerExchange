@@ -4,20 +4,19 @@
 
 <link href="<?= BASE_URL ?>/public/css/comment.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/comment.css');?>" type="text/css" rel="stylesheet">
 
-<!-- The forum post: -->
+<!-- The notes: -->
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title"><?php echo $title ?></h3>
+    <h3 class="panel-title"><a href="<?php echo $link ?>" download><?php echo $title ?></a></h3>
   </div>
-  <div class="panel-body">
-    <?php echo $description ?>
+  <div class="panel-body">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?>
+      <span style="float:right;">Tagged as: <?php echo $tag ?></span>
   </div>
-  <div class="panel-footer">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?>
-      <span style="float:right;">Tagged as: <?php echo $tag ?></span></div>
 </div>
 
-<?php $newcomment_action = BASE_URL."/newpostcomment/".$id ?>
+<?php $newcomment_action = BASE_URL."/newnotescomment"?>
 <form action=<?php echo $newcomment_action ?> >
+    <input type="hidden" name="notesId" value="<?php echo $notesId ?>">
     <button id = "button" type="submit" class="btn btn-primary">
       New Comment
     </button>
