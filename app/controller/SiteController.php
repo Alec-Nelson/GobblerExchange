@@ -82,6 +82,17 @@ class SiteController {
 			{
 				$_SESSION['groupId'] = $groups[0]->get("id");
 			}
+
+            $_topic_query_st = "";
+            foreach ($groups as $group) {
+                $gname = $group->group_name;
+                $_topic_query_st = $_topic_query_st . "&topics=$gname";
+            }
+                   
+            
+            $token = file_get_contents("http://104.236.205.162/create_session?name=$un$_topic_query_st");
+            $_SESSION['chat_token'] = $token;
+            
 			// else{
 			// 	$_SESSION['groupId'] = 0;
 			// }
