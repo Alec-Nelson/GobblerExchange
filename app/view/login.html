@@ -26,19 +26,21 @@
         </div>
 
         <!-- Sign in/out -->
+        <form method="POST" action="postlogin">
         <div class="col-lg-5" style="float: right; margin-top: 20px">
-          <button id = "signout" type="button" class="btn btn-primary" style="float: right; margin-top: 0">
+          <button id = "signout" type="submit" class="btn btn-primary" style="float: right; margin-top: 0">
               Login
           </button>
           <div class="col-lg-5">
-            <input id = "searchBar" type="text" class="form-control" placeholder="Email or Username" aria-label="...">
+            <input name="userlogin" id = "searchBar" type="text" class="form-control" placeholder="Username" aria-label="...">
           </div>
           <div class="col-lg-5">
-            <input id = "searchBar" type="password" class="form-control" placeholder="Password" aria-label="...">
+            <input name="passlogin" id = "searchBar" type="password" class="form-control" placeholder="Password" aria-label="...">
           </div>
           <h6 style="float: left; margin-left: 15px;">Already have an account? Sign in here!</h6>
         </div>
       </div>
+    </form>
 
       <!-- Other Stuff -->
       <div style="float: left;">

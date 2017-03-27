@@ -44,7 +44,7 @@ class NotesController {
 	 * Page variables: $notes
 	 */
     public function notes() {
-		//SiteController::loggedInCheck();
+		User::loggedInCheck();
 
 		$groupId = $_SESSION['groupId'];
 
@@ -65,7 +65,7 @@ class NotesController {
 	 * Page variables: title, link, tag
 	 */
 	public function editnotes($notesId){
-        //SiteController::loggedInCheck();
+        User::loggedInCheck();
 
         //retrieve the notes
 		$notes = Notes::loadById($notesId);
@@ -96,7 +96,7 @@ class NotesController {
 	 * Page variables: N/A
 	 */
 	public function editnotes_submit(){
-        //SiteController::loggedInCheck();
+        User::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
 			header('Location: '.BASE_URL.'/notes');
@@ -182,7 +182,7 @@ class NotesController {
 	 * Page variables: N/A
 	 */
 	public function newnotes(){
-        // SiteController::loggedInCheck();
+        User::loggedInCheck();
 
 		include_once SYSTEM_PATH.'/view/createNotes.html';                             //TODO make sure the tpl is correct
 	}
@@ -192,7 +192,7 @@ class NotesController {
 	 * Page variables: N/A
 	 */
 	public function newnotes_submit(){
-        //SiteController::loggedInCheck();
+        User::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
 			header('Location: '.BASE_URL.'/notes');
@@ -275,7 +275,7 @@ class NotesController {
 	 * Page variables: SESSION[info]
 	 */
 	public function deletenotes(){
-    	// SiteController::loggedInCheck();
+    	User::loggedInCheck();
 
 		$notesId = $_POST['notesId'];
 		$notes = Notes::loadById($notesId);

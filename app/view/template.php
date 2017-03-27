@@ -35,16 +35,15 @@ $(function(){
         </div>
         <div class="col-lg-2">
             <p id = "signedinas" class="description" style="float: right;">
-                <?php
-                    $userId = $_SESSION['userId'];
-                    $user = User::loadById($userId);
-                    $username = $user->get('username');
-                ?>
-            Signed in as <?php echo $username ?>
+            Signed in as
+            <?php
+            $user = User::loadByid($_SESSION['userId']);
+            echo $user->get("username");
+             ?>
             </p>
         </div>
         <!-- <div class="col-lg-2"> -->
-        <form action="logout">
+        <form action="<?= BASE_URL ?>/logout">
             <button id = "signout" type="submit"  class="btn btn-primary" style="float: right;">
                 Sign Out
             </button>
@@ -116,7 +115,7 @@ $(function(){
         <div class="row">
             <div class="col-lg-2">
                 <?php
-                    $user = User::loadByid(1/*$_SESSION['userId']*/);                   //TODO IMPLEMENT
+                    // $user = User::loadByid($_SESSION['userId']);                   //TODO IMPLEMENT
                     $usergroups = $user->getGroups(); //class UserGroup, not Group!
                     if ($usergroups != null){
                             foreach($usergroups as $usergroup){

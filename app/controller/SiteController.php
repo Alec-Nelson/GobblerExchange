@@ -1,4 +1,4 @@
-<?php
+User<?php
 
 include_once '../global.php';
 
@@ -41,12 +41,15 @@ class SiteController {
 
 	//redirects to forum
     public function home() {														//TODO uncomment logincheck once login page complete
-		// self::loggedInCheck();
+		User::loggedInCheck();
 
-		//TODO Update these hardcoded values
-		$_SESSION['groupId'] = 0;
-		$_SESSION['userId'] = 1;
-		include_once SYSTEM_PATH.'/view/testHome.html';
+		if ( isset($_SESSION['groupId']) && $_SESSION['groupId'] != ""  && $_SESSION['groupId'] != "0")
+		{
+			header('Location: '.BASE_URL.'/viewgroup/'.$_SESSION['groupId']);
+		}
+		else{
+			include_once SYSTEM_PATH.'/view/testHome.html';
+		}
 	}
 
 	public function signup(){
@@ -59,8 +62,8 @@ class SiteController {
 	}
 
 	public function postlogin(){
-	 	$un = $_POST['username'];
-		$pw = $_POST['password'];
+	 	$un = $_POST['userlogin'];
+		$pw = $_POST['passlogin'];
 		$user = User::loadByUsername($un);
 		if($user == null) {
 			// username not found
@@ -74,17 +77,20 @@ class SiteController {
 		}
 		else
 		{
-			$_SESSION['username'] = $un;
+			$groups = $user->getGroups();
+			if ($groups != null)
+				$_SESSION['groupId'] = $groups[0]->get("id");
+			$_SESSION['userId'] = $user->get("id");
 			header('Location: '.BASE_URL);
 		}
 	}
 
 
-							//TODO uncomment once authenitification is done
-							//TODO change 'username' to 'userId' in session variable
-	 public function loggedInCheck(){
-	// 	// checks if user  is logged in
-	// 	// if not redirects to sign up page
+	// 						//TODO uncomment once authenitification is done
+	// 						//TODO change 'username' to 'userId' in session variable
+	//  public function loggedInCheck(){
+	// // 	// checks if user  is logged in
+	// // 	// if not redirects to sign up page
 	// 	if( !isset($_SESSION['userId']) || $_SESSION['userId'] == '')
 	// 	{
 	// 		header('Location: '.BASE_URL.'/login');
@@ -93,8 +99,10 @@ class SiteController {
 	// 	{
 	// 		$user = User::loadById($_SESSION['userId']);
 	// 		$userName = $user->get('username');
+	// 		// header('Location: '.BASE_URL.'/'.$userName);
+	//
 	// 	}
-	}
+	// }
 
 	public function register() {
 		// get post data
@@ -185,12 +193,13 @@ class SiteController {
 
 	public function logout(){
 		// erase the session
-		unset($_SESSION['username']);
+		unset($_SESSION['userId']);
 		session_destroy();
 
 		// redirect to home page
 		// header('Location: '.BASE_URL);
-		include_once SYSTEM_PATH.'/view/login.html';
+		header('Location: '.BASE_URL.'/login');
+		// include_once SYSTEM_PATH.'/view/login.html';
 	}
 
 	public function jsontable(){

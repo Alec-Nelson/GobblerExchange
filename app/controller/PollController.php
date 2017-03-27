@@ -48,7 +48,7 @@ class PollController {
 	 * Page variables: $polls
 	 */
 	public function polls() {
-		//SiteController::loggedInCheck();
+		User::loggedInCheck();
 
 		$groupId = $_SESSION['groupId'];
 
@@ -69,7 +69,7 @@ class PollController {
 	 * Page variables: title, options
 	 */
 	public function editpoll($pollId){
-        //SiteController::loggedInCheck();
+        User::loggedInCheck();
 
         //retrieve the poll
 		$poll = Poll::loadById($pollId);
@@ -96,7 +96,7 @@ class PollController {
 	 * Page variables: N/A
 	 */
 	public function editpoll_submit(){
-        //SiteController::loggedInCheck();
+        User::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
 			header('Location: '.BASE_URL.'/polls');
@@ -156,7 +156,7 @@ class PollController {
 	 * Page variables: N/A
 	 */
 	public function newpoll(){
-        //SiteController::loggedInCheck();
+        User::loggedInCheck();
 
 		include_once SYSTEM_PATH.'/view/createpoll.html';
 	}
@@ -166,7 +166,7 @@ class PollController {
 	 * Page variables: N/A
 	 */
 	public function newpoll_submit(){
-        //SiteController::loggedInCheck();
+        User::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
 			header('Location: '.BASE_URL);
@@ -206,7 +206,7 @@ class PollController {
 	 * Page variables: SESSION[info]
 	 */
 	public function deletepoll(){
-    	SiteController::loggedInCheck();
+    	User::loggedInCheck();
 
 		$pollid = $_POST['pollid'];
 		$poll = Poll::loadById($pollid);
@@ -229,7 +229,7 @@ class PollController {
 	 * Page variables: SESSION[info]
 	 */
 	public function vote(){
-    	//SiteController::loggedInCheck();
+    	User::loggedInCheck();
 
 		//load the id of the poll and option the user selected
 		$pollId = $_POST['pollId'];

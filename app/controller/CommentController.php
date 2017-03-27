@@ -107,7 +107,7 @@ class CommentController {
 	 * Page variables: comment
 	 */
 	public function editComment(){
-        SiteController::loggedInCheck();
+        User::loggedInCheck();
 
         //retrieve the comment
 		$commentId = $_POST['commentId'];
@@ -134,7 +134,7 @@ class CommentController {
 	 * Page variables: N/A
 	 */
 	public function editComment_submit(){
-        SiteController::loggedInCheck();
+        User::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
 			header('Location: '.BASE_URL);
@@ -159,7 +159,7 @@ class CommentController {
      * Page variables: SESSION[info]
      */
     public function deleteComment(){
-        SiteController::loggedInCheck();
+        User::loggedInCheck();
 
         $commentId = $_POST['commentId'];
         $comment = Comment::loadById($commentId);
@@ -184,7 +184,7 @@ class CommentController {
 	 * Page variables: N/A
 	 */
 	public function newNotesComment($notesId){
-        //SiteController::loggedInCheck();
+    User::loggedInCheck();
 		$notes = Notes::loadById($notesId);
 		$title = $notes->get('title');
 		$noteslink = $notes->get('link');
@@ -202,8 +202,7 @@ class CommentController {
 	 * Page variables: N/A
 	 */
 	public function newNotesComment_submit(){
-        //SiteController::loggedInCheck();
-
+    User::loggedInCheck();
 		if (isset($_POST['Cancel'])) {
 			header('Location: '.BASE_URL);
 			exit();
@@ -231,7 +230,7 @@ class CommentController {
 	 * Page variables: N/A
 	 */
 	public function newPostComment($postId){
-        //SiteController::loggedInCheck();
+        //User::loggedInCheck();
 
 		//get post info
 		$post = ForumPost::loadById($postId);
@@ -256,7 +255,7 @@ class CommentController {
 	 * Page variables: N/A
 	 */
 	public function newPostComment_submit(){
-        //SiteController::loggedInCheck();
+        //User::loggedInCheck();
 
 	//	include_once SYSTEM_PATH.'/view/forumcomment.html';
 
