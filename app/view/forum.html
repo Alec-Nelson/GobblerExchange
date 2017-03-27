@@ -125,7 +125,14 @@
                   </div>
                   <!-- end forum post -->
 
-                  <?php }} ?>
+                  <?php
+                        }
+                    } else {
+                        ?>
+                        <p><i> There doesn't seem to be any forum posts yet. </i></p>
+                        <?php
+                    }
+                   ?>
   <?php
     include_once('templateBottom.php');
   ?>
