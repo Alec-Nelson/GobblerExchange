@@ -34,7 +34,7 @@ $(function(){
             </h1>
         </div>
         <div class="col-lg-2">
-            <p id = "signedinas" class="description" style="float: right;">
+            <p id = "signedinas" class="orange description" style="float: right;">
             Signed in as
             <?php
             $user = User::loadByid($_SESSION['userId']);
@@ -58,7 +58,7 @@ $(function(){
       <div class="col-lg-8">
         <div class="input-group">
           <div class="input-group-btn">
-            <form method="POST" action="search" id="searchForm">
+            <form method="POST" action="<?= BASE_URL ?>/search" id="searchForm">
             <button id = "searchdropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 CRN <span class="caret"><span>
             </button>

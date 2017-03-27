@@ -79,7 +79,12 @@ class SiteController {
 		{
 			$groups = $user->getGroups();
 			if ($groups != null)
+			{
 				$_SESSION['groupId'] = $groups[0]->get("id");
+			}
+			// else{
+			// 	$_SESSION['groupId'] = 0;
+			// }
 			$_SESSION['userId'] = $user->get("id");
 			header('Location: '.BASE_URL);
 		}
