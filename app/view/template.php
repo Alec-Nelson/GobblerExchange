@@ -115,7 +115,7 @@ $(function(){
         <div class="row">
             <div class="col-lg-2">
                 <?php
-                    // $user = User::loadByid($_SESSION['userId']);                   //TODO IMPLEMENT
+                    $user = User::loadById($_SESSION['userId']);
                     $usergroups = $user->getGroups(); //class UserGroup, not Group!
                     if ($usergroups != null){
                             foreach($usergroups as $usergroup){
