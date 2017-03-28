@@ -73,6 +73,27 @@ class UserRating extends DbObject {
         }
     }
 
+    //Get a list of all groups a particular user is a part of
+    //**This function can be called from the User class.
+    public function getAllByRatingId($ratingId){
+        $query = sprintf(" SELECT * FROM %s WHERE ratingId=%s",
+            self::DB_TABLE,
+            $ratingId
+        );
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
+        }
+    }
+
    //upvote
    public function upvote($ratingId, $userId){
        $old_rating = self::loadByUserAndRatingId($userId, $ratingId);

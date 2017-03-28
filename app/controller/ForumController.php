@@ -32,10 +32,6 @@ class ForumController {
 			case 'newpost_submit':
 				$this->newpost_submit();
 				break;
-
-			case 'deletepost':
-				$this->deletepost();
-				break;
 		}
 	}
 
@@ -114,11 +110,7 @@ class ForumController {
 		$post = ForumPost::loadById($postid);
 
 		if (isset($_POST['Delete'])) {
-			// if($post->get('userId') == $_SESSION['userId']){
-				$post->delete();
-			// } else {
-			//	$_SESSION['info'] = "You can only delete posts you have created.";
-			// }
+			self::delete($postid);
 			header('Location: '.BASE_URL.'/forum');
 			exit();
 		}
@@ -199,22 +191,35 @@ class ForumController {
 	 * Prereq (POST variables): delete (post id)
 	 * Page variables: SESSION[info]
 	 */
-	public function deletepost(){
-    	User::loggedInCheck();
+	private function deletepost($postId){
 
-		$postid = $_POST['delete'];
-		$post_row = ForumPost::loadById($postid);
-		$post_author_id = $post_row->get('userId');
-		$post_author = User::loadById($post_author_id);
+		// if($post->get('userId') == $_SESSION['userId']){
+			//PUT CODE HERE
+		// } else {
+		//	$_SESSION['info'] = "You can only delete posts you have created.";
+		// }
 
-		//user is the author of the post, allow delete
-		if($post_author->get('username') == $_SESSION['username']){
-			$post_row->delete();
-		} else {
-			$_SESSION['info'] = "You can only delete posts you have created.";
+		//delete rating associated with post
+		$ratingId = $post->get('ratingId');
+		$rating->delete();
+
+		//delete userratings associated with post
+		$user_ratings = UserRating::getAllByRatingId($ratingId);
+		if($user_ratings != null){
+			foreach($user_ratings as $ur){
+				$ur->delete();
+			}
 		}
 
-		//refresh page
-		header('Location: '.BASE_URL);											//TODO update
+		//delete comments associated with posts
+		$comments = Comment::getAllCommentsByPost($postId);
+		if($comments != null){
+			foreach($comments as $com){
+				$com->delete();
+			}
+		}
+
+		//delete post
+		$post->delete();
 	}
 }
