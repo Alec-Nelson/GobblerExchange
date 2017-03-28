@@ -110,7 +110,7 @@ class ForumController {
 		$post = ForumPost::loadById($postid);
 
 		if (isset($_POST['Delete'])) {
-			self::delete($postid);
+			self::deletepost($postid);
 			header('Location: '.BASE_URL.'/forum');
 			exit();
 		}
@@ -194,32 +194,34 @@ class ForumController {
 	private function deletepost($postId){
 
 		// if($post->get('userId') == $_SESSION['userId']){
-			//PUT CODE HERE
+
+			//delete rating associated with post
+			$post = ForumPost::loadById($postId);
+			$ratingId = $post->get('ratingId');
+			$rating = Rating::loadById($ratingId);
+			$rating->delete();
+
+			//delete userratings associated with post
+			$user_ratings = UserRating::getAllByRatingId($ratingId);
+			if($user_ratings != null){
+				foreach($user_ratings as $ur){
+					$ur->delete();
+				}
+			}
+
+			//delete comments associated with posts
+			$comments = Comment::getAllCommentsByPost($postId);
+			if($comments != null){
+				foreach($comments as $com){
+					$com->delete();
+				}
+			}
+
+			//delete post
+			$post->delete();
+
 		// } else {
 		//	$_SESSION['info'] = "You can only delete posts you have created.";
 		// }
-
-		//delete rating associated with post
-		$ratingId = $post->get('ratingId');
-		$rating->delete();
-
-		//delete userratings associated with post
-		$user_ratings = UserRating::getAllByRatingId($ratingId);
-		if($user_ratings != null){
-			foreach($user_ratings as $ur){
-				$ur->delete();
-			}
-		}
-
-		//delete comments associated with posts
-		$comments = Comment::getAllCommentsByPost($postId);
-		if($comments != null){
-			foreach($comments as $com){
-				$com->delete();
-			}
-		}
-
-		//delete post
-		$post->delete();
 	}
 }

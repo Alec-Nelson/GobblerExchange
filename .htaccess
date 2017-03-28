@@ -67,8 +67,7 @@ RewriteRule ^viewnotescomments/(\d+)/?$ app/controller/CommentController.php?act
 RewriteRule ^newpostcomment/?$ app/controller/CommentController.php?action=newpostcomment&postId=0 [QSA,L]
 RewriteRule ^newpostcomment/(\d+)/?$ app/controller/CommentController.php?action=newpostcomment&postId=$1 [QSA,L]
 RewriteRule ^newpostcomment_submit/?$ app/controller/CommentController.php?action=newpostcomment_submit [QSA,L]
-RewriteRule ^newnotescomment/?$ app/controller/CommentController.php?action=newnotescomment&notesId=0 [QSA,L]
-RewriteRule ^newnotescomment/?$ app/controller/CommentController.php?action=newnotescomment&notesId=$1 [QSA,L]
+RewriteRule ^newnotescomment/?$ app/controller/CommentController.php?action=newnotescomment [QSA,L]
 RewriteRule ^newnotescomment_submit/?$ app/controller/CommentController.php?action=newnotescomment_submit [QSA,L]
 
 RewriteRule ^editcomment/?$ app/controller/CommentController.php?action=editcomment&groupId=0 [QSA,L]
