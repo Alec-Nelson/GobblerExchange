@@ -178,12 +178,7 @@ class ForumController {
 		$group = Group::loadById($groupId);
 		$forumId = $group->get('forumId');
 		$post->set('forumId', $forumId);
-
 		$post->save();
-
-        //add postId to rating
-		$rating->set('postId', $post->get('id'));
-		$rating->save();
 		header('Location: '.BASE_URL.'/forum');
 	}
 

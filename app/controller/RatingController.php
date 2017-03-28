@@ -51,7 +51,7 @@ class RatingController {
         //upvote the notes
         $notes->upvote($userId);
 
-        header('Location: '.BASE_URL.'/forum');											//TODO update
+        header('Location: '.BASE_URL.'/notes');											//TODO update
         exit();
     }
 
@@ -71,7 +71,7 @@ class RatingController {
         //downvote the notes
         $notes->downvote($userId);
 
-        header('Location: '.BASE_URL.'/forum');												//TODO update
+        header('Location: '.BASE_URL.'/notes');												//TODO update
         exit();
     }
 

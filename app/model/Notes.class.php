@@ -78,10 +78,10 @@ class Notes extends DbObject {
     }
 
     public function upvote($userId){
-        Rating::upvoteNotes($this->id, $userId);
+        UserRating::upvote($this->ratingId, $userId);
     }
     public function downvote($userId){
-        Rating::downvoteNotes($this->id, $userId);
+        UserRating::downvote($this->ratingId, $userId);
     }
 
     public function getRating(){

@@ -254,10 +254,6 @@ class NotesController {
 				  $notes->set('ratingId', $rating->get('id'));
 				  $notes->set('groupId', $groupId);
 				  $notes->save();
-
-					//add notesId to rating
-				  $rating->set('notesId', $notes->get('id'));
-				  $rating->save();
 				  header('Location: '.BASE_URL.'/notes');
 		      }
               //There's an error with the file system.
