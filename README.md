@@ -13,7 +13,8 @@ Implemented:
 - Forum posts ordered by rating (decreasing)
 - Events are ordered by date (increasing)
 - Polls are ordered by date (decreasing)
-- Notes are orederd by rating (decreasing)
+- Notes are ordered by rating (decreasing)
+- Join button when searching for groups
 
 Not Implemented (yet):
 - Only allowing the user who authored the post/event/notes/comment to edit/delete it (currently, anyone can edit or delete any post/event/notes/comment)
@@ -21,7 +22,6 @@ Not Implemented (yet):
 - Delete/edit comments
 - Checking if input fields are empty
 - Whiteboard
-- Join button when searching for groups
 - PDF view preview for notes before downloading
 - User must join/create a group when they sign up
 - Adding users to a group when a user creates a group

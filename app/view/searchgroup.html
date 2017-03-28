@@ -21,8 +21,11 @@
       <?php if($number != null)?><div class="col-sm-3"><h4><?php echo $number ?></h4></div><? } ?>
       <div class="col-sm-3">
           <?php
-          If (!UserGroup::isUserInGroup($_SESSION['userId'], $groupId)){ ?>
-          <button id = "button" type="button" class="btn btn-primary"   aria-label="Left Align">Join</button>
+          If (!UserGroup::isUserInGroup($_SESSION['userId'], $groupId)){
+              $action = BASE_URL."/joingroup/".$groupId; ?>
+              <form action=<?php echo $action ?> >
+                  <button id = "button" type="submit" class="btn btn-primary"   aria-label="Left Align">Join</button>
+            </form>
           <?php } ?>
 
       </div>

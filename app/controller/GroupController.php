@@ -18,6 +18,10 @@ class GroupController {
 				$groupId = $_GET['groupId'];
 				$this->viewGroup($groupId);
 				break;
+			case 'joingroup':
+				$groupId = $_GET['groupId'];
+				$this->joinGroup($groupId);
+				break;
 
 			case 'newGroup':
 				$this->newGroup();
@@ -35,6 +39,22 @@ class GroupController {
 	public function viewGroup($groupId){
 		$_SESSION['groupId'] = $groupId;
 		include_once SYSTEM_PATH.'/view/viewgroup.html';
+	}
+
+	public function joinGroup($groupId){
+		User::loggedInCheck();
+
+		$usr_grp = new UserGroup();
+		$usr_grp->set('groupId', $groupId);
+		$usr_grp->set('userId', $_SESSION['userId']);
+		$usr_grp->save();
+
+		$group = Group::loadById($groupId);
+		$group_name = $group->get('group_name');
+
+		$_SESSION['info'] = "You have been added to the group: ".$group_name;
+
+		header('Location: '.BASE_URL);											//TODO: update location?
 	}
 
 	/* Opens form for creating a new group

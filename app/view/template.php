@@ -137,6 +137,7 @@ $(function(){
 
 
                   <?php
+                  //error box
                       if(isset($_SESSION['error']))
                       {
                         if($_SESSION['error'] != '')
@@ -145,4 +146,14 @@ $(function(){
                           $_SESSION['error'] = '';
                         }
                       }
-                    ?>
+
+                      //info box
+                        if(isset($_SESSION['info']))
+                        {
+                          if($_SESSION['info'] != '')
+                          {
+                            echo "<div class='alert alert-info' role='alert'>".$_SESSION['info']."</div>";
+                            $_SESSION['info'] = '';
+                          }
+                        }
+                      ?>
