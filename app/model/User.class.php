@@ -201,8 +201,8 @@ class User extends DbObject {
  		}
  		else
  		{
- 			$user = User::loadById($_SESSION['userId']);
- 			$userName = $user->get('username');
+ 		// 	$user = User::loadById($_SESSION['userId']);
+ 		// 	$userName = $user->get('username');
  		// 	header('Location: '.BASE_URL.'/'.$userName);
 
  		}

@@ -1,4 +1,4 @@
-User<?php
+<?php
 
 include_once '../global.php';
 
@@ -88,11 +88,11 @@ class SiteController {
                 $gname = $group->group_name;
                 $_topic_query_st = $_topic_query_st . "&topics=$gname";
             }
-                   
-            
+
+
             $token = file_get_contents("http://104.236.205.162/create_session?name=$un$_topic_query_st");
             $_SESSION['chat_token'] = $token;
-            
+
 			// else{
 			// 	$_SESSION['groupId'] = 0;
 			// }
@@ -102,23 +102,6 @@ class SiteController {
 	}
 
 
-	// 						//TODO uncomment once authenitification is done
-	// 						//TODO change 'username' to 'userId' in session variable
-	//  public function loggedInCheck(){
-	// // 	// checks if user  is logged in
-	// // 	// if not redirects to sign up page
-	// 	if( !isset($_SESSION['userId']) || $_SESSION['userId'] == '')
-	// 	{
-	// 		header('Location: '.BASE_URL.'/login');
-	// 	}
-	// 	else
-	// 	{
-	// 		$user = User::loadById($_SESSION['userId']);
-	// 		$userName = $user->get('username');
-	// 		// header('Location: '.BASE_URL.'/'.$userName);
-	//
-	// 	}
-	// }
 
 	public function register() {
 		// get post data
@@ -218,14 +201,4 @@ class SiteController {
 		// include_once SYSTEM_PATH.'/view/login.html';
 	}
 
-	public function jsontable(){
-		// header('Content-Type: application/json');
-		$cmd = "generate-classes-json.rb";
-		// echo exec("ruby ".$cmd);
-		echo system($cmd);
-		echo $cmd;
-		// echo "test";
-		// redirect to home page
-		// header('Location: '.BASE_URL);
-	}
 }
