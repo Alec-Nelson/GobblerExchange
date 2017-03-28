@@ -57,7 +57,7 @@ class ForumController {
         $forum = Forum::loadById($forumId);
 
 		//retrieve all posts from the forum
-		$posts = $forum->getPosts();
+		$posts = $forum->getPostByRating();
         $pinned_posts = $forum->getPinnedPosts();
 		// $polls = Poll::getAllOpenPolls($groupId);
 		include_once SYSTEM_PATH.'/view/forum.html';                               //TODO: make sure this is the correct tpl

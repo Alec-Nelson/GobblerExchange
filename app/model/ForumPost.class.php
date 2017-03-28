@@ -117,6 +117,25 @@ class ForumPost extends DbObject {
         }
     }
 
+    public function getAllPosts_SortDescRating($forumId){
+        $query = sprintf(" SELECT forumpost.id, rating.rating FROM forumpost INNER JOIN rating ON forumpost.ratingId = rating.id ORDER BY rating.rating desc",
+            self::DB_TABLE,
+            $forumId
+        );
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
+        }
+    }
+
     //**This function can be called from the Forum class.
     public function getAllPinnedPosts($forumId){
         $query = sprintf(" SELECT * FROM %s WHERE forumId=%s AND pinned=1 ORDER BY timestamp DESC",

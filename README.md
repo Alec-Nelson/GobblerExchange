@@ -10,15 +10,19 @@ Implemented:
     - Search by CRN/email/username: works if given the exact term
     - Search by Group: provides results if the search term is in the group name (order matters)
 - User authentication
+- Forum posts ordered by rating (decreasing)
+- Events are ordered by date (increasing)
+- Polls are ordered by date (decreasing)
+- Notes are orederd by rating (decreasing)
 
 Not Implemented (yet):
 - Only allowing the user who authored the post/event/notes/comment to edit/delete it (currently, anyone can edit or delete any post/event/notes/comment)
 - Searching for forum posts
 - Delete/edit comments
 - Checking if input fields are empty
-- Forum posts ordered by rating (currently ordered by date/time)
 - Whiteboard
 - Join button when searching for groups
 - PDF view preview for notes before downloading
 - User must join/create a group when they sign up
 - Adding users to a group when a user creates a group
+- Put pinned posts at the top

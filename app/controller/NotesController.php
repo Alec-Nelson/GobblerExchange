@@ -55,7 +55,7 @@ class NotesController {
 
 		//Get polls associated with the current group
 		$group = Group::loadById($groupId);
-		$notes = $group->getNotes();
+		$notes = $group->getNotesByRating();
 
 		include_once SYSTEM_PATH.'/view/notes.html';                               //TODO: make sure this is the correct tpl
 	}
@@ -138,8 +138,7 @@ class NotesController {
 			  $allowed_extensions = array("pdf");
 			  //there was a problem uploading the file
 			  if ($file_error !== UPLOAD_ERR_OK) {
-				     $error = self::getPictureUploadError($file_error);
-					 $_SESSION['error'] = "<b>Uh oh!</b> There was an error uploading your file: ".$error;
+					 $_SESSION['error'] = "<b>Uh oh!</b> There was an error uploading your file.";
  					 header('Location: '.BASE_URL.'/notes');
 			  }
 			  //make sure user uploaded the correct file extension
@@ -216,8 +215,7 @@ class NotesController {
 			  $allowed_extensions = array("pdf");
 			  //there was a problem uploading the file
 			  if ($file_error !== UPLOAD_ERR_OK) {
-				     $error = self::getPictureUploadError($file_error);
-					 $_SESSION['error'] = "<b>Uh oh!</b> There was an error uploading your file: ".$error;
+					 $_SESSION['error'] = "<b>Uh oh!</b> There was an error uploading your file";
  					 header('Location: '.BASE_URL.'/notes');
 			  }
 			  //make sure user uploaded the correct file extension

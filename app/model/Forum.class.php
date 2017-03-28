@@ -37,6 +37,10 @@ class Forum extends DbObject {
         return ForumPost::getAllPosts($this->id);
     }
 
+    public function getPostByRating(){
+        return ForumPost::getAllPosts_SortDescRating($this->id);
+    }
+
     public function getPinnedPosts(){
         return ForumPost::getAllPinnedPosts($this->id);
     }

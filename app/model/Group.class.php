@@ -110,6 +110,11 @@ class Group extends DbObject {
     public function getNotes(){
         return Notes::getAllNotes($this->id);
     }
+    public function getNotesByRating(){
+        return Notes::getAllNotes_SortDescRating($this->id);
+    }
+
+
 
     //get all polls for this group
     public function getAllPolls(){

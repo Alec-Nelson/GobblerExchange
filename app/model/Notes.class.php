@@ -114,5 +114,24 @@ class Notes extends DbObject {
             return ($objects);
         }
     }
+
+    public function getAllNotes_SortDescRating($notesId){
+        $query = sprintf(" SELECT notes.id, rating.rating FROM notes INNER JOIN rating ON notes.ratingId = rating.id ORDER BY rating.rating desc",
+            self::DB_TABLE,
+            $notesId
+        );
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
+        }
+    }
 }
 ?>
