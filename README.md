@@ -26,3 +26,4 @@ Not Implemented (yet):
 - User must join/create a group when they sign up
 - Adding users to a group when a user creates a group
 - Put pinned posts at the top
+- Make entering the dates user-friendly (https://jqueryui.com/datepicker/)
