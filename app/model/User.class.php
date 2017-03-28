@@ -157,7 +157,12 @@ class User extends DbObject {
 
     //SEARCH FUNCTIONS --------------------------------------------------------
     //search by username
+    //returns all users if search term is empty/null
     public static function searchUsername($username) {
+        if($username == null || $username == ""){
+            return self::getAllUsers();
+        }
+
         $query = sprintf(" SELECT id FROM %s WHERE username='%s'",
             self::DB_TABLE,
             $username
@@ -168,14 +173,21 @@ class User extends DbObject {
         if(!mysql_num_rows($result))
             return null;
         else {
-            $row = mysql_fetch_assoc($result);
-            $obj = self::loadById($row['id']);
-            return ($obj);
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
         }
     }
 
     //search by email
+    //returns all users if search term is empty/null
     public static function searchEmail($email) {
+        if($email == null || $email == ""){
+            return self::getAllUsers();
+        }
+
         $query = sprintf(" SELECT id FROM %s WHERE email='%s'",
             self::DB_TABLE,
             $email
@@ -186,9 +198,29 @@ class User extends DbObject {
         if(!mysql_num_rows($result))
             return null;
         else {
-            $row = mysql_fetch_assoc($result);
-            $obj = self::loadById($row['id']);
-            return ($obj);
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
+        }
+    }
+
+    //get all users
+    public static function getAllUsers() {
+        $query = sprintf(" SELECT id FROM %s ",
+            self::DB_TABLE
+            );
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
         }
     }
 

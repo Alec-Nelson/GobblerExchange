@@ -15,6 +15,7 @@ Implemented:
 - Polls are ordered by date (decreasing)
 - Notes are ordered by rating (decreasing)
 - Join button when searching for groups
+- Searching w/ no term will produce all results (ex. if 'username' is selected w/ no search term, it'll return all users)
 
 Not Implemented (yet):
 - Only allowing the user who authored the post/event/notes/comment to edit/delete it (currently, anyone can edit or delete any post/event/notes/comment)

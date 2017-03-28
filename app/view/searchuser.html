@@ -10,7 +10,9 @@
       <div class="col-sm-3">Email</div>
     </div>
 
-<?php if($result != null){
+<?php if($results != null){
+    foreach($results as $result){
+
         $username = $result->get('username');
         $name = $result->get('name');
         $email = $result->get('email');
@@ -21,7 +23,7 @@
       <div class="col-sm-3"><h4><?php echo $username ?></div>
       <div class="col-sm-3"><h4><?php echo $email ?></h4></div>
     </div>
-    <?php } ?>
+    <?php }} ?>
 <!-- </body> -->
 <?php
   include_once('templateBottom.php');

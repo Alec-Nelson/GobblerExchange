@@ -124,7 +124,12 @@ class Group extends DbObject {
     //SEARCH FUNCTIONS ---------------------------------------------------
 
     //search by CRN
+    //returns all groups if search term is empty/null
     public static function searchCRN($crn) {
+        if($crn == null || $crn == ""){
+            return self::getAllGroups();
+        }
+
         $query = sprintf(" SELECT id FROM %s WHERE number LIKE '%s'",
             self::DB_TABLE,
             $crn
@@ -144,13 +149,35 @@ class Group extends DbObject {
     }
 
     //search by group name
+    //returns all groups if search term is empty/null
     public static function searchGroupName($group_name) {
-        // $query = sprintf(" SELECT id FROM %s WHERE group_name='%s'",
+        if($group_name == null || $group_name == ""){
+            return self::getAllGroups();
+        }
+
         $query = sprintf(" SELECT id FROM %s WHERE group_name LIKE '%%%s%%'",
             self::DB_TABLE,
             $group_name
             );
 
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
+        }
+    }
+
+    //get all groups
+    public static function getAllGroups() {
+        $query = sprintf(" SELECT id FROM %s ",
+            self::DB_TABLE
+            );
         $db = Db::instance();
         $result = $db->lookup($query);
         if(!mysql_num_rows($result))
