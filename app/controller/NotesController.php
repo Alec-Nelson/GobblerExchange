@@ -242,7 +242,6 @@ class NotesController {
 				  //ADD TO DATABASE
 				  //add a rating
 				  $rating = new Rating();
-				  $rating->set('userId', $authorId);
 				  $rating->set('rating', 0);
 				  $rating->save();
 

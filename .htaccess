@@ -76,7 +76,11 @@ RewriteRule ^editcomment_submit/?$ app/controller/CommentController.php?action=e
 RewriteRule ^deletecomment/?$ app/controller/CommentController.php?action=deletecomment&groupId=0 [QSA,L]
 
 # Rating
-RewriteRule ^upvotepost/?$ app/controller/ForumController.php?action=upvotepost&groupId=0 [QSA,L]
-RewriteRule ^downvotepost/?$ app/controller/ForumController.php?action=downvotepost&groupId=0 [QSA,L]
-RewriteRule ^upvotenotes/?$ app/controller/NotesController.php?action=upvotenotes&groupId=0 [QSA,L]
-RewriteRule ^downvotenotes/?$ app/controller/NotesController.php?action=downvotenotes&groupId=0 [QSA,L]
+RewriteRule ^upvotepost/?$ app/controller/RatingController.php?action=upvotepost&postId=0 [QSA,L]
+RewriteRule ^upvotepost/(\d+)/?$ app/controller/RatingController.php?action=upvotepost&postId=$1 [QSA,L]
+RewriteRule ^downvotepost/?$ app/controller/RatingController.php?action=downvotepost&postId=0 [QSA,L]
+RewriteRule ^downvotepost/(\d+)/?$ app/controller/RatingController.php?action=downvotepost&postId=$1 [QSA,L]
+RewriteRule ^upvotenotes/?$ app/controller/RatingController.php?action=upvotenotes&notesId=0 [QSA,L]
+RewriteRule ^upvotenotes/(\d+)/?$ app/controller/RatingController.php?action=upvotenotes&notesId=$1 [QSA,L]
+RewriteRule ^downvotenotes/?$ app/controller/RatingController.php?action=downvotenotes&notesId=0 [QSA,L]
+RewriteRule ^downvotenotes/(\d+)/?$ app/controller/RatingController.php?action=downvotenotes&notesId=$1 [QSA,L]

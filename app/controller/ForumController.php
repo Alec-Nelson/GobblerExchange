@@ -63,7 +63,7 @@ class ForumController {
 		//retrieve all posts from the forum
 		$posts = $forum->getPosts();
         $pinned_posts = $forum->getPinnedPosts();
-		$polls = Poll::getAllOpenPolls($groupId);
+		// $polls = Poll::getAllOpenPolls($groupId);
 		include_once SYSTEM_PATH.'/view/forum.html';                               //TODO: make sure this is the correct tpl
 	}
 
@@ -170,7 +170,6 @@ class ForumController {
 
 		//add a rating
 		$rating = new Rating();
-		$rating->set('userId', $userid);
 		$rating->set('rating', 0);
 		$rating->save();
 

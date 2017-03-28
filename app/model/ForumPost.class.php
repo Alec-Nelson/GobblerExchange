@@ -84,14 +84,11 @@ class ForumPost extends DbObject {
 
     //userid - the userid of the person who is upvoting, not the author
     public function upvote($userId){
-        Rating::upvoteForumPost($this->id, $userId);
+        UserRating::upvote($this->ratingId, $userId);
     }
     //userid - the userid of the person who is downvoting, not the author
     public function downvote($userId){
-        Rating::downvoteForumPost($this->id, $userId);
-    }
-    public function getRating(){
-        return Rating::getPostRating($this->id);
+        UserRating::downvote($this->ratingId, $userId);
     }
     public function getComments(){
         return Comment::getAllCommentsByPost($this->id);

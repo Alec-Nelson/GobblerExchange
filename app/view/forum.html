@@ -52,8 +52,8 @@
                             $timestamp = $post->get('timestamp');
                             $authorId = $post->get('userId');
                             $description = $post->get('description');
-                            //$ratingId = $post->get('ratingId');
-                            $tag = $post->get('tag');                           //TODO Need somewhere to put tag!
+                            $tag = $post->get('tag');
+                            $ratingId = $post->get('ratingId');
 
                             //convert SQL timestamp to readable date format
                             $date = Event::convertToReadableDate($timestamp);
@@ -63,8 +63,17 @@
                             $authorUsername = $author->get('username');
 
                             //get rating
-                            //$rating = Rating::loadById($ratingId);
-                            //$score = $rating->get('rating');
+                            $rate = Rating::loadById($ratingId);
+                            $score = $rate->get('rating');
+
+                            //get user's individual ratings
+                            $user_rating = UserRating::loadByUserAndRatingId($_SESSION['userId'], $ratingId);
+                            $downvoted = false;
+                            $upvoted = false;
+                            if($user_rating != null){
+                                if($user_rating->get('vote') == 1) $upvoted = true;
+                                else if ($user_rating->get('vote') == -1) $downvoted = true;
+                            }
                   ?>
 
                   <!-- forum post -->
@@ -84,7 +93,15 @@
 
                     <div class="row">
                       <div class="col-lg-1">
-                           <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                          <!-- upvote -->
+                           <?php $upvote_action = BASE_URL."/upvotepost/".$id;
+                           if (!$upvoted){ ?>
+                           <form action=<?php echo $upvote_action ?> >
+                               <button type="submit" style="border: 0; background: transparent">
+                                   <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                               </button>
+                         </form>
+                         <?php } ?>
                       </div>
                       <div class="col-lg-11">
                         <?php echo $authorUsername ?>
@@ -93,7 +110,16 @@
 
                     <div class="row">
                       <div class="col-lg-1">
-                           <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                           <!-- downvote -->
+                           <?php $downvote_action = BASE_URL."/downvotepost/".$id;
+                           if (!$downvoted){
+                           ?>
+                           <form action=<?php echo $downvote_action ?> >
+                               <button type="submit" style="border: 0; background: transparent">
+                                  <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                               </button>
+                         </form>
+                         <?php } ?>
                       </div>
                       <div class="col-lg-11">
                         <?php echo $description ?>
@@ -104,6 +130,7 @@
                     <div class="row">
                         <div class="col-lg-7">
                             <p> Tagged under: <i><?php echo $tag ?></i></p>
+                            <p> Points: <?php echo $score ?> </p>
                         </div>
                         <div class="col-lg-3">
                           <?php $viewcomments_action = BASE_URL."/viewcomments/".$id ?>
