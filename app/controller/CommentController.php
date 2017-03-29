@@ -88,7 +88,7 @@ class CommentController {
 		$timestamp = $notes->get('timestamp');
 		$authorId = $notes->get('userId');
 		$tag = $notes->get('tag');
-		$link = $notes->get('link');
+		$noteslink = $notes->get('link');
 
 		//convert SQL timestamp to readable date format
 		$date = Event::convertToReadableDate($timestamp);
