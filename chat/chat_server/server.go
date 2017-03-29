@@ -4,7 +4,6 @@ import "net/http"
 import "fmt"
 import "log"
 
-
 type Server struct {
 	sockets  WebsocketHandler
 	sessions SessionHandler
@@ -28,7 +27,7 @@ func NewServer(m MessageBroker) Server {
 func (s Server) socketHandler(w http.ResponseWriter, r *http.Request) {
 	topic := TopicName("all")
 	query_topic := r.URL.Query()["topic"]
-	if len(query_topic) > 1 {
+	if len(query_topic) > 0 {
 		topic = TopicName(query_topic[0])
 	}
 	session := r.URL.Query()["session"]
@@ -47,6 +46,7 @@ func (s Server) socketHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s Server) createSession(w http.ResponseWriter, r *http.Request) {
+	log.Printf("URL: %s", r.URL.RawQuery)
 	nameArg := r.URL.Query()["name"]
 	if len(nameArg) < 1 {
 		http.Error(w, "Session needs a name. ", 400)
@@ -55,10 +55,13 @@ func (s Server) createSession(w http.ResponseWriter, r *http.Request) {
 	name := nameArg[0]
 	topics := r.URL.Query()["topics"]
 	tops := []TopicName{}
-	for tn := range topics {
-		tops = append(tops, TopicName(tn))
-	}
 	tops = append(tops, TopicName("all"))
+	for _, tn := range topics {
+		if len(tn) > 0 {
+			tops = append(tops, TopicName(tn))
+		}
+	}
+	log.Printf("Available topics: %s", tops)
 	sesh := UserSession{
 		DisplayName:     name,
 		AvailableTopics: tops,
