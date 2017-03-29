@@ -11,7 +11,10 @@ Implemented:
     - Search by Group: provides results if the search term is in the group name (order matters)
 - User authentication
 - Forum posts ordered by rating (decreasing)
-- Events are ordered by date (increasing)
+- Events are ordered by date (increasing) 
+    - Only upcoming events are shown
+- Creating events
+    - date and time must be entered in the specified format
 - Polls are ordered by date (decreasing)
 - Notes are ordered by rating (decreasing)
 - Join button when searching for groups
@@ -30,3 +33,4 @@ Not Implemented (yet):
 - Put pinned posts at the top
 - Make entering the dates user-friendly (https://jqueryui.com/datepicker/)
 - Scalability (only looks good on desktop/laptop screens for now)
+- Show poll results
