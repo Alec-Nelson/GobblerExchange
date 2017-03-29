@@ -1,7 +1,7 @@
 # GobblerExchange
 
 Implemented:
-- User can view, create, edit, and delete forum posts, calendar events, notes, polls, forum comments, and notes comments
+- User can view, create, edit, and delete forum posts, calendar events, notes, polls, forum comments (create/view only), and notes comments (create/view only)
 - User can upvote/downvote forum posts and notes
 - Null checks are implemented. If the forum has 0 posts, the calendar has 0 upcoming events, there are 0 notes, there are 0 comments, or there are 0 polls, the website says "There doesn't seem to be any ____"
 - User can open/close polls; Open polls will allow user interaction and closed polls will say [closed] and won't allow the user to submit their response.
@@ -18,6 +18,7 @@ Implemented:
 - Searching w/ no term will produce all results (ex. if 'username' is selected w/ no search term, it'll return all users)
 
 Not Implemented (yet):
+- Edit and delete forum & note comments
 - Only allowing the user who authored the post/event/notes/comment to edit/delete it (currently, anyone can edit or delete any post/event/notes/comment)
 - Searching for forum posts
 - Delete/edit comments

@@ -32,10 +32,6 @@ class NotesController {
 			case 'newnotes_submit':
 				$this->newnotes_submit();
 				break;
-
-			case 'deletenotes':
-				$this->deletenotes();
-				break;
 		}
 	}
 
@@ -73,22 +69,17 @@ class NotesController {
 		//check if author of the notes is the logged in user
 		$authorId = $notes->get('userId');
 
-	//	if($_SESSION['userId'] != $authorId){
-			//$_SESSION['info'] = "You can only edit notes of which you are the author of.";
-			//header('Location: '.BASE_URL);											//TODO update
-			//exit();
-	//	} else {
-			//allow user to edit notes
-			$title = $notes->get('title');
-			$noteslink = $notes->get('link');
+		//allow user to edit notes
+		$title = $notes->get('title');
+		$noteslink = $notes->get('link');
 
-			//get just the file name:
-			$path = explode("\\", $noteslink);
-			$filename = $path[count($path) - 1];
+		//get just the file name:
+		$path = explode("\\", $noteslink);
+		$filename = $path[count($path) - 1];
 
-			$tag = $notes->get('tag');
-			include_once SYSTEM_PATH.'/view/editNote.html';                           //TODO: check tpl is correct
-	//   }
+		$tag = $notes->get('tag');
+		include_once SYSTEM_PATH.'/view/editNote.html';
+
 	}
 
 	/* Publishes updated notes
@@ -107,11 +98,7 @@ class NotesController {
 		$notes = Notes::loadById($notesId);
 
 		if (isset($_POST['Delete'])) {
-			// if($notes->get('userId') == $_SESSION['userId']){
-				$notes->delete();
-			// } else {
-			//	$_SESSION['info'] = "You can only delete notes you have created.";
-			// }
+			$notes->delete();
 			header('Location: '.BASE_URL.'/notes');
 			exit();
 		}
@@ -263,26 +250,4 @@ class NotesController {
 		  header('Location: '.BASE_URL.'/notes'); //no notes chosen to be uploaded
 	}
 
-	/* Deletes notes
-	 * Prereq (POST variables): notesId
-	 * Page variables: SESSION[info]
-	 */
-	public function deletenotes(){
-    	User::loggedInCheck();
-
-		$notesId = $_POST['notesId'];
-		$notes = Notes::loadById($notesId);
-		$notesAuthorId = $notes->get('userId');
-		$notesAuthor = User::loadById($notesAuthorId);
-
-		//user is the author of the notes, allow delete
-		if($notesAuthor->get('username') == $_SESSION['username']){
-			$notes->delete();
-		} else {
-			$_SESSION['info'] = "You can only delete notes you have created.";
-		}
-
-		//refresh page
-		header('Location: '.BASE_URL);											//TODO update
-	}
 }

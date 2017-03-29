@@ -33,10 +33,6 @@ class PollController {
 				$this->newpoll_submit();
 				break;
 
-			case 'deletepoll':
-				$this->deletepoll();
-				break;
-
 			case 'vote':
 				$this->vote();
 				break;
@@ -77,18 +73,11 @@ class PollController {
         //retrieve poll author's username
 		$authorid = $poll->get('userId');
 
-		//check if author of the poll is the logged in user
-		// if($_SESSION['userId'] != $authorId){
-		// 	$_SESSION['info'] = "You can only edit polls of which you are the author of.";
-		// 	header('Location: '.BASE_URL);											 //TODO: check tpl is correct
-		// 	exit();
-		// } else {
-			//allow access to edit poll
-			$title = $poll->get('title');
-            $options = $poll->getPollOptions();
-			$poll_status = $poll->get('isOpen');
-			include_once SYSTEM_PATH.'/view/editPoll.html';
-		// }
+		//allow access to edit poll
+		$title = $poll->get('title');
+        $options = $poll->getPollOptions();
+		$poll_status = $poll->get('isOpen');
+		include_once SYSTEM_PATH.'/view/editPoll.html';
 	}
 
 	/* Publishes an edited poll
@@ -108,17 +97,13 @@ class PollController {
 		$poll = Poll::loadById($pollid);
 
 		if (isset($_POST['Delete'])) {
-			// if($poll->get('userId') == $_SESSION['userId']){
-				$poll->delete();
-			// } else {
-			//	$_SESSION['info'] = "You can only delete polls you have created.";
-			// }
+			$poll->delete();
 			header('Location: '.BASE_URL.'/polls');
 			exit();
 		}
 
 		$title = $_POST['title'];
-		$options = $_POST['options'];
+		$options = trim($_POST['options']);
 		$optionsArray = split (",", $options);
 		$optionsArray=array_map('trim',$optionsArray);
 		$timestamp = date("Y-m-d", time());
@@ -175,7 +160,7 @@ class PollController {
 
 		//get data
 		$title = $_POST['title'];
-		$options = $_POST['options'];
+		$options = trim($_POST['options']);
 		$timestamp = date("Y-m-d", time());
 
 		//create poll
@@ -200,29 +185,6 @@ class PollController {
 		header('Location: '.BASE_URL.'/polls');
 	}
 
-
-	/* Deletes a poll
-	 * Prereq (POST variables): pollid
-	 * Page variables: SESSION[info]
-	 */
-	public function deletepoll(){
-    	User::loggedInCheck();
-
-		$pollid = $_POST['pollid'];
-		$poll = Poll::loadById($pollid);
-		$pollAuthorId = $poll->get('userId');
-		$pollAuthor = User::loadById($pollAuthorId);
-
-		//user is the author of the poll, allow delete
-		if($pollAuthor->get('username') == $_SESSION['username']){
-			$poll->delete();
-		} else {
-			$_SESSION['info'] = "You can only delete polls you have created.";
-		}
-
-		//refresh page
-		header('Location: '.BASE_URL);											//TODO update
-	}
 
 	/* Saves a user's selection on a poll
 	 * Prereq (POST variables): pollid

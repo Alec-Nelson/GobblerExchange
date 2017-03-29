@@ -31,7 +31,6 @@ RewriteRule ^editpost/(\d+)/?$ app/controller/ForumController.php?action=editpos
 RewriteRule ^editpost_submit/?$ app/controller/ForumController.php?action=editpost_submit [QSA,L]
 RewriteRule ^newpost/?$ app/controller/ForumController.php?action=newpost [QSA,L]
 RewriteRule ^newpost_submit/?$ app/controller/ForumController.php?action=newpost_submit [QSA,L]
-RewriteRule ^deletepost/?$ app/controller/ForumController.php?action=deletepost [QSA,L]
 RewriteRule ^forumsearch/?$ app/controller/ForumController.php?action=forumsearch [QSA,L]
 
 
@@ -42,7 +41,6 @@ RewriteRule ^editevent/(\d+)/?$ app/controller/CalendarController.php?action=edi
 RewriteRule ^editevent_submit/?$ app/controller/CalendarController.php?action=editEvent_submit [QSA,L]
 RewriteRule ^newevent/?$ app/controller/CalendarController.php?action=newEvent [QSA,L]
 RewriteRule ^newevent_submit/?$ app/controller/CalendarController.php?action=newEvent_submit [QSA,L]
-RewriteRule ^deleteevent/?$ app/controller/CalendarController.php?action=deleteEvent [QSA,L]
 
 # Poll
 RewriteRule ^polls/?$ app/controller/PollController.php?action=polls [QSA,L]
@@ -52,7 +50,6 @@ RewriteRule ^editpoll_submit/?$ app/controller/PollController.php?action=editpol
 RewriteRule ^newpoll/?$ app/controller/PollController.php?action=newpoll [QSA,L]
 RewriteRule ^newpoll_submit/?$ app/controller/PollController.php?action=newpoll_submit [QSA,L]
 RewriteRule ^vote/?$ app/controller/PollController.php?action=vote [QSA,L]
-RewriteRule ^deletepoll/?$ app/controller/PollController.php?action=deletepoll [QSA,L]
 
 # Notes
 RewriteRule ^notes/?$ app/controller/NotesController.php?action=notes [QSA,L]
@@ -61,7 +58,6 @@ RewriteRule ^editnotes/(\d+)/?$ app/controller/NotesController.php?action=editno
 RewriteRule ^editnotes_submit/?$ app/controller/NotesController.php?action=editnotes_submit [QSA,L]
 RewriteRule ^newnotes/?$ app/controller/NotesController.php?action=newnotes [QSA,L]
 RewriteRule ^newnotes_submit/?$ app/controller/NotesController.php?action=newnotes_submit [QSA,L]
-RewriteRule ^deletenotes/?$ app/controller/NotesController.php?action=deletenotes [QSA,L]
 
 # Comment
 RewriteRule ^viewcomments/?$ app/controller/CommentController.php?action=viewcomments&postId=0 [QSA,L]

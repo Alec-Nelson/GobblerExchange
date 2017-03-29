@@ -32,10 +32,6 @@ class CalendarController {
 			case 'editEvent_submit':
 				$this->editEvent_submit();
 				break;
-
-			case 'deleteEvent':
-				$this->deleteEvent();
-				break;
 		}
 	}
 
@@ -131,24 +127,16 @@ class CalendarController {
         //retrieve event author's username
 		$authorid = $event->get('userId');
 
-		//check if author of the event is the logged in user
-		// if($_SESSION['userId'] != $authorid){
-		// 	$_SESSION['info'] = "You can only edit events of which you are the author of.";
-		// 	header('Location: '.BASE_URL);
-		// 	exit();
-		// } else {
-			//allow access to edit event
-			$title = $event->get('title');
-			$location = $event->get('location');
-			$description = $event->get('description');
-			$date = $event->getDate();												//TODO worry about am/pm
-			$time = $event->getTime();
-			$isPM = $event->isPM();
-			$ampm = "am";
-			if($isPM) $ampm = "pm";
-			$title = $event->get('title');
-			include_once SYSTEM_PATH.'/view/editCalendarEvent.html';
-		//}
+		$title = $event->get('title');
+		$location = $event->get('location');
+		$description = $event->get('description');
+		$date = $event->getDate();
+		$time = $event->getTime();
+		$isPM = $event->isPM();
+		$ampm = "am";
+		if($isPM) $ampm = "pm";
+		$title = $event->get('title');
+		include_once SYSTEM_PATH.'/view/editCalendarEvent.html';
 	}
 
 	/* Publishes edited event
@@ -168,11 +156,7 @@ class CalendarController {
 		$event = Event::loadById($eventId);
 
 		if (isset($_POST['Delete'])) {
-			// if($event->get('userId') == $_SESSION['userId']){
-				$event->delete();
-			// } else {
-			//	$_SESSION['info'] = "You can only delete events you have created.";
-			// }
+			$event->delete();
 			header('Location: '.BASE_URL.'/calendar');
 			exit();
 		}
@@ -193,29 +177,6 @@ class CalendarController {
 		$event->set('title', $title);
 		$event->save();
 
-		header('Location: '.BASE_URL.'/calendar');
-	}
-
-	/* Deletes an event, if the author is the one deleting it
-	 * Prereq (POST variables): delete (event id)
-	 * Page variables: SESSION[info]
-	 */
-	public function deleteEvent(){
-    	User::loggedInCheck();
-
-		$eventid = $_POST['delete'];
-		$event_row = Event::loadById($eventid);
-		$event_author_id = $event_row->get('userId');
-		$event_author = User::loadById($event_author_id);
-
-		//user is the author of the event, allow delete
-		if($event_author->get('username') == $_SESSION['username']){
-			$event_row->delete();
-		} else {
-			$_SESSION['info'] = "You can only delete events you have created.";
-		}
-
-		//refresh page
 		header('Location: '.BASE_URL.'/calendar');
 	}
 }
