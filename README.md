@@ -2,8 +2,8 @@
 
 Implemented:
 - User can create groups
-	-By CRN, for most classes offered this semester. This will match the crn to its course and provide the proper name for the group
-	-By name, for non class groups
+  - By CRN, for most classes offered this semester. This will match the crn to its course and provide the proper name for the group
+  - By name, for non class groups
 - User can view, create, edit, and delete forum posts, calendar events, notes, polls, forum comments (create/view only), and notes comments (create/view only)
 - User can upvote/downvote forum posts and notes
 - Null checks are implemented. If the forum has 0 posts, the calendar has 0 upcoming events, there are 0 notes, there are 0 comments, or there are 0 polls, the website says "There doesn't seem to be any ____"
@@ -25,7 +25,6 @@ Implemented:
 - Notes are ordered by rating (decreasing)
 - Join button when searching for groups
 - Searching w/ no term will produce all results (ex. if 'username' is selected w/ no search term, it'll return all users)
-- Group creation by name or crn
 
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable.
