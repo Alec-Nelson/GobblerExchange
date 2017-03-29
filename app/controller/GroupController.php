@@ -97,7 +97,7 @@ class GroupController {
 	        }
 		}
 
-		if (!$valid) {
+		if (!$valid && $_POST['checkBox'] == "1") {
 			//Invalid CRN
 			$_SESSION['error'] = 'Sorry, that CRN,'.$number.', is not valid.';	  //TODO make sure SESSION[error] is available in tpl
 			header('Location: '.BASE_URL.'/newgroup');											//TODO update location?
