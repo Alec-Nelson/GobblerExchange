@@ -25,6 +25,7 @@ Implemented:
 - Join button when searching for groups
 - Searching w/ no term will produce all results (ex. if 'username' is selected w/ no search term, it'll return all users)
 - Users can chat with one another in seperate chat rooms for each class (and a globall /all chat).
+- Notes are able to be uploaded/downloaded
 
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable.
@@ -47,4 +48,3 @@ Not Implemented (yet):
 - Chat room visibility does not update except for upon login.
 - Proper tag categories
 - Notes are ordered by rating (decreasing)
-- Notes are able to be uploaded/downloaded
