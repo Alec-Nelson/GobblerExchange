@@ -75,13 +75,11 @@ function reset(){
     var colors = function(){
 	colors = ['blue', 'red', 'yellow', 'green'];
 	curr = 0;
-	setInterval(10,
-		    function(){
+	setInterval(function(){
 			$(".fun").css({'color': colors[curr]});
 			curr += 1;
 			curr = curr % colors.length;
-		    }
-		   );
+	}, 50);
     }();
 
 function renderMessage(message) {
@@ -97,16 +95,16 @@ function renderMessage(message) {
 	return;
     }
 
-    fun = false;
-    if(txt.startsWith("!fun")){
-	txt = txt.replace("!fun", "");
-	fun = true;
-    }
+
     var new_msg = $("</p>").text(txt)
-    new_msg.addClass("chatmsg")
-    if(fun){
+
+    if(txt.startsWith("!fun")){
 	new_msg.addClass('fun');
+	new_msg.text(txt.replace("!fun", ""));
     }
+	
+    new_msg.addClass("chatmsg")
+
     
     if(last_message.author == message.SenderName){
 	last_message.div.append(new_msg)
