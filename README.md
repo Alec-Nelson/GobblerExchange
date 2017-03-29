@@ -22,7 +22,6 @@ Implemented:
 - Creating events
     - date and time must be entered in the specified format
 - Polls are ordered by date (decreasing)
-- Notes are ordered by rating (decreasing)
 - Join button when searching for groups
 - Searching w/ no term will produce all results (ex. if 'username' is selected w/ no search term, it'll return all users)
 - Users can chat with one another in seperate chat rooms for each class (and a globall /all chat).
@@ -47,3 +46,5 @@ Not Implemented (yet):
 - View past events
 - Chat room visibility does not update except for upon login.
 - Proper tag categories
+- Notes are ordered by rating (decreasing)
+- Notes are able to be uploaded/downloaded
