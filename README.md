@@ -46,3 +46,4 @@ Not Implemented (yet):
 - Show poll results
 - View past events
 - Chat room visibility does not update except for upon login.
+- Proper tag categories
