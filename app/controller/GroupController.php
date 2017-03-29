@@ -88,24 +88,29 @@ class GroupController {
 			//Pull info from JSON:
 	        $str = file_get_contents(BASE_URL."/public/json/timetable.json");
 	        $json_a = json_decode($str);
-	        $a = 0;
+	        $valid = false;
 	        foreach($json_a->courses as $course) {
-	        	$a = $a + 1;
 	            if($course->crn == $number) {
-	            	$groupName = $course->name;
-	            	$_SESSION['error'] = $course->name."  -  ".$course->number;
+	            	$valid = true;
+	            	$groupName = $course->code.": ".$course->name;
 	            }
 	        }
-	        #$_SESSION['error'] = $a;
-	        #$_SESSION['error'] = var_dump($json_a);
 		}
 
-		#TODO FOR MICHAEL:
-		//handle if they put invalid crn
-		//Cleanup
+		if (!$valid && $_POST['checkBox'] == "1") {
+			//Invalid CRN
+			$_SESSION['error'] = 'Sorry, that CRN,'.$number.', is not valid.';	  //TODO make sure SESSION[error] is available in tpl
+			header('Location: '.BASE_URL.'/newgroup');											//TODO update location?
+			exit();
+		}
 		if(!Group::checkGroupNameAvailability($groupName)){
 			//unavailable group name
-			//$_SESSION['error'] = 'Sorry, that group name, '.$groupName.' is already taken.';	  //TODO make sure SESSION[error] is available in tpl
+			if($_POST['checkBox'] == "1"){
+				$_SESSION['error'] = 'Sorry, a group already exists for CRN '.$number.'.';	  //TODO make sure SESSION[error] is available in tpl
+			} else {
+				$_SESSION['error'] = 'Sorry, that group name,'.$groupName.', is already taken.';	  //TODO make sure SESSION[error] is available in tpl
+			}
+			
 			header('Location: '.BASE_URL.'/newgroup');											//TODO update location?
 			exit();
 		}
