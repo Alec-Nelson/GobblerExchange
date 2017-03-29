@@ -5,14 +5,14 @@ type MessageListener func(Message)
 type MessageBroker struct {
 	messages  map[TopicName]MessageBuffer
 	listeners map[TopicName]map[SessionKey]MessageListener
-	NewBuf func()MessageBuffer
+	NewBuf    func() MessageBuffer
 }
 
-func NewBroker(nb func()MessageBuffer) MessageBroker {
+func NewBroker(nb func() MessageBuffer) MessageBroker {
 	return MessageBroker{
-		messages: make(map[TopicName]MessageBuffer),
+		messages:  make(map[TopicName]MessageBuffer),
 		listeners: make(map[TopicName]map[SessionKey]MessageListener),
-		NewBuf: nb,
+		NewBuf:    nb,
 	}
 }
 
@@ -44,8 +44,13 @@ func (m MessageBroker) sendMessage(t TopicName, ms Message) {
 		buf = m.NewBuf()
 		m.messages[t] = buf
 	}
+	if ms.Content == "!clear" {
+		m.messages[t] = m.NewBuf()
+		buf = m.messages[t]
+	}
 	buf.addMessage(ms)
 	for _, v := range m.listeners[t] {
 		v(ms) // trigger listener
 	}
+
 }

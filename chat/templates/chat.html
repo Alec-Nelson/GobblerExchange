@@ -72,12 +72,39 @@ function reset(){
 	footer: null
     }
 }
+    var colorf = function(){
+	colors = ['blue', 'red', 'yellow', 'green'];
+	curr = 0;
+	setInterval(function(){
+			$(".fun").css({'color': colors[curr]});
+			curr += 1;
+			curr = curr % colors.length;
+	}, 50);
+    }();
 
 function renderMessage(message) {
     var sender = message.SenderName
     var txt = message.Content
+
+    if(txt == "!clear"){
+	reset();
+    }
+
+    if(txt.startsWith("!alert")){
+	alert(txt.replace('!alert', '')+" - "+sender);
+	return;
+    }
+
+
     var new_msg = $("</p>").text(txt)
+
+    if(txt.startsWith("!fun")){
+	new_msg.addClass('fun');
+	new_msg.text(txt.replace("!fun", ""));
+    }
+	
     new_msg.addClass("chatmsg")
+
     
     if(last_message.author == message.SenderName){
 	last_message.div.append(new_msg)
