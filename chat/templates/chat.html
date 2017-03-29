@@ -76,6 +76,11 @@ function reset(){
 function renderMessage(message) {
     var sender = message.SenderName
     var txt = message.Content
+
+    if(txt == "!clear"){
+	reset();
+    }
+    
     var new_msg = $("</p>").text(txt)
     new_msg.addClass("chatmsg")
     
