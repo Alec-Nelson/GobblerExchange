@@ -32,6 +32,8 @@ RewriteRule ^editpost_submit/?$ app/controller/ForumController.php?action=editpo
 RewriteRule ^newpost/?$ app/controller/ForumController.php?action=newpost [QSA,L]
 RewriteRule ^newpost_submit/?$ app/controller/ForumController.php?action=newpost_submit [QSA,L]
 RewriteRule ^deletepost/?$ app/controller/ForumController.php?action=deletepost [QSA,L]
+RewriteRule ^forumsearch/?$ app/controller/ForumController.php?action=forumsearch [QSA,L]
+
 
 # Calendar
 RewriteRule ^calendar/?$ app/controller/CalendarController.php?action=calendar [QSA,L]

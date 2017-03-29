@@ -26,13 +26,15 @@
 
                   <div class="row">
                     <div class="col-lg-8">
-                      <input id = "searchBar" type="text" class="form-control" aria-label="...">
+                      <form method="POST" action="<?= BASE_URL ?>/forumsearch">
+                      <input id = "searchBar" name="search" type="text" class="form-control" aria-label="...">
                     </div>
                     <div class="col-lg-1">
-                      <button id = "button" type="button" class="btn btn-primary">
+                      <button id = "button" type="submit" class="btn btn-primary">
                         Search
                       </button>
                     </div>
+                    </form>
                     <div class="col-lg-1" style="float: right;">
                       <button id = "filterdropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: right;">
                         Date <span class="caret"><span>

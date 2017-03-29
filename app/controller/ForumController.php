@@ -32,6 +32,9 @@ class ForumController {
 			case 'newpost_submit':
 				$this->newpost_submit();
 				break;
+			case 'forumsearch':
+				$this->forumSearch();
+				break;
 		}
 	}
 
@@ -218,5 +221,25 @@ class ForumController {
 		// } else {
 		//	$_SESSION['info'] = "You can only delete posts you have created.";
 		// }
+	}
+
+	/* Searches forum title's and descriptions
+	 * Prereq (POST variables): search (search keywords)
+	 */
+	public function forumSearch(){
+		User::loggedInCheck();
+		$groupId = $_SESSION['groupId'];
+		//do nothing if the user didn't select a group first
+		if ($groupId == 0){
+			header('Location: '.BASE_URL);
+		}
+		//Get forumid associated with the current group
+		$group_entry = Group::loadById($groupId);
+		$group_name = $group_entry->get('group_name');
+		$forumId = $group_entry->get('forumId');
+		$search_term = $_POST['search']; //entered into search bar
+		$posts = ForumPost::searchByTitleAndDesc($search_term, $forumId);
+
+		include_once SYSTEM_PATH.'/view/forum.html';
 	}
 }
