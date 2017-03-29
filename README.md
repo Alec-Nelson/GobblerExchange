@@ -29,3 +29,4 @@ Not Implemented (yet):
 - Adding users to a group when a user creates a group
 - Put pinned posts at the top
 - Make entering the dates user-friendly (https://jqueryui.com/datepicker/)
+- Scalability (only looks good on desktop/laptop screens for now)
