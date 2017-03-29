@@ -32,6 +32,9 @@ class ForumController {
 			case 'newpost_submit':
 				$this->newpost_submit();
 				break;
+			case 'forumsearch':
+				$this->forumSearch();
+				break;
 		}
 	}
 
@@ -77,21 +80,12 @@ class ForumController {
         //retrieve post author's username
 		$authorid = $post_row->get('userId');
 
-		//check if author of the post is the logged in user
-		// if($_SESSION['userId'] != $authorId){
-		// 	$_SESSION['info'] = "You can only edit posts of which you are the author of.";
-		// 	header('Location: '.BASE_URL);
-		// 	exit();
-		// } else {
-			//hidden variables:
-			$postId = $post_row->get('id');
+		$postId = $post_row->get('id');
 
-			//allow access to edit post
-			$title = $post_row->get('title');
-			$body = $post_row->get('description');
-			$tag = $post_row->get('tag');
-			include_once SYSTEM_PATH.'/view/editForumPost.html';                           //TODO: check tpl is correct
-		// }
+		$title = $post_row->get('title');
+		$body = $post_row->get('description');
+		$tag = $post_row->get('tag');
+		include_once SYSTEM_PATH.'/view/editForumPost.html';
 	}
 
 	/* Publishes an edited post
@@ -187,36 +181,49 @@ class ForumController {
 	 * Page variables: SESSION[info]
 	 */
 	private function deletepost($postId){
+		//delete rating associated with post
+		$post = ForumPost::loadById($postId);
+		$ratingId = $post->get('ratingId');
+		$rating = Rating::loadById($ratingId);
+		$rating->delete();
 
-		// if($post->get('userId') == $_SESSION['userId']){
-
-			//delete rating associated with post
-			$post = ForumPost::loadById($postId);
-			$ratingId = $post->get('ratingId');
-			$rating = Rating::loadById($ratingId);
-			$rating->delete();
-
-			//delete userratings associated with post
-			$user_ratings = UserRating::getAllByRatingId($ratingId);
-			if($user_ratings != null){
-				foreach($user_ratings as $ur){
-					$ur->delete();
-				}
+		//delete userratings associated with post
+		$user_ratings = UserRating::getAllByRatingId($ratingId);
+		if($user_ratings != null){
+			foreach($user_ratings as $ur){
+				$ur->delete();
 			}
+		}
 
-			//delete comments associated with posts
-			$comments = Comment::getAllCommentsByPost($postId);
-			if($comments != null){
-				foreach($comments as $com){
-					$com->delete();
-				}
+		//delete comments associated with posts
+		$comments = Comment::getAllCommentsByPost($postId);
+		if($comments != null){
+			foreach($comments as $com){
+				$com->delete();
 			}
+		}
 
-			//delete post
-			$post->delete();
+		//delete post
+		$post->delete();
+	}
 
-		// } else {
-		//	$_SESSION['info'] = "You can only delete posts you have created.";
-		// }
+	/* Searches forum title's and descriptions
+	 * Prereq (POST variables): search (search keywords)
+	 */
+	public function forumSearch(){
+		User::loggedInCheck();
+		$groupId = $_SESSION['groupId'];
+		//do nothing if the user didn't select a group first
+		if ($groupId == 0){
+			header('Location: '.BASE_URL);
+		}
+		//Get forumid associated with the current group
+		$group_entry = Group::loadById($groupId);
+		$group_name = $group_entry->get('group_name');
+		$forumId = $group_entry->get('forumId');
+		$search_term = $_POST['search']; //entered into search bar
+		$posts = ForumPost::searchByTitleAndDesc($search_term, $forumId);
+
+		include_once SYSTEM_PATH.'/view/forum.html';
 	}
 }

@@ -20,10 +20,10 @@
 <h1> <?php echo $group_name ?></h1>
 
 <?php
-    if($number != null){
-?>
-        <h4><i> CRN: <?php echo $number ?></i></h4>
-<?php } ?>
+    if($number != null && $number != 0){
+
+      echo  '<h4><i> CRN: ' . $number. '</i></h4>';
+ } ?>
 
 <h5> Group created by: <?php echo $creatorUsername ?></h5>
 <h5> Number of users: <?php echo $numUsers ?></h5>

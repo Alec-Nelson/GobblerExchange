@@ -19,3 +19,23 @@
 #edit_button_form{
     float:right;
 }
+#heading{
+  color: white;
+  background-color: #660000;
+}
+#body{
+  
+}
+
+#footer{
+  background: rgba(204,204,204,0.5);
+}
+
+.panel-primary{
+    border-color: black;
+}
+
+#optionsButton{
+  background-color: #660000;
+  border-color: black;
+}

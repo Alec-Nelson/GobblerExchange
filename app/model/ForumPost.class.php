@@ -118,8 +118,7 @@ class ForumPost extends DbObject {
     }
 
     public function getAllPosts_SortDescRating($forumId){
-        $query = sprintf(" SELECT forumpost.id, rating.rating FROM forumpost INNER JOIN rating ON forumpost.ratingId = rating.id ORDER BY rating.rating desc",
-            self::DB_TABLE,
+        $query = sprintf(" SELECT forumpost.id, rating.rating FROM forumpost INNER JOIN rating ON forumpost.ratingId = rating.id where forumId=%s ORDER BY rating.rating desc",
             $forumId
         );
 
@@ -154,6 +153,33 @@ class ForumPost extends DbObject {
             }
             return ($objects);
         }
+    }
+
+    //Seaches posts with search_term present in
+    //the title or description
+    public function searchByTitleAndDesc($search_term, $forumId){
+      //search by group name
+      //returns all posts if search term is empty/null
+          if($search_term == null || $search_term == ""){
+              return self::getAllPosts($forumId);
+          }
+          $query = sprintf(" SELECT id FROM %s WHERE title LIKE '%%%s%%' OR description LIKE '%%%s%%' ",
+              self::DB_TABLE,
+              $search_term,
+              $search_term
+              );
+
+          $db = Db::instance();
+          $result = $db->lookup($query);
+          if(!mysql_num_rows($result))
+              return null;
+          else {
+              $objects = array();
+              while($row = mysql_fetch_assoc($result)) {
+                  $objects[] = self::loadById($row['id']);
+              }
+              return ($objects);
+          }
     }
 }
 ?>

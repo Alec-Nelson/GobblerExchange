@@ -3,15 +3,17 @@
 
 ?>
 
+<link href="<?= BASE_URL ?>/public/css/comment.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/comment.css');?>" type="text/css" rel="stylesheet">
+
 <!-- The forum post: -->
 <div class="panel panel-primary">
-  <div class="panel-heading">
+  <div id = "heading" class="panel-heading">
     <h3 class="panel-title"><?php echo $title ?></h3>
   </div>
-  <div class="panel-body">
+  <div id = "body" class="panel-body">
     <?php echo $description ?>
   </div>
-  <div class="panel-footer">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?>
+  <div id = "footer" class="panel-footer">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?>
       <span style="float:right;">Tagged as: <?php echo $tag ?></span></div>
 </div>
 

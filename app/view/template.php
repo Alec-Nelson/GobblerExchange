@@ -60,13 +60,13 @@ $(function(){
           <div class="input-group-btn">
             <form method="POST" action="<?= BASE_URL ?>/search" id="searchForm">
             <button id = "searchdropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                CRN <span class="caret"><span>
+                Group <span class="caret"><span>
             </button>
             <ul class="dropdown-menu type" role = "menu" name="types">
-              <li value="crn"><a href="#">CRN</a></li>
-              <li value="group"><a href="#">Group</a></li>
+              <li value="crn"><a href="#">Crn</a></li>
               <li value="username"><a href="#">Username</a></li>
               <li value="email"><a href="#">Email</a></li>
+              <li value="group"><a href="#">Group</a></li>
             </ul>
           </div><!-- /btn-group -->
           <input type="hidden" name="type">
@@ -154,6 +154,15 @@ $(function(){
                           {
                             echo "<div class='alert alert-info' role='alert'>".$_SESSION['info']."</div>";
                             $_SESSION['info'] = '';
+                          }
+                        }
+                        //success box
+                        if(isset($_SESSION['success']))
+                        {
+                          if($_SESSION['success'] != '')
+                          {
+                            echo "<div class='alert alert-success' role='alert'>".$_SESSION['success']."</div>";
+                            $_SESSION['success'] = '';
                           }
                         }
                       ?>

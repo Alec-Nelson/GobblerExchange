@@ -3,23 +3,19 @@
   <head>
     <meta charset="utf-8">
     <title>Gobbler Exchange</title>
-    <!-- <script src="../../public/js/jquery.min.js"></script>
-    <script src="../../public/js/bootstrap.min.js"></script>
-    <script src="../../public/js/base.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../public/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../../public/css/base.css"> -->
     <script src="<?= BASE_URL ?>/public/js/jquery.min.js"></script>
     <script src="<?= BASE_URL ?>/public/js/bootstrap.min.js"></script>
     <script src="<?= BASE_URL ?>/public/js/base.js"></script>
     <link href="<?= BASE_URL ?>/public/css/bootstrap.min.css" type="text/css" rel="stylesheet">
     <link href="<?= BASE_URL ?>/public/css/template.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/base.css');?>" type="text/css" rel="stylesheet">
+    <link href="<?= BASE_URL ?>/public/css/login.css" type="text/css" rel="stylesheet">
   </head>
   <body>
     <div id="banner">
     <div class="container">
       <div class="row">
       <!-- Website Title -->
-        <div class="col-lg-4">
+        <div class="col-sm-5">
           <h1>
             <a class="title" href="<?= BASE_URL ?>" style="text-decoration:none"><span class="maroon">Gobbler</span></a>
             <a class="title" href="<?= BASE_URL ?>" style="text-decoration:none"><span class="orange">Exchange</span></a>
@@ -28,10 +24,7 @@
 
         <!-- Sign in/out -->
         <form method="POST" action="postlogin">
-          <button id = "signout" type="submit" class="btn btn-primary" style="float: right; margin-top: 0">
-              Login
-          </button>
-        <div class="col-lg-5" style="float: right; margin-top: 20px">
+        <div id="login_section" class="col-lg-5">
 
           <div class="col-lg-5">
             <input name="userlogin" id = "searchBar" type="text" class="form-control" placeholder="Username" aria-label="...">
@@ -39,20 +32,23 @@
           <div class="col-lg-5">
             <input name="passlogin" id = "searchBar" type="password" class="form-control" placeholder="Password" aria-label="...">
           </div>
-          <h6 style="float: left; margin-left: 15px;">Already have an account? Sign in here!</h6>
+          <button id="login_button" type="submit" class="btn btn-primary">
+              Login
+          </button>
+          <h6 id="login_directions">Already have an account? Sign in here!</h6>
         </div>
         </form>
       </div>
 
       <!-- Other Stuff -->
-      <div style="float: left;">
-        <img src="<?= BASE_URL ?>\public\images\vatech.png" alt="VA Tech" style="margin-top: 60px;width:500px;height:250px;">
+      <div id="ad_section">
+        <img id="va_tech_img" src="<?= BASE_URL ?>\public\images\vatech.png" alt="VA Tech">
       </div>
 
       <!-- Registration -->
-      <div style="float: right;width:640px;">
-        <div class="row" style="margin-top: 60px;margin-right: 60px;">
-        <div class="col-xs-8 col-sm-8 col-md-8" style="float: right;">
+      <div id="reg_section">
+        <div class="row" id="reg_row">
+        <!-- <div class="col-xs-8 col-sm-8 col-md-8" style="float: right;"> -->
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">New to Gobbler Exchange? Create an account to get access to all of these features!</h3>
@@ -67,7 +63,23 @@
                       $_SESSION['error'] = '';
                     }
                   }
-                ?>
+                    if(isset($_SESSION['info']))
+                    {
+                      if($_SESSION['info'] != '')
+                      {
+                        echo "<div class='alert alert-info' role='alert'>".$_SESSION['info']."</div>";
+                        $_SESSION['info'] = '';
+                      }
+                    }
+                    if(isset($_SESSION['success']))
+                    {
+                      if($_SESSION['success'] != '')
+                      {
+                        echo "<div class='alert alert-success' role='alert'>".$_SESSION['success']."</div>";
+                        $_SESSION['success'] = '';
+                      }
+                    }
+                  ?>
               <form method="POST" action="register" role="form">
                 <div class="row">
                   <div class="col-xs-6 col-sm-6 col-md-6">
@@ -102,13 +114,13 @@
                     </div>
                   </div>
                 </div>
-
-                <input type="submit" value="Register" class="btn btn-info btn-block" style="background-color: #660000;">
-
+                <button id="reg_button" type="submit" class="btn btn-primary">
+                    Register
+                </button>
               </form>
             </div>
           </div>
-        </div>
+        <!-- </div> -->
       </div>
     </div>
 

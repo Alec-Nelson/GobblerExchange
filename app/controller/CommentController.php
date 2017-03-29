@@ -118,15 +118,8 @@ class CommentController {
 		$author = User::loadById($authorId);
 		$authorUsername = $author->get('username');
 
-		if($_SESSION['username'] != $authorUsername){
-			$_SESSION['info'] = "You can only edit comments of which you are the author of.";
-			header('Location: '.BASE_URL);											//TODO update
-			exit();
-		} else {
-			//allow user to edit comment
-			$comment = $comment_entry->get('comment');
-			include_once SYSTEM_PATH.'/view/editcomment.tpl';                           //TODO: check tpl is correct
-		}
+		$comment = $comment_entry->get('comment');
+		include_once SYSTEM_PATH.'/view/editcomment.tpl';                           //TODO: check tpl is correct
 	}
 
 	/* Publishes updated comment
@@ -141,8 +134,14 @@ class CommentController {
 			exit();
 		}
 
-		$commentId = $_POST['commentId'];
-		$comment_entry = Comment::loadById($commentId);
+        $commentId = $_POST['commentId'];
+        $comment_entry = Comment::loadById($commentId);
+
+        if (isset($_POST['Delete'])) {
+            $comment_entry->delete();
+            header('Location: '.BASE_URL);                                      //TODO update
+            exit();
+        }
 
 		$comment = $_POST['comment'];
 		$timestamp = date("Y-m-d", time());
@@ -153,29 +152,6 @@ class CommentController {
 
 		header('Location: '.BASE_URL);											//TODO update
 	}
-
-    /* Deletes comment
-     * Prereq (POST variables): commentId
-     * Page variables: SESSION[info]
-     */
-    public function deleteComment(){
-        User::loggedInCheck();
-
-        $commentId = $_POST['commentId'];
-        $comment = Comment::loadById($commentId);
-        $commentAuthorId = $comment->get('userId');
-        $commentAuthor = User::loadById($commentAuthorId);
-
-        //user is the author of the notes, allow delete
-        if($commentAuthor->get('username') == $_SESSION['username']){
-            $comment->delete();
-        } else {
-            $_SESSION['info'] = "You can only delete comments you have created.";
-        }
-
-        //refresh page
-        header('Location: '.BASE_URL);											//TODO update
-    }
 
     // ---------- NOTES FUNCTIONS --------------------------------------------
 

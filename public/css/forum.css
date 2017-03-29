@@ -30,7 +30,9 @@
   background-color: #ff6600;
 }
 
-.dropdown-menu {
+#dorp>li>a{
+  color: black;
+  background-color: white;
 
 }
 

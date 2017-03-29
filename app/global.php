@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-// $_SESSION['LoggedIn']='false';
+$_SESSION['AWS']=false;
 set_include_path(dirname(__FILE__)); # include path - don't change
 
 include_once 'config.php';

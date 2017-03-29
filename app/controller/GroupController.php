@@ -110,7 +110,7 @@ class GroupController {
 			} else {
 				$_SESSION['error'] = 'Sorry, that group name,'.$groupName.', is already taken.';	  //TODO make sure SESSION[error] is available in tpl
 			}
-			
+
 			header('Location: '.BASE_URL.'/newgroup');											//TODO update location?
 			exit();
 		}
@@ -159,8 +159,8 @@ class GroupController {
 		$search_term = $_POST['search']; //entered into search bar
 
 		switch ($type) {
-			case "group":
-				$results = Group::searchGroupName($search_term);
+			case "crn":
+				$results = Group::searchCRN($search_term);
 				include_once SYSTEM_PATH.'/view/searchgroup.html';
 			break;
 			case "username":
@@ -170,9 +170,9 @@ class GroupController {
 			case "email":
 				$results = User::searchEmail($search_term);
 				include_once SYSTEM_PATH.'/view/searchuser.html';
-			default: //crn
-				$type="crn";
-				$results = Group::searchCRN($search_term);
+			default: //group
+				$type="group";
+				$results = Group::searchGroupName($search_term);
 				include_once SYSTEM_PATH.'/view/searchgroup.html';
 		}
 		include_once SYSTEM_PATH.'/view/test.html';

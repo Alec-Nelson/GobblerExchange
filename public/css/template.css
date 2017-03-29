@@ -81,7 +81,7 @@ li {
     background-color: #ff6600;
 }
 #navigation {
-  
+
 }
 
 #navigation a:active {
@@ -92,6 +92,10 @@ li {
     color: white !important;
     background-color: #ff6600 !important;
     border-color: white;
+}
+
+.dropdown-menu{
+  min-width: 5px;
 }
 
 #signedinas{
@@ -150,4 +154,3 @@ li {
     color: white;
     background-color: #ff6600;
 }
-

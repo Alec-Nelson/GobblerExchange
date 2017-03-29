@@ -13,6 +13,7 @@
 #login_directions {
 	float: left;
 	margin-left: 15px;
+	margin-right: 15px;
 }
 /* end login */
 
@@ -20,12 +21,16 @@
 /* start ad */
 #ad_section {
 	float: left;
+	min-width: 250px;
+	max-width: 500px;
+	width: 35vw; 
 }
 
 #va_tech_img {
-	margin-top: 60px;
-	width: 500px;
-	height: 250px;
+	margin-top: 15px;
+	max-width: 100%;
+	width: auto;
+	height: auto;
 }
 /* end ad */
 
@@ -33,12 +38,13 @@
 /* start registration */
 #reg_section {
 	float: right;
-	width: 640px;
+	min-width: 200px;
+	max-width: 500px;
+	width: 35vw;
 }
 
 #reg_row {
-	margin-top: 60px;
-	margin-right: 60px;
+	margin-top: 15px;
 }
 
 #reg_box {
@@ -46,6 +52,21 @@
 }
 
 #reg_button {
+    color: white;
 	background-color: #660000;
+	width: 100%;
 }
 /* end registration */
+
+@media(max-width: 640px)
+{
+	#ad_section
+	{
+		display:none;
+	}
+	#reg_section {
+		float: none;
+		width: 100%;
+		padding: 15px;
+	}
+}
