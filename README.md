@@ -34,3 +34,4 @@ Not Implemented (yet):
 - Make entering the dates user-friendly (https://jqueryui.com/datepicker/)
 - Scalability (only looks good on desktop/laptop screens for now)
 - Show poll results
+- View past events
