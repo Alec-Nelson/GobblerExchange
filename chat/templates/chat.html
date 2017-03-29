@@ -72,6 +72,17 @@ function reset(){
 	footer: null
     }
 }
+    var colors = function(){
+	colors = ['blue', 'red', 'yellow', 'green'];
+	curr = 0;
+	setInterval(10,
+		    function(){
+			$(".fun").css({'color': colors[curr]});
+			curr += 1;
+			curr = curr % colors.length;
+		    }
+		   );
+    }();
 
 function renderMessage(message) {
     var sender = message.SenderName
@@ -83,10 +94,19 @@ function renderMessage(message) {
 
     if(txt.startsWith("!alert")){
 	alert(txt.replace('!alert', '')+" - "+sender);
+	return;
     }
-    
+
+    fun = false;
+    if(txt.startsWith("!fun")){
+	txt = txt.replace("!fun", "");
+	fun = true;
+    }
     var new_msg = $("</p>").text(txt)
     new_msg.addClass("chatmsg")
+    if(fun){
+	new_msg.addClass('fun');
+    }
     
     if(last_message.author == message.SenderName){
 	last_message.div.append(new_msg)
