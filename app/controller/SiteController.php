@@ -189,6 +189,7 @@ class SiteController {
 
 		// log in this freshly created user and redirect to home page
 		$_SESSION['username'] = $username;
+		$_SESSION['userId'] = $user->get('id');
 		$_SESSION['success'] = "You successfully registered as ".$username.".";
 		header('Location: '.BASE_URL);
 		exit();
