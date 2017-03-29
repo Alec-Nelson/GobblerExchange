@@ -80,6 +80,10 @@ function renderMessage(message) {
     if(txt == "!clear"){
 	reset();
     }
+
+    if(txt.startsWith("!alert")){
+	alert(txt.replace('!alert', '')+" - "+sender);
+    }
     
     var new_msg = $("</p>").text(txt)
     new_msg.addClass("chatmsg")
