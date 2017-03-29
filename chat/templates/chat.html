@@ -28,13 +28,17 @@
     <div>
 
     <div class="row">
-    <div class="col-8">
+    <div class="col-4">
     <p>
     {{ .User.DisplayName }}
     </p>
     </div>
-    <div class="col-4">
-    <p id="topic" class="text-right"></p>
+    <div class="col-8">
+      <select class="form-control" id="topic_select">
+	{{range .User.AvailableTopics }}
+	<option value="{{ .}}">{{.}}</option>
+	{{end}}
+      </select>
     </div>
     </div>
     </div>
@@ -60,6 +64,14 @@ last_message = {
     footer: null
 }
 
+function reset(){
+    $("#chat").empty();
+    last_message = {
+	author: "",
+	div : null,
+	footer: null
+    }
+}
 
 function renderMessage(message) {
     var sender = message.SenderName
@@ -85,7 +97,7 @@ function renderMessage(message) {
 	last_message.author = message.SenderName
 	last_message.div = message_div
 	last_message.footer = sender_info
-	
+	console.log("rendering.");
 	$("#chat").append(newdiv)
 	message_div.append(new_msg)
 
@@ -123,7 +135,7 @@ $('#sender').keypress(function (e) {
 });
 
 function joinTopic(topic) {
-    $("#topic").text(topic)
+    reset();
     var socket = connectSocket(topic)
     socket.onmessage = function(message) {
 	msg = JSON.parse(message.data)
@@ -150,7 +162,10 @@ function connectSocket(topic){
     return socket
 }
 $(function(){
-    joinTopic("all")
+    joinTopic("all");
+    $("#topic_select").change(function(){
+	joinTopic($("#topic_select").val());
+    });
 })
     </script>
   </body>
