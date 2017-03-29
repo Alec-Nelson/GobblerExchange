@@ -115,10 +115,9 @@ class Notes extends DbObject {
         }
     }
 
-    public function getAllNotes_SortDescRating($notesId){
-        $query = sprintf(" SELECT notes.id, rating.rating FROM notes INNER JOIN rating ON notes.ratingId = rating.id ORDER BY rating.rating desc",
-            self::DB_TABLE,
-            $notesId
+    public function getAllNotes_SortDescRating($groupId){
+        $query = sprintf(" SELECT notes.id, rating.rating FROM notes INNER JOIN rating ON notes.ratingId = rating.id where groupId=%s ORDER BY rating.rating desc",
+            $groupId
         );
 
         $db = Db::instance();
