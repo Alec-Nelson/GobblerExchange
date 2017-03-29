@@ -51,3 +51,6 @@
 #calendar a{
   background-color: #ff6600;
 }
+.panel-primary{
+    border-color: black;
+}
