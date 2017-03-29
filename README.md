@@ -9,9 +9,12 @@ Implemented:
 - Main search bar provides some functionality
     - Search by CRN/email/username: works if given the exact term
     - Search by Group: provides results if the search term is in the group name (order matters)
-- User authentication
+- Forum search bar searches for phrases in post titles and descriptions.
+- User account creation
+  - Checks for repeated username, checks for vt.edu email address, checks if passwords match
+- User log in authentication
 - Forum posts ordered by rating (decreasing)
-- Events are ordered by date (increasing) 
+- Events are ordered by date (increasing)
     - Only upcoming events are shown
 - Creating events
     - date and time must be entered in the specified format
@@ -19,6 +22,7 @@ Implemented:
 - Notes are ordered by rating (decreasing)
 - Join button when searching for groups
 - Searching w/ no term will produce all results (ex. if 'username' is selected w/ no search term, it'll return all users)
+- Group creation by name or crn
 
 Not Implemented (yet):
 - Edit and delete forum & note comments
