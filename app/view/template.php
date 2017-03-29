@@ -156,4 +156,13 @@ $(function(){
                             $_SESSION['info'] = '';
                           }
                         }
+                        //success box
+                        if(isset($_SESSION['success']))
+                        {
+                          if($_SESSION['success'] != '')
+                          {
+                            echo "<div class='alert alert-success' role='alert'>".$_SESSION['success']."</div>";
+                            $_SESSION['success'] = '';
+                          }
+                        }
                       ?>
