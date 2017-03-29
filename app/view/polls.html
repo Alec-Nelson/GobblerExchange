@@ -43,7 +43,7 @@
           <div  id = "heading" class="panel-heading">
               <h3class="panel-title"><?php echo $title ?> <?php if(!$open) echo "[CLOSED]" ?> </h3>
           </div>
-          <div class="panel-body">
+          <div id = "body" class="panel-body">
               <input type="hidden" name="pollId" value="<?php echo $id ?>">
               <?php
               if($options != null){
