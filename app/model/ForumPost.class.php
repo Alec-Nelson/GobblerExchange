@@ -118,8 +118,7 @@ class ForumPost extends DbObject {
     }
 
     public function getAllPosts_SortDescRating($forumId){
-        $query = sprintf(" SELECT forumpost.id, rating.rating FROM forumpost INNER JOIN rating ON forumpost.ratingId = rating.id ORDER BY rating.rating desc",
-            self::DB_TABLE,
+        $query = sprintf(" SELECT forumpost.id, rating.rating FROM forumpost INNER JOIN rating ON forumpost.ratingId = rating.id where forumId=%s ORDER BY rating.rating desc",
             $forumId
         );
 
