@@ -143,7 +143,7 @@ class PollController {
 	public function newpoll(){
         User::loggedInCheck();
 
-		include_once SYSTEM_PATH.'/view/createpoll.html';
+		include_once SYSTEM_PATH.'/view/createPoll.html';
 	}
 
 	/* Publishes new poll to the forum
