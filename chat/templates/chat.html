@@ -134,9 +134,17 @@ $('#sender').keypress(function (e) {
   }
 });
 
+socket = null;
+
 function joinTopic(topic) {
     reset();
-    var socket = connectSocket(topic)
+
+    if(socket != null){
+	socket.onmessage = function(message){}
+	socket.close();
+    }
+    
+    socket = connectSocket(topic)
     socket.onmessage = function(message) {
 	msg = JSON.parse(message.data)
 	console.log(msg)
