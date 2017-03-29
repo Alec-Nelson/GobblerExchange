@@ -25,6 +25,7 @@ Implemented:
 - Notes are ordered by rating (decreasing)
 - Join button when searching for groups
 - Searching w/ no term will produce all results (ex. if 'username' is selected w/ no search term, it'll return all users)
+- Users can chat with one another in seperate chat rooms for each class (and a globall /all chat).
 
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable.
@@ -44,3 +45,4 @@ Not Implemented (yet):
 - Scalability (only looks good on desktop/laptop screens for now)
 - Show poll results
 - View past events
+- Chat room visibility does not update except for upon login.
