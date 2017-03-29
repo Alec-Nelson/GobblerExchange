@@ -93,7 +93,7 @@ class UserGroup extends DbObject {
         else {
             $objects = array();
             while($row = mysql_fetch_assoc($result)) {
-                $objects[] = self::loadById($row['id']);
+                $objects[] = Group::loadById($row['groupId']);
             }
             return ($objects);
         }
