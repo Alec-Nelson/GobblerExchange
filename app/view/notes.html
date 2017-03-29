@@ -10,6 +10,7 @@
     				Add Note
     			</button>
     		</a>
+          <div id = "note">
                 <?php
                 if($notes != null){
                       foreach($notes as $note){
@@ -36,6 +37,7 @@
                                 else if ($user_rating->get('vote') == -1) $downvoted = true;
                             }
                           ?>
+                  
             	<ul>
                 <li>
                     <!-- upvote -->
@@ -58,8 +60,8 @@
                   </form>
                   <?php } ?>
                 </li>
-				<li>
-					<h4> <a href="<?php echo $noteslink ?>" download><?php echo $title ?></a> </h4>
+				<li id = "title">
+					<h4> <a"title" href="<?php echo $noteslink ?>" download><?php echo $title ?></a> </h4>
 					<h5> Author: <?php echo $authorUsername ?> </h5>
 					<h5> Date: <?php echo $date ?> </h5>
                     <p> Points: <?php echo $score ?> </p>
@@ -68,14 +70,14 @@
                     <?php $edit_action = BASE_URL."/editnotes/".$id ?>
                     <form action=<?php echo $edit_action ?> >
                         <button type="submit" style="border: 0; background: transparent">
-                            <img class="settings_button" src="<?= BASE_URL ?>/public/images/settings.png" />
+                                    <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
                         </button>
                     </form>
                 </li>
                 <li>
                     <?php $edit_action = BASE_URL."/viewnotescomments/".$id ?>
                     <form action=<?php echo $edit_action ?> >
-                        <button type="submit" class="btn btn-primary">
+                        <button id = "view" type="submit" class="btn btn-primary">
                             View Comments
                         </button>
                     </form>
@@ -90,6 +92,8 @@
                       <?php
                   }
                  ?>
+
+                 </div>
          <!-- I'm thinking maybe 4 notes here at maximum until they press more -->
 		<!-- <div class="col-lg-2" style="text-align: center;">
 			<button id = "button" type="button" class="btn btn-primary">

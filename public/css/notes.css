@@ -7,3 +7,27 @@
 #notes a{
   background-color: #ff6600;
 }
+
+#view{
+    background-color: #660000;
+}
+
+li:a{
+    background-color: black;
+    color:white;
+}
+
+#button{
+    float: right;
+}
+
+#note{
+    margin-top: 75px
+}
+
+.settings_button {
+    width:30px;
+    height:30px;
+    border: 0;
+    background: transparent;
+}
