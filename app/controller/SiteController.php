@@ -84,13 +84,17 @@ class SiteController {
 			}
 
             $_topic_query_st = "";
-            foreach ($groups as $group) {
-                $gname = $group->group_name;
-                $_topic_query_st = $_topic_query_st . "&topics=$gname";
+            if ($groups != null)
+            {
+                foreach ($groups as $group) {
+                    $gname = urlencode($group->get('group_name'));
+                    $_topic_query_st = ($_topic_query_st . "&topics=" . $gname);
+                }
             }
 
-
-            $token = file_get_contents("http://104.236.205.162/create_session?name=$un$_topic_query_st");
+            $chat_server = "http://" . "localhost:8080"; //"104.236.205.162";
+            $_SESSION['chat_server'] = $chat_server;
+            $token = file_get_contents($chat_server . "/create_session?name=$un$_topic_query_st");
             $_SESSION['chat_token'] = $token;
 
 			// else{

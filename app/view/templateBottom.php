@@ -5,12 +5,12 @@
 
 <!-- Chat box -->
       
-<iframe id="chat" src="http://104.236.205.162/" style="height: 70vh; width: 20vw;"></iframe>
+<iframe id="chat" src="" style="height: 70vh; width: 20vw;"></iframe>
       <script type="text/javascript">
     var chat_token = "<?php
 echo $_SESSION['chat_token'];
 ?>";
-$("#chat").attr('src', "http://104.236.205.162/chat?session="+chat_token);
+$("#chat").attr('src', "<?php echo $_SESSION['chat_server'] ?>/chat?session="+chat_token);
       </script>
 </div>
 </div>
