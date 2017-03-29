@@ -63,7 +63,23 @@
                       $_SESSION['error'] = '';
                     }
                   }
-                ?>
+                    if(isset($_SESSION['info']))
+                    {
+                      if($_SESSION['info'] != '')
+                      {
+                        echo "<div class='alert alert-info' role='alert'>".$_SESSION['info']."</div>";
+                        $_SESSION['info'] = '';
+                      }
+                    }
+                    if(isset($_SESSION['success']))
+                    {
+                      if($_SESSION['success'] != '')
+                      {
+                        echo "<div class='alert alert-success' role='alert'>".$_SESSION['success']."</div>";
+                        $_SESSION['success'] = '';
+                      }
+                    }
+                  ?>
               <form method="POST" action="register" role="form">
                 <div class="row">
                   <div class="col-xs-6 col-sm-6 col-md-6">
