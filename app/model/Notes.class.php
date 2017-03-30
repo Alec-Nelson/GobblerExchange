@@ -6,7 +6,7 @@ class Notes extends DbObject {
     //database fields
     protected $id;
     protected $title;
-    protected $link;
+    protected $link;       //this is essentially the filename, like 'test.pdf'
     protected $userId;
     protected $timestamp;
     protected $tag;
