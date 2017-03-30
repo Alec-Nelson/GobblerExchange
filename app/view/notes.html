@@ -23,6 +23,7 @@
                             $date = Event::convertToReadableDate($timestamp);
                             $noteslink =$note->get('link');
                             $ratingId = $note->get('ratingId');
+                            $filename = $note->getFilename();
 
                             //get rating
                             $rate = Rating::loadById($ratingId);
@@ -61,7 +62,7 @@
                   <?php } ?>
                 </li>
 				<li id = "title">
-					<h4> <a href="<?php echo $noteslink ?>" download><?php echo $title ?></a> </h4>
+					<h4> <a href="public/notes/<?php echo $filename ?>" download><?php echo $title ?></a> </h4>
 					<h5> Author: <?php echo $authorUsername ?> </h5>
 					<h5> Date: <?php echo $date ?> </h5>
                     <p> Points: <?php echo $score ?> </p>

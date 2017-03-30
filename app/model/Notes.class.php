@@ -92,6 +92,18 @@ class Notes extends DbObject {
         return Comment::getAllCommentsByNotes($this->id);
     }
 
+    public function getFilename(){
+        if($_SESSION['AWS']){
+            $directories = explode("/", $this->link);
+            $size = count($directories);
+            return $directories[$size-1];
+        } else {
+            $directories = explode("\\", $this->link);
+            $size = count($directories);
+            return $directories[$size-1];
+        }
+    }
+
     //--------------------------------------------------------------------------
 
     //get all notes from a specific group

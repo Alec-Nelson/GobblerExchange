@@ -137,7 +137,8 @@ class NotesController {
 		      else if (empty($errors) == true){
 				 $temp_path = realpath(dirname(dirname(getcwd())));
 				 //Path on local system (CHANGE IF HOST CHANGES)
-				 $path = "public/notes/".$file_name;
+				 $path = $temp_path."\\public\\notes\\".$file_name;
+				 if($_SESSION['AWS']) $path = $temp_path."/public/notes/".$file_name;
 				 //check if file name already exists
 				 if(file_exists($path)){
 					 $_SESSION['error'] = "File with that name already exists. Please rename your file and resubmit.";
@@ -214,7 +215,8 @@ class NotesController {
 		      else if (empty($errors) == true){
 				 $temp_path = realpath(dirname(dirname(getcwd())));
 				 //Path on local system (CHANGE IF HOST CHANGES)
-				 $path = "public/notes/".$file_name;
+				 $path = $temp_path."\\public\\notes\\".$file_name;
+				 if($_SESSION['AWS']) $path = $temp_path."/public/notes/".$file_name;
 				 //check if file name already exists
 				 if(file_exists($path)){
 					 $_SESSION['error'] = "File with that name already exists. Please rename your file and resubmit.";
