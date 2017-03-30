@@ -136,9 +136,8 @@ class NotesController {
 			  //attempt to store the file in the file system
 		      else if (empty($errors) == true){
 				 $temp_path = realpath(dirname(dirname(getcwd())));
-				 //Path on local system (CHANGE IF HOST CHANGES)
-				 $path = $temp_path."\\public\\notes\\".$file_name;
-				 if($_SESSION['AWS']) $path = $temp_path."/public/notes/".$file_name;
+				 //Path on local system
+				 $path = $_SESSION['notes_directory'].$file_name;
 				 //check if file name already exists
 				 if(file_exists($path)){
 					 $_SESSION['error'] = "File with that name already exists. Please rename your file and resubmit.";
@@ -215,8 +214,7 @@ class NotesController {
 		      else if (empty($errors) == true){
 				 $temp_path = realpath(dirname(dirname(getcwd())));
 				 //Path on local system (CHANGE IF HOST CHANGES)
-				 $path = $temp_path."\\public\\notes\\".$file_name;
-				 if($_SESSION['AWS']) $path = $temp_path."/public/notes/".$file_name;
+				  $path = $_SESSION['notes_directory'].$file_name;
 				 //check if file name already exists
 				 if(file_exists($path)){
 					 $_SESSION['error'] = "File with that name already exists. Please rename your file and resubmit.";
@@ -236,7 +234,7 @@ class NotesController {
 				  $notes->set('userId', $authorId);
 				  $notes->set('timestamp', $timestamp);
 				  $notes->set('title', $title);
-				  $notes->set('link', $path);
+				  $notes->set('link', $file_name);
 				  $notes->set('tag', $tag);
 				  $notes->set('ratingId', $rating->get('id'));
 				  $notes->set('groupId', $groupId);

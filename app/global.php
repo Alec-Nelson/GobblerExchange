@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-$_SESSION['AWS']=false;
+$_SESSION['notes_directory']='C:\\xampp\\htdocs\\GobblerExchange\\public\\notes\\';
 set_include_path(dirname(__FILE__)); # include path - don't change
 
 include_once 'config.php';

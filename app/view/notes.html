@@ -21,9 +21,8 @@
                             $authorUsername = $author->get('username');
                             $timestamp = $note->get('timestamp');
                             $date = Event::convertToReadableDate($timestamp);
-                            $noteslink =$note->get('link');
+                            $filename =$note->get('link');
                             $ratingId = $note->get('ratingId');
-                            $filename = $note->getFilename();
 
                             //get rating
                             $rate = Rating::loadById($ratingId);
