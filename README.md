@@ -30,7 +30,6 @@ Implemented:
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable.
 - Leaving/deleting groups
-- Creating or searching for groups based on the course subject+code (i.e. CS 1114)
 - Edit and delete forum & note comments
 - Only allowing the user who authored the post/event/notes/comment to edit/delete it (currently, anyone can edit or delete any post/event/notes/comment)
 - Searching for forum posts
