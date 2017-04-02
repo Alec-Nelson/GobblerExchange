@@ -34,6 +34,8 @@ Not Implemented (yet):
 - Edit and delete forum & note comments (Megan)
 - Only allowing the user who authored the post/event/notes/comment to edit/delete it (currently, anyone can edit or delete any post/event/notes/comment) (Megan)
 - Checking if form input fields are empty (Alec)
+  - Check for special characters
+  - Check for correct format (like the time/date)
 - Whiteboard (Greg)
 - PDF view preview for notes before downloading 
 - User must join/create a group when they create an account (Alec)
