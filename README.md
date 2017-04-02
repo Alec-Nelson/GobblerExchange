@@ -17,33 +17,35 @@ Implemented:
   - Checks for repeated username, checks for vt.edu email address, checks if passwords match
 - User log in authentication
 - Forum posts ordered by rating (decreasing)
+- Notes are ordered by rating (decreasing)
 - Events are ordered by date (increasing)
+- Polls are ordered by date (decreasing)
     - Only upcoming events are shown
 - Creating events
     - date and time must be entered in the specified format
-- Polls are ordered by date (decreasing)
-- Join button when searching for groups
+- Can join group when searching for groups
 - Searching w/ no term will produce all results (ex. if 'username' is selected w/ no search term, it'll return all users)
-- Users can chat with one another in seperate chat rooms for each class (and a globall /all chat).
+- Users can chat with one another in seperate chat rooms for each class (and a global /all chat).
 - Notes are able to be uploaded/downloaded
 
 Not Implemented (yet):
-- Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable.
-- Leaving/deleting groups
-- Edit and delete forum & note comments
-- Only allowing the user who authored the post/event/notes/comment to edit/delete it (currently, anyone can edit or delete any post/event/notes/comment)
-- Searching for forum posts
-- Delete/edit comments
-- Checking if input fields are empty
-- Whiteboard
-- PDF view preview for notes before downloading
-- User must join/create a group when they sign up
-- Adding users to a group when a user creates a group
-- Put pinned posts at the top
-- Make entering the dates user-friendly (https://jqueryui.com/datepicker/)
-- Scalability (only looks good on desktop/laptop screens for now)
-- Show poll results
-- View past events
-- Chat room visibility does not update except for upon login.
-- Proper tag categories
-- Notes are ordered by rating (decreasing)
+- Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable. (Michael)
+- Leave a group (Megan)
+- Edit and delete forum & note comments (Megan)
+- Only allowing the user who authored the post/event/notes/comment to edit/delete it (currently, anyone can edit or delete any post/event/notes/comment) (Megan)
+- Checking if form input fields are empty (Alec)
+- Whiteboard (Greg)
+- PDF view preview for notes before downloading 
+- User must join/create a group when they create an account (Alec)
+- Ability to add/invite users to a group when a user creates a group (Alec)
+- Sorting forum posts via dropdown (Alec)
+- Put pinned posts at the top (Megan)
+- Make entering the dates user-friendly (https://jqueryui.com/datepicker/) (Megan)
+- Scalability (only looks good on desktop/laptop screens for now) (Front-end team)
+- Show poll results (Megan)
+- View past events (Megan)
+- Chat room visibility does not update except for upon login. (Greg)
+- Proper tag categories (Megan)
+- Pin/unpin a post (Megan)
+- Delete poll response (Megan)
+
