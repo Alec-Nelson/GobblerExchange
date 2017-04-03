@@ -89,13 +89,17 @@ class CommentController {
 		$authorId = $notes->get('userId');
 		$tag = $notes->get('tag');
 		$noteslink = $notes->get('link');
-
+		//TODO: see if noteslink is used as well, if not just rename to filename and delete extra variable
+		$filename = $notes->get('link');
+		
 		//convert SQL timestamp to readable date format
 		$date = Event::convertToReadableDate($timestamp);
 
 		//get username of author
 		$author = User::loadById($authorId);
 		$authorUsername = $author->get('username');
+
+
 
 		// get comments
 		$comments = $notes->getComments();
