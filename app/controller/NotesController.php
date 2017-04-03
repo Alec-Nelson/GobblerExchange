@@ -151,7 +151,7 @@ class NotesController {
 				 unlink($notes->get('link'));
 
 				  //Update link!
-				  $notes->set('link', $path);
+				  $notes->set('link', $file_name);
 				  $notes->save();
 		      }
               //There's an error with the file system.
