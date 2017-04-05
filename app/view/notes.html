@@ -4,12 +4,19 @@
 ?>
 					<!-- So the idea here is that all of these tags will be filled in and could keep going as long as we want to display stuff, like an arraylist in Java, not sure what needs to be done for that. -->
 <link href="<?= BASE_URL ?>/public/css/notes.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/notes.css');?>" type="text/css" rel="stylesheet">
+<div class="row">
+    <div class="col-lg-6">
+            <h1>Notes</h1>
+    </div>
+    <div class="col-lg-6">
+		<a href="<?= BASE_URL ?>/newnotes">
+			<button id = "button" type="button" class="btn btn-primary">
+				Add Note
+			</button>
+		</a>
+    </div>
 
-    		<a href="<?= BASE_URL ?>/newnotes">
-    			<button id = "button" type="button" class="btn btn-primary">
-    				Add Note
-    			</button>
-    		</a>
+</div>
           <div id = "note">
                 <?php
                 if($notes != null){
@@ -37,7 +44,6 @@
                                 else if ($user_rating->get('vote') == -1) $downvoted = true;
                             }
                           ?>
-
             	<ul>
                 <li>
                     <!-- upvote -->

@@ -20,14 +20,3 @@ li:a{
 #button{
     float: right;
 }
-
-#note{
-    margin-top: 75px
-}
-
-.settings_button {
-    width:30px;
-    height:30px;
-    border: 0;
-    background: transparent;
-}
