@@ -2,6 +2,15 @@
 
 class ForumPost extends DbObject {
     const DB_TABLE = "forumpost";
+    const tags = array( 'Homework',
+                        'Project',
+                        'Test',
+                        'Notes',
+                        'Help',
+                        'Meeting',
+                        'Discussion',
+                        'Other'
+                    );
 
     //database fields
     protected $id;

@@ -19,40 +19,6 @@ Edit Notes
    <INPUT TYPE="file" NAME="attached" MAXLENGTH=50 ALLOW="text/*" >
  </div>
 
-<div class="form-group">
-    <label for="tag">Tag:</label>
-    <select class="form-control" id="tag" name="tag">
-
-        <?php
-        switch ($tag) {
-        case "exam": ?>
-            <option value="studyGroup">Study Group</option>
-            <option value="exam" selected>Exam</option>
-            <option value="study">Study</option>
-            <option value="homework">Homework</option>
-        <?php    break;
-        case "study": ?>
-            <option value="studyGroup">Study Group</option>
-            <option value="exam">Exam</option>
-            <option value="study" selected>Study</option>
-            <option value="homework">Homework</option>
-        <?php    break;
-        case "homework": ?>
-            <option value="studyGroup">Study Group</option>
-            <option value="exam">Exam</option>
-            <option value="study">Study</option>
-            <option value="homework" selected>Homework</option>
-        <?php    break;
-        default: //Study Group ?>
-            <option value="studyGroup" selected>Study Group</option>
-            <option value="exam">Exam</option>
-            <option value="study">Study</option>
-            <option value="homework">Homework</option>
-        <?php } ?>
-    </select>
-    <br>
-  </div>
-
 
   <button id = "optionsButton" type="submit" class="btn btn-success">Update</button>
 

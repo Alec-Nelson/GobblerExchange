@@ -32,6 +32,7 @@ Implemented:
 - Pin/unpin a post (Megan)
 - Put pinned posts at the top (Megan)
 - Edit and delete forum & note comments (Megan)
+- Proper tag categories (Megan)
 
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable. (Michael)
@@ -49,4 +50,3 @@ Not Implemented (yet):
 - Scalability (only looks good on desktop/laptop screens for now) (Front-end team)
 - View past events (Megan)
 - Chat room visibility does not update except for upon login. (Greg)
-- Proper tag categories (Megan)

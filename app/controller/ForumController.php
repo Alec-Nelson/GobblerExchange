@@ -98,7 +98,7 @@ class ForumController {
 
 		$title = $post_row->get('title');
 		$body = $post_row->get('description');
-		$tag = $post_row->get('tag');
+		$selected_tag = $post_row->get('tag');
 		include_once SYSTEM_PATH.'/view/editForumPost.html';
 	}
 

@@ -21,10 +21,9 @@ Create a New Forum Post
 <div class="form-group">
     <label for="tag">Tag:</label>
     <select class="form-control" name="tag" id="tag">
-      <option value="studyGroup">Study Group</option>
-      <option value="exam">Exam</option>
-      <option value="study">Study</option>
-      <option value="homeworkDue">Homework Due</option>
+        <?php foreach(ForumPost::tags as $tag){ ?>
+            <option value="<?php echo $tag ?>"><?php echo $tag; ?></option>
+        <?php } ?>
     </select>
     <br>
   </div>

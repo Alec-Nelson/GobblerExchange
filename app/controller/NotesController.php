@@ -58,7 +58,7 @@ class NotesController {
 
 	/* Opens edit notes form
 	 * Prereq (POST variables):
-	 * Page variables: title, link, tag
+	 * Page variables: title, link
 	 */
 	public function editnotes($notesId){
         User::loggedInCheck();
@@ -77,13 +77,12 @@ class NotesController {
 		$path = explode("\\", $noteslink);
 		$filename = $path[count($path) - 1];
 
-		$tag = $notes->get('tag');
 		include_once SYSTEM_PATH.'/view/editNote.html';
 
 	}
 
 	/* Publishes updated notes
-	 * Prereq (POST variables): Cancel, title, link, tag, notesId
+	 * Prereq (POST variables): Cancel, title, link,  notesId
 	 * Page variables: N/A
 	 */
 	public function editnotes_submit(){
@@ -104,13 +103,11 @@ class NotesController {
 		}
 
 		$title = $_POST['title'];
-		$tag = $_POST['tag'];
 		$timestamp = date("Y-m-d", time());
 
 		//update fields (except for 'link')
 		$notes->set('timestamp', $timestamp);
 		$notes->set('title', $title);
-		$notes->set('tag', $tag);
 		$notes->save();
 
 		//update 'link' if user specified a file
@@ -174,7 +171,7 @@ class NotesController {
 	}
 
 	/* Publishes new notes
-	 * Prereq (POST variables): Cancel, title, link, tag, groupId
+	 * Prereq (POST variables): Cancel, title, link, groupId
 	 * Page variables: N/A
 	 */
 	public function newnotes_submit(){
@@ -186,7 +183,6 @@ class NotesController {
 		}
 
 		$title = $_POST['title'];
-		$tag = $_POST['tag'];
 		$timestamp = date("Y-m-d", time());
 		$authorId = $_SESSION['userId'];
 		$groupId = $_SESSION['groupId'];
@@ -235,7 +231,6 @@ class NotesController {
 				  $notes->set('timestamp', $timestamp);
 				  $notes->set('title', $title);
 				  $notes->set('link', $file_name);
-				  $notes->set('tag', $tag);
 				  $notes->set('ratingId', $rating->get('id'));
 				  $notes->set('groupId', $groupId);
 				  $notes->save();

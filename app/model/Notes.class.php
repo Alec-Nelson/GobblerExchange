@@ -9,7 +9,6 @@ class Notes extends DbObject {
     protected $link;       //this is essentially the filename, like 'test.pdf'
     protected $userId;
     protected $timestamp;
-    protected $tag;
     protected $ratingId;
     protected $groupId;
 
@@ -22,7 +21,6 @@ class Notes extends DbObject {
             'link' => null,
             'userId' => null,
             'timestamp' => null,
-            'tag' => null,
             'ratingId' => null,
             'groupId' => null
         );
@@ -34,7 +32,6 @@ class Notes extends DbObject {
         $this->link = $args['link'];
         $this->userId = $args['userId'];
         $this->timestamp = $args['timestamp'];
-        $this->tag = $args['tag'];
         $this->ratingId = $args['ratingId'];
         $this->groupId = $args['groupId'];
     }
@@ -48,7 +45,6 @@ class Notes extends DbObject {
             'link' => $this->link,
             'userId' => $this->userId,
             'timestamp' => $this->timestamp,
-            'tag' => $this->tag,
             'ratingId' => $this->ratingId,
             'groupId' => $this->groupId
         );
