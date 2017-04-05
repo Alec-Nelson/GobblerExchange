@@ -35,6 +35,16 @@ class ForumController {
 			case 'forumsearch':
 				$this->forumSearch();
 				break;
+
+			case 'pinpost':
+				$postId = $_GET['postId'];
+				$this->pinpost($postId);
+				break;
+
+			case 'unpinpost':
+				$postId = $_GET['postId'];
+				$this->unpinpost($postId);
+				break;
 		}
 	}
 
@@ -63,7 +73,10 @@ class ForumController {
 		$pinned_posts = $forum->getPinnedPosts();
 		$non_pinned_posts = $forum->getPostByRating();
 
-		$posts = array_merge($pinned_posts, $non_pinned_posts);
+		if($pinned_posts != null && $non_pinned_posts != null)
+			$posts = array_merge($pinned_posts, $non_pinned_posts);
+		else if ($non_pinned_posts != null) $posts = $non_pinned_posts;
+		else $posts = $pinned_posts;
 		include_once SYSTEM_PATH.'/view/forum.html';
 	}
 
@@ -226,5 +239,24 @@ class ForumController {
 		$posts = ForumPost::searchByTitleAndDesc($search_term, $forumId);
 
 		include_once SYSTEM_PATH.'/view/forum.html';
+	}
+
+	public function pinpost($postId){
+		User::loggedInCheck();
+
+		$post = ForumPost::loadById($postId);
+		$post->set('pinned', 1);
+		$post->save();
+
+		header('Location: '.BASE_URL.'/forum');
+	}
+	public function unpinpost($postId){
+		User::loggedInCheck();
+
+		$post = ForumPost::loadById($postId);
+		$post->set('pinned', 0);
+		$post->save();
+
+		header('Location: '.BASE_URL.'/forum');
 	}
 }
