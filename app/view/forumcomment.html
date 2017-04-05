@@ -30,6 +30,7 @@
       <?php
                   if($comments != null){
                         foreach($comments as $comment){
+                            $commentId = $comment->get('id');
                             $commenterId = $comment->get('userId');
                             $commenter = User::loadById($commenterId);
                             $commenterUsername = $commenter->get('username');
@@ -44,8 +45,21 @@
                       <div class="panel-body">
                           <?php echo $text ?>
                       </div>
-                      <div class="panel-footer">Posted by: <?php echo $commenterUsername ?> on <?php echo $commentdate ?></div>
+                      <div class="panel-footer clearfix">
+                          <span syle="float:left">
+                              Posted by: <?php echo $commenterUsername ?> on <?php echo $commentdate ?>
+                          </span>
+                          <span style="float:right">
+                              <?php $edit_action = BASE_URL."/editcomment/".$commentId ?>
+                              <form method="POST" action=<?php echo $edit_action ?>>
+                                  <input type="hidden" name="postId" value="<?php echo $postId ?>">
+                                  <button type="submit" id="settings_button">
+                                      <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+                                  </button>
+                            </form>
+                          </span>
                       </div>
+                  </div>
 
 
                   <?php

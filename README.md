@@ -31,11 +31,11 @@ Implemented:
 - Delete poll response (Megan)
 - Pin/unpin a post (Megan)
 - Put pinned posts at the top (Megan)
+- Edit and delete forum & note comments (Megan)
 
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable. (Michael)
 - Leave a group (Megan)
-- Edit and delete forum & note comments (Megan)
 - Only allowing the user who authored the post/event/notes/comment to edit/delete it (currently, anyone can edit or delete any post/event/notes/comment) (Megan)
 - Checking if form input fields are empty (Alec)
   - Check for special characters

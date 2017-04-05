@@ -43,7 +43,6 @@ class Comment extends DbObject {
         $db_properties = array(
             'userId' => $this->userId,
             'timestamp' => $this->timestamp,
-            'title' => $this->title,
             'comment' => $this->comment,
             'postId' => $this->postId,
             'notesId' => $this->notesId

@@ -24,13 +24,19 @@ class CommentController {
 				break;
 
             case 'editcomment':
-                $this->editComment();
+				$commentId = $_GET['commentId'];
+                $this->editComment($commentId);
                 break;
             case 'editcomment_submit':
                 $this->editComment_submit();
                 break;
-            case 'deletecomment':
-                $this->deleteComment();
+
+			case 'editnotescomment':
+				$commentId = $_GET['commentId'];
+                $this->editNotesComment($commentId);
+                break;
+            case 'editnotescomment_submit':
+                $this->editNotesComment_submit();
                 break;
 
 			case 'newnotescomment':
@@ -51,30 +57,7 @@ class CommentController {
 		}
 	}
 
-	/* View post comments
-	 * Prereq (POST variables): N/A
-	 * Page variables: post {title, date, authorUsername, description, tag}
-	 */
-	public function viewComments($postId){
-		//get post info
-		$post = ForumPost::loadById($postId);
-		$title = $post->get('title');
-		$timestamp = $post->get('timestamp');
-		$authorId = $post->get('userId');
-		$description = $post->get('description');
-		$tag = $post->get('tag');
-
-		//convert SQL timestamp to readable date format
-		$date = Event::convertToReadableDate($timestamp);
-
-		//get username of author
-		$author = User::loadById($authorId);
-		$authorUsername = $author->get('username');
-
-		// get comments
-		$comments = $post->getComments();
-		include_once SYSTEM_PATH.'/view/forumcomment.html';
-	}
+    // ---------- NOTES FUNCTIONS --------------------------------------------
 
 	/* View notes comments
 	 * Prereq (POST variables): N/A
@@ -91,7 +74,7 @@ class CommentController {
 		$noteslink = $notes->get('link');
 		//TODO: see if noteslink is used as well, if not just rename to filename and delete extra variable
 		$filename = $notes->get('link');
-		
+
 		//convert SQL timestamp to readable date format
 		$date = Event::convertToReadableDate($timestamp);
 
@@ -105,59 +88,6 @@ class CommentController {
 		$comments = $notes->getComments();
 		include_once SYSTEM_PATH.'/view/notescomment.html';
 	}
-
-    /* Opens edit comment form
-	 * Prereq (POST variables): commentId
-	 * Page variables: comment
-	 */
-	public function editComment(){
-        User::loggedInCheck();
-
-        //retrieve the comment
-		$commentId = $_POST['commentId'];
-		$comment_entry = Comment::loadById($commentId);
-
-		//check if author of the comment is the logged in user
-		$authorId = $comment_entry->get('userId');
-		$author = User::loadById($authorId);
-		$authorUsername = $author->get('username');
-
-		$comment = $comment_entry->get('comment');
-		include_once SYSTEM_PATH.'/view/editcomment.tpl';                           //TODO: check tpl is correct
-	}
-
-	/* Publishes updated comment
-	 * Prereq (POST variables): Cancel, comment, commentid
-	 * Page variables: N/A
-	 */
-	public function editComment_submit(){
-        User::loggedInCheck();
-
-		if (isset($_POST['Cancel'])) {
-			header('Location: '.BASE_URL);
-			exit();
-		}
-
-        $commentId = $_POST['commentId'];
-        $comment_entry = Comment::loadById($commentId);
-
-        if (isset($_POST['Delete'])) {
-            $comment_entry->delete();
-            header('Location: '.BASE_URL);                                      //TODO update
-            exit();
-        }
-
-		$comment = $_POST['comment'];
-		$timestamp = date("Y-m-d", time());
-
-		$comment_entry->set('comment', $comment);
-		$comment_entry->set('timestamp', $timestamp);
-		$notes->save();
-
-		header('Location: '.BASE_URL);											//TODO update
-	}
-
-    // ---------- NOTES FUNCTIONS --------------------------------------------
 
 	/* Opens form for new comment for notes
 	 * Prereq (POST variables): N/A
@@ -203,7 +133,86 @@ class CommentController {
 		header('Location: '.BASE_URL.'/viewnotescomments/'.$notesId);
 	}
 
+	/* Opens edit comment form
+	 * Prereq (POST variables): commentId
+	 * Page variables: comment
+	 */
+	public function editNotesComment($commentId){
+        User::loggedInCheck();
+
+		$notesId = $_POST['notesId'];
+
+        //retrieve the comment
+		$comment_entry = Comment::loadById($commentId);
+
+		//check if author of the comment is the logged in user
+		$authorId = $comment_entry->get('userId');
+		$author = User::loadById($authorId);
+		$authorUsername = $author->get('username');
+
+		$comment = $comment_entry->get('comment');
+		include_once SYSTEM_PATH.'/view/editComment.html';
+	}
+
+	/* Publishes updated comment
+	 * Prereq (POST variables): Cancel, comment, commentid
+	 * Page variables: N/A
+	 */
+	public function editNotesComment_submit(){
+        User::loggedInCheck();
+
+		$notesId = $_POST['notesId'];
+
+		if (isset($_POST['Cancel'])) {
+			self::viewNotesComments($notesId);
+			exit();
+		}
+
+        $commentId = $_POST['commentId'];
+        $comment_entry = Comment::loadById($commentId);
+
+        if (isset($_POST['Delete'])) {
+            $comment_entry->delete();
+			self::viewNotesComments($notesId);
+            exit();
+        }
+
+		$comment = $_POST['comment'];
+		$timestamp = date("Y-m-d", time());
+
+		$comment_entry->set('comment', $comment);
+		$comment_entry->set('timestamp', $timestamp);
+		$comment_entry->save();
+
+		self::viewNotesComments($notesId);
+	}
+
     // -------------- POST FUNCTIONS -------------------------------------------
+
+	/* View post comments
+	 * Prereq (POST variables): N/A
+	 * Page variables: post {title, date, authorUsername, description, tag}
+	 */
+	public function viewComments($postId){
+		//get post info
+		$post = ForumPost::loadById($postId);
+		$title = $post->get('title');
+		$timestamp = $post->get('timestamp');
+		$authorId = $post->get('userId');
+		$description = $post->get('description');
+		$tag = $post->get('tag');
+
+		//convert SQL timestamp to readable date format
+		$date = Event::convertToReadableDate($timestamp);
+
+		//get username of author
+		$author = User::loadById($authorId);
+		$authorUsername = $author->get('username');
+
+		// get comments
+		$comments = $post->getComments();
+		include_once SYSTEM_PATH.'/view/forumcomment.html';
+	}
 
     /* Opens form for new comment for a forum post
 	 * Prereq (POST variables): N/A
@@ -259,5 +268,59 @@ class CommentController {
 		$comment->save();
 
 		header('Location: '.BASE_URL.'/viewcomments/'.$postId);
+	}
+
+	/* Opens edit comment form
+	 * Prereq (POST variables): commentId
+	 * Page variables: comment
+	 */
+	public function editComment($commentId){
+		User::loggedInCheck();
+
+		$postId = $_POST['postId'];
+
+		//retrieve the comment
+		$comment_entry = Comment::loadById($commentId);
+
+		//check if author of the comment is the logged in user
+		$authorId = $comment_entry->get('userId');
+		$author = User::loadById($authorId);
+		$authorUsername = $author->get('username');
+
+		$comment = $comment_entry->get('comment');
+		include_once SYSTEM_PATH.'/view/editComment.html';
+	}
+
+	/* Publishes updated comment
+	 * Prereq (POST variables): Cancel, comment, commentid
+	 * Page variables: N/A
+	 */
+	public function editComment_submit(){
+		User::loggedInCheck();
+
+		$postId = $_POST['postId'];
+
+		if (isset($_POST['Cancel'])) {
+			self::viewComments($postId);
+			exit();
+		}
+
+		$commentId = $_POST['commentId'];
+		$comment_entry = Comment::loadById($commentId);
+
+		if (isset($_POST['Delete'])) {
+			$comment_entry->delete();
+			self::viewComments($postId);
+			exit();
+		}
+
+		$comment = $_POST['comment'];
+		$timestamp = date("Y-m-d", time());
+
+		$comment_entry->set('comment', $comment);
+		$comment_entry->set('timestamp', $timestamp);
+		$comment_entry->save();
+
+		self::viewComments($postId);
 	}
 }

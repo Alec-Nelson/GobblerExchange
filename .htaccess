@@ -73,9 +73,14 @@ RewriteRule ^newpostcomment/?$ app/controller/CommentController.php?action=newpo
 RewriteRule ^newpostcomment_submit/?$ app/controller/CommentController.php?action=newpostcomment_submit [QSA,L]
 RewriteRule ^newnotescomment/?$ app/controller/CommentController.php?action=newnotescomment [QSA,L]
 RewriteRule ^newnotescomment_submit/?$ app/controller/CommentController.php?action=newnotescomment_submit [QSA,L]
-RewriteRule ^editcomment/?$ app/controller/CommentController.php?action=editcomment [QSA,L]
-RewriteRule ^editcomment_submit/?$ app/controller/CommentController.php?action=editcomment_submit [QSA,L]
-RewriteRule ^deletecomment/?$ app/controller/CommentController.php?action=deletecomment [QSA,L]
+RewriteRule ^editcomment/?$ app/controller/CommentController.php?action=editcomment&commentId=0 [QSA,L]
+RewriteRule ^editcomment/(\d+)/?$ app/controller/CommentController.php?action=editcomment&commentId=$1 [QSA,L]
+RewriteRule ^editcomment_submit/?$ app/controller/CommentController.php?action=editcomment_submit&commentId=0 [QSA,L]
+RewriteRule ^editcomment_submit/(\d+)/?$ app/controller/CommentController.php?action=editcomment_submit&commentId=$1 [QSA,L]
+RewriteRule ^editnotescomment/?$ app/controller/CommentController.php?action=editnotescomment&commentId=0 [QSA,L]
+RewriteRule ^editnotescomment/(\d+)/?$ app/controller/CommentController.php?action=editnotescomment&commentId=$1 [QSA,L]
+RewriteRule ^editnotescomment_submit/?$ app/controller/CommentController.php?action=editnotescomment_submit&commentId=0 [QSA,L]
+RewriteRule ^editnotescomment_submit/(\d+)/?$ app/controller/CommentController.php?action=editnotescomment_submit&commentId=$1 [QSA,L]
 
 # Rating
 RewriteRule ^upvotepost/?$ app/controller/RatingController.php?action=upvotepost&postId=0 [QSA,L]
