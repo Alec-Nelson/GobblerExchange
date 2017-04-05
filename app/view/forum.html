@@ -56,6 +56,7 @@
                             $description = $post->get('description');
                             $tag = $post->get('tag');
                             $ratingId = $post->get('ratingId');
+                            $pinned = $post->get('pinned');
 
                             //convert SQL timestamp to readable date format
                             $date = Event::convertToReadableDate($timestamp);
@@ -79,7 +80,7 @@
                   ?>
 
                   <!-- forum post -->
-                  <div class="forum_post">
+                  <div class="forum_post <?php if($pinned) echo 'pinned'; ?>">
                     <!-- <div class="col-lg-2">
                       <img src="..\images\portrait.png" alt="Portrait" style="width:75px;height:75px;">
                     </div> -->
@@ -129,26 +130,32 @@
                     </div>
 
 
-                    <div class="row">
-                        <div class="col-lg-7">
+                    <div class="row clear-fix">
+                        <div class="col-lg-12">
                             <p> Tagged under: <i><?php echo $tag ?></i></p>
                             <p> Points: <?php echo $score ?> </p>
-                        </div>
-                        <div class="col-lg-3">
-                          <?php $viewcomments_action = BASE_URL."/viewcomments/".$id ?>
-                          <form action=<?php echo $viewcomments_action ?> >
-                              <button id = "button" type="submit" class="btn btn-primary comments_button">
+
+                        <?php $viewcomments_action = BASE_URL."/viewcomments/".$id ?>
+                        <form action=<?php echo $viewcomments_action ?>>
+                            <button id = "button" type="submit" class="btn btn-primary comments_button">
                                 View Comments
-                              </button>
+                            </button>
                         </form>
-                      </div>
-                        <div class="col-lg-1 left_squish">
                             <?php $edit_action = BASE_URL."/editpost/".$id ?>
                             <form action=<?php echo $edit_action ?> >
-                                <button type="submit" style="border: 0; background: transparent">
+                                <button type="submit" id="settings_button">
                                     <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
                                 </button>
                           </form>
+
+                          <?php if(!$pinned){
+                              $pin_action = BASE_URL."/pinpost/".$id; ?>
+                          <form action=<?php echo $pin_action ?>>
+                              <button type="submit" id="pin_button">
+                                  <i class="fa fa-thumb-tack fa-2x" aria-hidden="true"></i>
+                              </button>
+                          </form>
+                          <?php } ?>
                         </div>
                     </div>
                   </div>

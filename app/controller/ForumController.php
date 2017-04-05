@@ -60,10 +60,11 @@ class ForumController {
         $forum = Forum::loadById($forumId);
 
 		//retrieve all posts from the forum
-		$posts = $forum->getPostByRating();
-        $pinned_posts = $forum->getPinnedPosts();
-		// $polls = Poll::getAllOpenPolls($groupId);
-		include_once SYSTEM_PATH.'/view/forum.html';                               //TODO: make sure this is the correct tpl
+		$pinned_posts = $forum->getPinnedPosts();
+		$non_pinned_posts = $forum->getPostByRating();
+
+		$posts = array_merge($pinned_posts, $non_pinned_posts);
+		include_once SYSTEM_PATH.'/view/forum.html';
 	}
 
 	/* Opens edit post form

@@ -117,8 +117,9 @@ class ForumPost extends DbObject {
         }
     }
 
+    //returns all non-pinned posts, ordered from higher rated posts to lower rated posts
     public function getAllPosts_SortDescRating($forumId){
-        $query = sprintf(" SELECT forumpost.id, rating.rating FROM forumpost INNER JOIN rating ON forumpost.ratingId = rating.id where forumId=%s ORDER BY rating.rating desc",
+        $query = sprintf(" SELECT forumpost.id, rating.rating FROM forumpost INNER JOIN rating ON forumpost.ratingId = rating.id where forumId=%s AND pinned=0 ORDER BY rating.rating desc",
             $forumId
         );
 

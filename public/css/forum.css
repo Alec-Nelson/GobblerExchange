@@ -10,16 +10,39 @@
     float: left;
 }
 
-.settings_button {
+#settings_button {
     width:30px;
     height:30px;
     border: 0;
     background: transparent;
+    float: right;
+    margin-left: 5px;
+    margin-right:5px;
+}
+
+#pin_button{
+    width:30px;
+    height:30px;
+    border: 0;
+    background: transparent;
+    float: right;
+    margin-left: 5px;
+    margin-right:5px;
 }
 
 .comments_button {
-
+    float: right;
+    margin-left: 5px;
+    margin-right:5px;
 }
+
+.pinned {
+    border-left: 6px solid #ff6600;
+    background-color: rgba(255, 102, 0, 0.19);
+    margin-top: 10px;
+}
+
+
 /* end forum post */
 
 #filterdropdown {
