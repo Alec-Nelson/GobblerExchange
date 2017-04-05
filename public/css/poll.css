@@ -16,6 +16,11 @@
     background: transparent;
 }
 
+#delete_button {
+    border: 0;
+    background: transparent;
+}
+
 #edit_button_form{
     float:right;
 }

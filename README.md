@@ -28,6 +28,7 @@ Implemented:
 - Users can chat with one another in seperate chat rooms for each class (and a global /all chat).
 - Notes are able to be uploaded/downloaded
 - Show poll results (Megan)
+- Delete poll response (Megan)
 
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable. (Michael)
@@ -49,4 +50,3 @@ Not Implemented (yet):
 - Chat room visibility does not update except for upon login. (Greg)
 - Proper tag categories (Megan)
 - Pin/unpin a post (Megan)
-- Delete poll response (Megan)

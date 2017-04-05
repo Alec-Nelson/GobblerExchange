@@ -41,6 +41,11 @@ class PollController {
 				$pollId = $_GET['pollId'];
 				$this->viewResults($pollId);
 				break;
+
+			case 'clear_response':
+				$optId = $_GET['optId'];
+				$this->removeResponse($optId);
+				break;
 		}
 	}
 
@@ -241,5 +246,11 @@ class PollController {
 		}
 
 		include_once SYSTEM_PATH.'/view/viewpollresults.html';
+	}
+
+	public function removeResponse($optId){
+		$pollOpt = UserPollOption::loadByPollOptionAndUser($optId, $_SESSION['userId']);
+		$pollOpt->delete();
+		header('Location: '.BASE_URL.'/polls');
 	}
 }

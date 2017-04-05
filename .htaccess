@@ -52,6 +52,8 @@ RewriteRule ^newpoll_submit/?$ app/controller/PollController.php?action=newpoll_
 RewriteRule ^vote/?$ app/controller/PollController.php?action=vote [QSA,L]
 RewriteRule ^viewresults/?$ app/controller/PollController.php?action=viewresults&pollId=0 [QSA,L]
 RewriteRule ^viewresults/(\d+)/?$ app/controller/PollController.php?action=viewresults&pollId=$1 [QSA,L]
+RewriteRule ^clear_response/?$ app/controller/PollController.php?action=clear_response&optId=0 [QSA,L]
+RewriteRule ^clear_response/(\d+)/?$ app/controller/PollController.php?action=clear_response&optId=$1 [QSA,L]
 
 # Notes
 RewriteRule ^notes/?$ app/controller/NotesController.php?action=notes [QSA,L]
