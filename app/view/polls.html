@@ -43,7 +43,11 @@
           <div  id = "heading" class="panel-heading">
               <h3class="panel-title"><?php echo $title ?> <?php if(!$open) echo "[CLOSED]" ?> </h3>
           </div>
-          <div id = "body" class="panel-body">
+
+
+
+          <!-- poll options (poll body) -->
+          <div id = "voting_options_<?php echo $id ?>" class="panel-body">
               <input type="hidden" name="pollId" value="<?php echo $id ?>">
               <?php
               if($options != null){
@@ -63,7 +67,7 @@
                     <!-- Button appears next to poll selection so you can remove it rather than change your answer -->
                     <?php if($select){
                         $remove_action = BASE_URL."/clear_response/".$optId; ?>
-                        <button id="delete_button" type="button" onclick="removeResponse()">
+                        <button id="delete_button" type="button" onclick="removeResponse('<?php echo $remove_action; ?>')">
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </button>
                     <?php } ?>
@@ -72,11 +76,49 @@
                 <?php }} ?>
                 <button type="submit" class="btn btn-default" <?php if(!$open) echo "disabled" ?> >Submit</button>  </form>
           </div>
+          <!-- END: poll options (poll body) -->
+
+
+          <!-- Alternative poll body (results) -->
+          <div id="results_<?php echo $id ?>" style="display:none;">
+              <table class="table">
+                  <thead>
+                      <tr>
+                        <th>Poll Option</th>
+                        <th>Number of Votes</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+
+                    <?php
+                            //get array with # of votes for each poll option
+                            $votes = array();
+                            if($options != null){
+                                foreach($options as $opt){
+                                    array_push($votes, UserPollOption::getTotalVotesByPollOptionId($opt->get('id')));
+                                }
+                            }
+
+                            for($i = 0; $i < count($votes); $i++){
+                              $option = $options[$i];
+                              $vote_count = $votes[$i];
+
+                    ?>
+                        <tr>
+                          <td><?php echo $option->get('poll_option'); ?></td>
+                          <td><?php echo $vote_count; ?></td>
+                        </tr>
+                   <?php } ?>
+               </tbody>
+              </table>
+          </div>
+          <!--END: Alternative poll body (results) -->
+
+          <!-- POLL FOOTER  -->
           <div id = "footer" class="panel-footer">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?>
-              <?php $results_action = BASE_URL."/viewresults/".$id ?>
-              <form id="view_results_form" action=<?php echo $results_action ?>>
-                  <button id="results_button" class="btn" type="submit">View Results</button>
-              </form>
+
+              <button id="resultsBtn_<?php echo $id ?>" class="btn btn-results" type="button">View Results</button>
+              <button id="optionsBtn_<?php echo $id ?>" class="btn btn-options" type="button" style="display:none;">View Poll Options</button>
 
               <?php $edit_action = BASE_URL."/editpoll/".$id ?>
               <form id="edit_button_form" action=<?php echo $edit_action ?>>
@@ -86,6 +128,7 @@
               </form>
             <div class="clearfix"></div>
           </div>
+          <!-- END POLL FOOTER  -->
       </div>
 
 
@@ -97,12 +140,7 @@
             <?php
         }
        ?>
-
-<script>
-function removeResponse() {
-    window.location.href = "<?php echo $remove_action; ?>";
-}
-</script>
+<script type="text/javascript" src="<?= BASE_URL ?>/public/js/poll.js"></script>
   <?php
     include_once('templateBottom.php');
   ?>
