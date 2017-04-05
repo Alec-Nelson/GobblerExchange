@@ -88,5 +88,24 @@ class UserPollOption extends DbObject {
         }
         return null;
     }
+
+    public function getTotalVotesByPollOptionId($pollOptionId){
+        $query = sprintf(" SELECT * FROM %s WHERE pollOptionId=%s",
+            self::DB_TABLE,
+            $pollOptionId
+        );
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return 0;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return count($objects);
+        }
+    }
 }
 ?>

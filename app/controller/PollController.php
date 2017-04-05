@@ -36,6 +36,11 @@ class PollController {
 			case 'vote':
 				$this->vote();
 				break;
+
+			case 'viewresults':
+				$pollId = $_GET['pollId'];
+				$this->viewResults($pollId);
+				break;
 		}
 	}
 
@@ -212,5 +217,29 @@ class PollController {
 		}
 
 		header('Location: '.BASE_URL.'/polls');
+	}
+
+	public function viewResults($pollId){
+		$poll = Poll::loadById($pollId);
+
+		$title = $poll->get('title');
+		$open = $poll->get('isOpen');
+		$authorId = $poll->get('userId');
+		$author = User::loadById($authorId);
+		$authorUsername = $author->get('username');
+		$timestamp = $poll->get('timestamp');
+		$date = Event::convertToReadableDate($timestamp);
+
+
+		$poll_options = $poll->getPollOptions();
+
+		$votes = array();
+		if($poll_options != null){
+			foreach($poll_options as $opt){
+				array_push($votes, UserPollOption::getTotalVotesByPollOptionId($opt->get('id')));
+			}
+		}
+
+		include_once SYSTEM_PATH.'/view/viewpollresults.html';
 	}
 }

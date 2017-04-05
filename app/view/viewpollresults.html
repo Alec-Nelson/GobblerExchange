@@ -1,0 +1,63 @@
+<?php
+  include_once('template.php');
+?>
+
+<link href="<?= BASE_URL ?>/public/css/poll.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/poll.css');?>" type="text/css" rel="stylesheet">
+
+<!-- The poll -->
+<div class="panel panel-primary">
+    <div  id = "heading" class="panel-heading">
+        <h3class="panel-title"><?php echo $title ?> <?php if(!$open) echo "[CLOSED]" ?> </h3>
+    </div>
+    <!-- <div id = "body" class="panel-body">
+        <input type="hidden" name="pollId" value="<?php echo $id ?>">
+        <?php
+        if($options != null){
+          foreach($options as $opt){
+              $optId = $opt->get('id');
+              $optStr = $opt->get('poll_option');
+
+              $userVote = UserPollOption::loadByPollOptionAndUser($optId, $_SESSION['userId']);
+              $select = false;
+              if($userVote != null){
+                  $select = true;
+              }
+
+              ?>
+              <input type="radio" value="<?php echo $optStr ?>" name="polloption" <?php if($select) echo 'checked="checked"' ?>><?php echo $optStr ?><br>
+              <?php }} ?>
+              <button type="submit" class="btn btn-default" <?php if(!$open) echo "disabled" ?> >Submit</button>  </form>
+    </div> -->
+    <div id = "footer" class="panel-footer">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?>
+      <div class="clearfix"></div>
+    </div>
+</div>
+
+<!-- Results: -->
+<h4> Results: </h4>
+<table class="table">
+    <thead>
+        <tr>
+          <th>Poll Option</th>
+          <th>Number of Votes</th>
+        </tr>
+    </thead>
+    <tbody>
+
+      <?php
+            for($i = 0; $i < count($votes); $i++){
+                $option = $poll_options[$i];
+                $vote_count = $votes[$i];
+
+      ?>
+          <tr>
+            <td><?php echo $option->get('poll_option'); ?></td>
+            <td><?php echo $vote_count; ?></td>
+          </tr>
+     <?php } ?>
+ </tbody>
+</table>
+
+  <?php
+    include_once('templateBottom.php');
+  ?>

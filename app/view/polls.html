@@ -63,12 +63,17 @@
                     <button type="submit" class="btn btn-default" <?php if(!$open) echo "disabled" ?> >Submit</button>  </form>
           </div>
           <div id = "footer" class="panel-footer">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?>
+              <?php $results_action = BASE_URL."/viewresults/".$id ?>
+              <form id="view_results_form" action=<?php echo $results_action ?>>
+                  <button id="results_button" class="btn" type="submit">View Results</button>
+              </form>
+
               <?php $edit_action = BASE_URL."/editpoll/".$id ?>
               <form id="edit_button_form" action=<?php echo $edit_action ?>>
                   <button class="settings_button" type="submit">
                       <img class="settings_img" src="<?= BASE_URL ?>/public/images/settings.png" />
                   </button>
-            </form>
+              </form>
             <div class="clearfix"></div>
           </div>
       </div>

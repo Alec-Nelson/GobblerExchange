@@ -27,6 +27,7 @@ Implemented:
 - Searching w/ no term will produce all results (ex. if 'username' is selected w/ no search term, it'll return all users)
 - Users can chat with one another in seperate chat rooms for each class (and a global /all chat).
 - Notes are able to be uploaded/downloaded
+- Show poll results (Megan)
 
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable. (Michael)
@@ -37,17 +38,15 @@ Not Implemented (yet):
   - Check for special characters
   - Check for correct format (like the time/date)
 - Whiteboard (Greg)
-- PDF view preview for notes before downloading 
+- PDF view preview for notes before downloading
 - User must join/create a group when they create an account (Alec)
 - Ability to add/invite users to a group when a user creates a group (Alec)
 - Sorting forum posts via dropdown (Alec)
 - Put pinned posts at the top (Megan)
 - Make entering the dates user-friendly (https://jqueryui.com/datepicker/) (Megan)
 - Scalability (only looks good on desktop/laptop screens for now) (Front-end team)
-- Show poll results (Megan)
 - View past events (Megan)
 - Chat room visibility does not update except for upon login. (Greg)
 - Proper tag categories (Megan)
 - Pin/unpin a post (Megan)
 - Delete poll response (Megan)
-
