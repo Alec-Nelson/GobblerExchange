@@ -155,6 +155,16 @@
                                   <i class="fa fa-thumb-tack fa-2x" aria-hidden="true"></i>
                               </button>
                           </form>
+                          <?php } else {
+                              $un_pin_action = BASE_URL."/unpinpost/".$id; ?>
+                              <form action=<?php echo $un_pin_action ?>>
+                                  <button type="submit" id="un_pin_button">
+                                      <span class="fa-stack fa-lg">
+                                       <i class="fa fa-thumb-tack"></i>
+                                       <i class="fa fa-ban fa-stack-2x"></i>
+                                     </span>
+                                  </button>
+                              </form>
                           <?php } ?>
                         </div>
                     </div>

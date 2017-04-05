@@ -30,8 +30,19 @@
     margin-right:5px;
 }
 
+#un_pin_button{
+    width:30px;
+    height:30px;
+    border: 0;
+    background: transparent;
+    float: right;
+    margin-left: 5px;
+    margin-right:5px;
+}
+
 .comments_button {
     float: right;
+    height:30px;
     margin-left: 5px;
     margin-right:5px;
 }
