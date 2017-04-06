@@ -8,6 +8,16 @@
   border-color: white;
 }
 
+#pastEvents{
+  background-color: #660000;
+  color: white;
+  position: relative;
+  margin-top: 20px;
+  float: right;
+  border-color: white;
+  margin-right:5px;
+}
+
 #filter{
   float: right;
   position: relative;
@@ -42,7 +52,7 @@
   background-color: #660000;
 }
 #body{
-  
+
 }
 
 #footer{

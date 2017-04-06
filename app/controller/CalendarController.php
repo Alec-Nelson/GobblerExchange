@@ -17,6 +17,9 @@ class CalendarController {
 			case 'calendar':
 				$this->calendar();
 				break;
+			case 'viewpastevents':
+				$this->viewPastEvents();
+				break;
 
 			case 'newEvent':
 				$this->newEvent();
@@ -60,6 +63,23 @@ class CalendarController {
 		$events = $calendar->getAllEventsAfterToday();
 
 		include_once SYSTEM_PATH.'/view/calendar.html';
+	}
+
+	public function viewPastEvents() {
+		User::loggedInCheck();
+
+		//get calendar id from group
+		$groupId = $_SESSION['groupId'];
+		$group = Group::loadById($groupId);
+		$calendarId = $group->get('calendarId');
+		$calendar = Calendar::loadById($calendarId);
+
+		$year = date("Y", time());
+
+		//retrieve events
+		$events = $calendar->getAllEventsBeforeToday();
+
+		include_once SYSTEM_PATH.'/view/pastCalendar.html';
 	}
 
 	/* Opens the form to fill out a new event

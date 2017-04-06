@@ -8,44 +8,16 @@
 
 <div class="row">
   <div class="col-lg-6">
-      <h2> Upcoming Events: </h2>
+      <h2> Past Events: </h2>
   </div>
   <div class="col-lg-6">
-      <form action="<?= BASE_URL ?>/newevent">
-      <button id = "addEvent" type="submit" class="btn btn-primary newevent_button">
-        Create an Event
-      </button>
-      </form>
-      <form action="<?= BASE_URL ?>/viewpastevents">
+      <form action="<?= BASE_URL ?>/calendar">
       <button id = "pastEvents" type="submit" class="btn btn-primary newevent_button">
-          View Past Events
+          View Upcoming Events
       </button>
       </form>
   </div>
 </div>
-
-
-
-
-<!-- <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/public/css/calendar.css"> -->
-<!-- <div class="form-group">
-  <label for="exampleSelect1">Month</label>
-  <select class="form-control" id="selectMonth" onchange="showEvents()">
-    <option value = "1">January</option>
-    <option value = "2">February</option>
-    <option value = "3">March</option>
-    <option value = "4">April</option>
-    <option value = "5">May</option>
-    <option value = "6">June</option>
-    <option value = "7">July</option>
-    <option value = "8">August</option>
-    <option value = "9">September</option>
-    <option value = "10">October</option>
-    <option value = "11">November</option>
-    <option value = "12">December</option>
-  </select> -->
-<!-- </div> -->
-<!-- Days view -->
 <div id = "days">
 
     <?php

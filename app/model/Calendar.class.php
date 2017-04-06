@@ -44,5 +44,9 @@ class Calendar extends DbObject {
     public function getAllEventsAfterToday(){
         return Event::getAllEventsAfterToday($this->id);
     }
+
+    public function getAllEventsBeforeToday(){
+        return Event::getAllEventsBeforeToday($this->id);
+    }
 }
 ?>

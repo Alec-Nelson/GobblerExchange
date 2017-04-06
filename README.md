@@ -37,7 +37,7 @@ Implemented:
 - Only allowing the user who authored the post/event/notes/comment to edit/delete it (currently, anyone can edit or delete any post/event/notes/comment) (Megan)
 - Leave a group (Megan
 - PDF view preview for notes before downloading (Megan)
-
+- View past events (Megan)
 
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable. (Michael)
@@ -49,5 +49,4 @@ Not Implemented (yet):
 - Ability to add/invite users to a group when a user creates a group (Alec)
 - Sorting forum posts via dropdown (Alec)
 - Scalability (only looks good on desktop/laptop screens for now) (Front-end team)
-- View past events (Megan)
 - Chat room visibility does not update except for upon login. (Greg)

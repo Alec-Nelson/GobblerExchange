@@ -41,6 +41,7 @@ RewriteRule ^unpinpost/(\d+)/?$ app/controller/ForumController.php?action=unpinp
 
 # Calendar
 RewriteRule ^calendar/?$ app/controller/CalendarController.php?action=calendar [QSA,L]
+RewriteRule ^viewpastevents/?$ app/controller/CalendarController.php?action=viewpastevents [QSA,L]
 RewriteRule ^editevent/?$ app/controller/CalendarController.php?action=editEvent&eventId=0 [QSA,L]
 RewriteRule ^editevent/(\d+)/?$ app/controller/CalendarController.php?action=editEvent&eventId=$1 [QSA,L]
 RewriteRule ^editevent_submit/?$ app/controller/CalendarController.php?action=editEvent_submit [QSA,L]
