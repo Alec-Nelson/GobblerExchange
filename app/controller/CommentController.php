@@ -112,7 +112,7 @@ class CommentController {
 	public function newNotesComment_submit(){
     User::loggedInCheck();
 		if (isset($_POST['Cancel'])) {
-			header('Location: '.BASE_URL);
+			header('Location: '.BASE_URL.'/viewnotescomments/'.$_POST['notesId']);
 			exit();
 		}
 
@@ -253,7 +253,7 @@ class CommentController {
 	//	include_once SYSTEM_PATH.'/view/forumcomment.html';
 
 		if (isset($_POST['Cancel'])) {
-			header('Location: '.BASE_URL);
+			header('Location: '.BASE_URL.'/viewcomments/'.$_POST['postId']);
 			exit();
 		}
 
