@@ -3,16 +3,24 @@
 
 ?>
 
-<!-- TODO: PUT THE POST BEING COMMENTED ON HERE! :) -->
+<!-- The forum post: -->
+<div class="panel panel-primary">
+  <div id = "heading" class="panel-heading">
+    <h3 class="panel-title"><?php echo $title ?></h3>
+  </div>
+  <div id = "body" class="panel-body">
+    <?php echo $description ?>
+  </div>
+  <div id = "footer" class="panel-footer">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?>
+      <span style="float:right;">Tagged as: <?php echo $tag ?></span></div>
+</div>
 
 <?php
 
-    if( isset($postId) ) $save_comment_action = BASE_URL."/editcomment_submit/".$commentId;
-    else $save_comment_action = BASE_URL."/editnotescomment_submit/".$commentId; ?>
+    $save_comment_action = BASE_URL."/editcomment_submit/".$commentId; ?>
 <form method="POST" action=<?php echo $save_comment_action ?>>
  <div class="form-group">
      <input type="hidden" name="postId" value="<?php echo $postId ?>">
-      <input type="hidden" name="notesId" value="<?php echo $notesId ?>">
      <input type="hidden" name="commentId" value="<?php echo $comment_entry->get('id') ?>">
    <label for="title">Edit comment</label>
    <input class="form-control" id="comment" name="comment" type="text" value="<?php echo $comment ?>">

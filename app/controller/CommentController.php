@@ -149,7 +149,13 @@ class CommentController {
 		$authorUsername = $author->get('username');
 
 		$comment = $comment_entry->get('comment');
-		include_once SYSTEM_PATH.'/view/editComment.html';
+
+		//get notes info
+		$notes = Notes::loadById($notesId);
+		$title = $notes->get('title');
+		$timestamp = $notes->get('timestamp');
+		$date = Event::convertToReadableDate($timestamp);
+		include_once SYSTEM_PATH.'/view/editNotesComment.html';
 	}
 
 	/* Publishes updated comment
@@ -285,8 +291,16 @@ class CommentController {
 		$author = User::loadById($authorId);
 		$authorUsername = $author->get('username');
 
+		//get post info
+		$post = ForumPost::loadById($postId);
+		$title = $post->get('title');
+		$description = $post->get('description');
+		$tag = $post->get('tag');
+		$timestamp = $post->get('timestamp');
+		$date = Event::convertToReadableDate($timestamp);
+
 		$comment = $comment_entry->get('comment');
-		include_once SYSTEM_PATH.'/view/editComment.html';
+		include_once SYSTEM_PATH.'/view/editForumComment.html';
 	}
 
 	/* Publishes updated comment
