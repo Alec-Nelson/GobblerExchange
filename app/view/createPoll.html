@@ -2,6 +2,7 @@
   include_once('template.php');
 
 ?>
+<link href="<?= BASE_URL ?>/public/css/poll.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/poll.css');?>" type="text/css" rel="stylesheet">
 
 Create a New Poll
 <form method="POST" action="<?= BASE_URL ?>/newpoll_submit">

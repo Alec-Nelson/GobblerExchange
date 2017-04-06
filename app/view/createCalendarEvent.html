@@ -3,6 +3,8 @@ include_once('template.php');
 
 ?>
 
+<link href="<?= BASE_URL ?>/public/css/calendar.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/calendar.css');?>" type="text/css" rel="stylesheet">
+
 <h2>Create a Calendar Event</h2>
 </body>
  <form method="POST" action="<?= BASE_URL ?>/newevent_submit">

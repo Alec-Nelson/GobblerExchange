@@ -2,6 +2,8 @@
   include_once('template.php');
 
 ?>
+<link href="<?= BASE_URL ?>/public/css/notes.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/notes.css');?>" type="text/css" rel="stylesheet">
+
 		<form method="POST" action="<?= BASE_URL ?>/newnotes_submit" enctype="multipart/form-data">
             <div class="form-group">
               <label for="title">Title:</label>
