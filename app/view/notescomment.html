@@ -4,6 +4,8 @@
 
 <link href="<?= BASE_URL ?>/public/css/comment.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/comment.css');?>" type="text/css" rel="stylesheet">
 
+<link href="<?= BASE_URL ?>/public/css/notes.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/notes.css');?>" type="text/css" rel="stylesheet">
+
 <!-- The notes: -->
 <div class="panel panel-primary">
   <div id = "heading" class="panel-heading">
@@ -15,12 +17,13 @@
 <?php $newcomment_action = BASE_URL."/newnotescomment"?>
 <form action=<?php echo $newcomment_action ?> >
     <input type="hidden" name="notesId" value="<?php echo $notesId ?>">
-    <button id = "button" type="submit" class="btn btn-primary">
+    <button id = "ncbutton" type="submit" class="btn btn-primary">
       New Comment
     </button>
 </form>
 
 <!-- Comments: -->
+<div id = "comment">
 <h4> Comments: </h4>
 
       <?php
@@ -64,6 +67,7 @@
                         <?php
                     }
                    ?>
+  </div>
   <?php
     include_once('templateBottom.php');
   ?>
