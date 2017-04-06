@@ -15,91 +15,90 @@
 			</button>
 		</a>
     </div>
-
 </div>
-          <div id = "note">
-                <?php
-                if($notes != null){
-                      foreach($notes as $note){
-                            $id = $note->get('id');
-                            $title = $note->get('title');
-                            $authorId = $note->get('userId');
-                            $author = User::loadById($authorId);
-                            $authorUsername = $author->get('username');
-                            $timestamp = $note->get('timestamp');
-                            $date = Event::convertToReadableDate($timestamp);
-                            $filename =$note->get('link');
-                            $ratingId = $note->get('ratingId');
+<div>
+    <?php
+    if($notes != null){
+          foreach($notes as $note){
+                $id = $note->get('id');
+                $title = $note->get('title');
+                $authorId = $note->get('userId');
+                $author = User::loadById($authorId);
+                $authorUsername = $author->get('username');
+                $timestamp = $note->get('timestamp');
+                $date = Event::convertToReadableDate($timestamp);
+                $filename =$note->get('link');
+                $ratingId = $note->get('ratingId');
 
-                            //get rating
-                            $rate = Rating::loadById($ratingId);
-                            $score = $rate->get('rating');
+                //get rating
+                $rate = Rating::loadById($ratingId);
+                $score = $rate->get('rating');
 
-                            //get user's individual ratings
-                            $user_rating = UserRating::loadByUserAndRatingId($_SESSION['userId'], $ratingId);
-                            $downvoted = false;
-                            $upvoted = false;
-                            if($user_rating != null){
-                                if($user_rating->get('vote') == 1) $upvoted = true;
-                                else if ($user_rating->get('vote') == -1) $downvoted = true;
-                            }
-                          ?>
-            	<ul>
-                <li>
-                    <!-- upvote -->
-                     <?php $upvote_action = BASE_URL."/upvotenotes/".$id;
-                     if (!$upvoted){ ?>
-                     <form action=<?php echo $upvote_action ?> >
-                         <button type="submit" style="border: 0; background: transparent">
-                             <i class="fa fa-chevron-up" aria-hidden="true"></i>
-                         </button>
-                   </form>
-                   <?php } ?>
-                    <!-- downvote -->
-                    <?php $downvote_action = BASE_URL."/downvotenotes/".$id;
-                    if (!$downvoted){
-                    ?>
-                    <form action=<?php echo $downvote_action ?> >
-                        <button type="submit" style="border: 0; background: transparent">
-                           <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                        </button>
-                  </form>
-                  <?php } ?>
-                </li>
-				<li id = "title">
-					<h4> <a href="public/notes/<?php echo $filename ?>" download><?php echo $title ?></a> </h4>
-					<h5> Author: <?php echo $authorUsername ?> </h5>
-					<h5> Date: <?php echo $date ?> </h5>
-                    <p> Points: <?php echo $score ?> </p>
-				</li>
-                <li>
-                    <?php $edit_action = BASE_URL."/editnotes/".$id ?>
-                    <form action=<?php echo $edit_action ?> >
-                        <button type="submit" style="border: 0; background: transparent">
-                                    <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
-                        </button>
-                    </form>
-                </li>
-                <li>
-                    <?php $edit_action = BASE_URL."/viewnotescomments/".$id ?>
-                    <form action=<?php echo $edit_action ?> >
-                        <button id = "view" type="submit" class="btn btn-primary">
-                            View Comments
-                        </button>
-                    </form>
-                </li>
-            </ul>
+                //get user's individual ratings
+                $user_rating = UserRating::loadByUserAndRatingId($_SESSION['userId'], $ratingId);
+                $downvoted = false;
+                $upvoted = false;
+                if($user_rating != null){
+                    if($user_rating->get('vote') == 1) $upvoted = true;
+                    else if ($user_rating->get('vote') == -1) $downvoted = true;
+                }
+              ?>
+    <ul>
+    <li>
+        <!-- upvote -->
+         <?php $upvote_action = BASE_URL."/upvotenotes/".$id;
+         if (!$upvoted){ ?>
+         <form action=<?php echo $upvote_action ?> >
+             <button type="submit" style="border: 0; background: transparent">
+                 <i class="fa fa-chevron-up" aria-hidden="true"></i>
+             </button>
+       </form>
+       <?php } ?>
+        <!-- downvote -->
+        <?php $downvote_action = BASE_URL."/downvotenotes/".$id;
+        if (!$downvoted){
+        ?>
+        <form action=<?php echo $downvote_action ?> >
+            <button type="submit" style="border: 0; background: transparent">
+               <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </button>
+      </form>
+      <?php } ?>
+    </li>
+    <li id = "title">
+    	<h4> <a href="public/notes/<?php echo $filename ?>" download><?php echo $title ?></a> </h4>
+    	<h5> Author: <?php echo $authorUsername ?> </h5>
+    	<h5> Date: <?php echo $date ?> </h5>
+        <p> Points: <?php echo $score ?> </p>
+    </li>
+    <li>
+        <?php $edit_action = BASE_URL."/editnotes/".$id ?>
+        <form action=<?php echo $edit_action ?> >
+            <button type="submit" style="border: 0; background: transparent">
+                        <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+            </button>
+        </form>
+    </li>
+    <li>
+        <?php $edit_action = BASE_URL."/viewnotescomments/".$id ?>
+        <form action=<?php echo $edit_action ?> >
+            <button id = "view" type="submit" class="btn btn-primary">
+                View Comments
+            </button>
+        </form>
+    </li>
+    </ul>
 
-                <?php
-                      }
-                  } else {
-                      ?>
-                      <p><i> There doesn't seem to be any notes posted yet. </i></p>
-                      <?php
-                  }
-                 ?>
+    <?php
+          }
+      } else {
+          ?>
+          <p><i> There doesn't seem to be any notes posted yet. </i></p>
+          <?php
+      }
+     ?>
 
-                 </div>
+ </div>
          <!-- I'm thinking maybe 4 notes here at maximum until they press more -->
 		<!-- <div class="col-lg-2" style="text-align: center;">
 			<button id = "button" type="button" class="btn btn-primary">
