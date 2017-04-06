@@ -61,7 +61,7 @@ class CommentController {
 
 	/* View notes comments
 	 * Prereq (POST variables): N/A
-	 * Page variables: post {title, date, authorUsername, description, tag}
+	 * Page variables: post {title, date, authorUsername, description}
 	 */
 	public function viewNotesComments($notesId){
 		//get post info
@@ -70,7 +70,6 @@ class CommentController {
 		$title = $notes->get('title');
 		$timestamp = $notes->get('timestamp');
 		$authorId = $notes->get('userId');
-		$tag = $notes->get('tag');
 		$noteslink = $notes->get('link');
 		//TODO: see if noteslink is used as well, if not just rename to filename and delete extra variable
 		$filename = $notes->get('link');
@@ -103,7 +102,6 @@ class CommentController {
 		$authorUsername = $author->get('username');
 		$timestamp = $notes->get('timestamp');
 		$date = Event::convertToReadableDate($timestamp);
-		$tag = $notes->get('tag');
 		include_once SYSTEM_PATH.'/view/createNotesComment.html';
 	}
 

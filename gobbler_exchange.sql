@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2017 at 08:13 PM
+-- Generation Time: Apr 05, 2017 at 08:00 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -76,8 +76,10 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`id`, `userId`, `timestamp`, `comment`, `postId`, `notesId`) VALUES
-(13, 1, '2017-03-27 00:00:00', 'comment on notes', 0, 3),
-(14, 1, '2017-03-27 00:00:00', 'comment on post', 2, 0);
+(16, 1, '2017-03-27 00:00:00', 'comment', 0, 3),
+(17, 1, '2017-03-27 00:00:00', 'com', 0, 3),
+(19, 1, '2017-04-05 00:00:00', 'edited forum comment', 16, 0),
+(20, 1, '2017-04-05 00:00:00', 'edited notes comment', 0, 8);
 
 -- --------------------------------------------------------
 
@@ -143,7 +145,10 @@ CREATE TABLE `forumpost` (
 --
 
 INSERT INTO `forumpost` (`id`, `userId`, `timestamp`, `title`, `description`, `ratingId`, `tag`, `pinned`, `forumId`) VALUES
-(10, 1, '2017-03-27 00:00:00', 'post', 'this is a post', 19, 'studyGroup', 0, 1);
+(15, 1, '2017-03-27 00:00:00', 'new post', '', 24, 'Meeting', 1, 1),
+(16, 1, '2017-03-27 00:00:00', 'bad post', 'this is a bad post', 26, 'Homework', 0, 1),
+(18, 1, '2017-03-29 00:00:00', 'aldksfj', 'adfjkll;', 28, 'Discussion', 0, 2),
+(19, 1, '2017-04-05 00:00:00', 'Test', 'test', 34, 'Help', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -168,7 +173,8 @@ CREATE TABLE `groups` (
 
 INSERT INTO `groups` (`id`, `number`, `group_name`, `calendarId`, `forumId`, `chatId`, `whiteboardId`, `userId`) VALUES
 (1, 92821, 'CS 4444: CS for Dummies', 1, 1, 1, 1, 1),
-(2, 29485, 'CS 9999: Really hard class', 2, 2, 2, 2, 1);
+(2, 29485, 'CS 9999: Really hard class', 2, 2, 2, 2, 1),
+(3, 0, 'temp', 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -182,7 +188,6 @@ CREATE TABLE `notes` (
   `link` varchar(1500) NOT NULL,
   `userId` int(11) NOT NULL,
   `timestamp` datetime NOT NULL,
-  `tag` varchar(150) NOT NULL,
   `ratingId` int(11) NOT NULL,
   `groupId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -191,8 +196,8 @@ CREATE TABLE `notes` (
 -- Dumping data for table `notes`
 --
 
-INSERT INTO `notes` (`id`, `title`, `link`, `userId`, `timestamp`, `tag`, `ratingId`, `groupId`) VALUES
-(3, 'title', 'C:\\xampp\\htdocs\\GobblerExchange\\public\\notes\\test.pdf', 1, '2017-03-26 00:00:00', 'studyGroup', 6, 1);
+INSERT INTO `notes` (`id`, `title`, `link`, `userId`, `timestamp`, `ratingId`, `groupId`) VALUES
+(8, 'test note', 'test3.pdf', 1, '2017-04-03 00:00:00', 33, 1);
 
 -- --------------------------------------------------------
 
@@ -240,7 +245,10 @@ INSERT INTO `polloption` (`id`, `pollId`, `poll_option`) VALUES
 (4, 1, 'Red'),
 (28, 3, ''),
 (31, 2, 'Option 1'),
-(32, 2, 'Option 2');
+(32, 2, 'Option 2'),
+(33, 3, 'slkdf'),
+(34, 4, 'polls'),
+(36, 5, 'opt2');
 
 -- --------------------------------------------------------
 
@@ -258,7 +266,17 @@ CREATE TABLE `rating` (
 --
 
 INSERT INTO `rating` (`id`, `rating`) VALUES
-(19, 1);
+(24, 1),
+(25, -1),
+(26, -1),
+(28, 0),
+(29, 0),
+(30, 0),
+(31, 0),
+(32, 0),
+(33, 0),
+(34, 0),
+(35, 0);
 
 -- --------------------------------------------------------
 
@@ -279,7 +297,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `username`, `email`, `password`) VALUES
-(1, 'Freddie Fredson', 'freddie', 'freddie@vt.edu', '1234');
+(1, 'Freddie Fredson', 'freddie', 'freddie@vt.edu', '1234'),
+(2, 'Megan', 'megan', 'megan@vt.edu', '1234');
 
 -- --------------------------------------------------------
 
@@ -299,7 +318,8 @@ CREATE TABLE `usergroup` (
 
 INSERT INTO `usergroup` (`id`, `userId`, `groupId`) VALUES
 (1, 1, 1),
-(2, 1, 2);
+(2, 1, 2),
+(3, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -312,13 +332,6 @@ CREATE TABLE `userpolloption` (
   `pollOptionId` int(11) NOT NULL,
   `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `userpolloption`
---
-
-INSERT INTO `userpolloption` (`id`, `pollOptionId`, `userId`) VALUES
-(4, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -338,7 +351,9 @@ CREATE TABLE `userrating` (
 --
 
 INSERT INTO `userrating` (`id`, `userId`, `ratingId`, `vote`) VALUES
-(2, 1, 19, 1);
+(19, 1, 24, 1),
+(20, 1, 25, -1),
+(21, 1, 26, -1);
 
 -- --------------------------------------------------------
 
@@ -476,7 +491,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `event`
 --
@@ -491,17 +506,17 @@ ALTER TABLE `forum`
 -- AUTO_INCREMENT for table `forumpost`
 --
 ALTER TABLE `forumpost`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `notes`
 --
 ALTER TABLE `notes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `poll`
 --
@@ -511,32 +526,32 @@ ALTER TABLE `poll`
 -- AUTO_INCREMENT for table `polloption`
 --
 ALTER TABLE `polloption`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `usergroup`
 --
 ALTER TABLE `usergroup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `userpolloption`
 --
 ALTER TABLE `userpolloption`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `userrating`
 --
 ALTER TABLE `userrating`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `whiteboard`
 --
