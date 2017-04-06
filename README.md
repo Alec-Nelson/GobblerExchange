@@ -33,6 +33,7 @@ Implemented:
 - Put pinned posts at the top (Megan)
 - Edit and delete forum & note comments (Megan)
 - Proper tag categories (Megan)
+- Make entering the dates user-friendly (https://jqueryui.com/datepicker/) (Megan)
 
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable. (Michael)
@@ -46,7 +47,6 @@ Not Implemented (yet):
 - User must join/create a group when they create an account (Alec)
 - Ability to add/invite users to a group when a user creates a group (Alec)
 - Sorting forum posts via dropdown (Alec)
-- Make entering the dates user-friendly (https://jqueryui.com/datepicker/) (Megan)
 - Scalability (only looks good on desktop/laptop screens for now) (Front-end team)
 - View past events (Megan)
 - Chat room visibility does not update except for upon login. (Greg)
