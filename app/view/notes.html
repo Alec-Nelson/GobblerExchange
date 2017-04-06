@@ -8,6 +8,7 @@
     <div class="col-lg-6">
             <h1>Notes</h1>
     </div>
+    <!-- add note button -->
     <div class="col-lg-6">
 		<a href="<?= BASE_URL ?>/newnotes">
 			<button id = "button" type="button" class="btn btn-primary">
@@ -72,12 +73,16 @@
         <p> Points: <?php echo $score ?> </p>
     </li>
     <li>
-        <?php $edit_action = BASE_URL."/editnotes/".$id ?>
+        <!-- edit button -->
+        <?php
+        if($authorId == $_SESSION['userId']){
+            $edit_action = BASE_URL."/editnotes/".$id ?>
         <form action=<?php echo $edit_action ?> >
             <button type="submit" style="border: 0; background: transparent">
                         <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
             </button>
         </form>
+        <?php } ?>
     </li>
     <li>
         <?php $edit_action = BASE_URL."/viewnotescomments/".$id ?>

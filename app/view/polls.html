@@ -11,6 +11,7 @@
         <h2> Polls </h2>
     </div>
     <div class="col-lg-4">
+        <!-- new poll button -->
         <form action="<?= BASE_URL ?>/newpoll" >
         <button id = "button" type="submit" class="btn btn-primary newpoll">
           Create New Poll
@@ -120,12 +121,16 @@
               <button id="resultsBtn_<?php echo $id ?>" class="btn btn-results" type="button">View Results</button>
               <button id="optionsBtn_<?php echo $id ?>" class="btn btn-options" type="button" style="display:none;">View Poll Options</button>
 
-              <?php $edit_action = BASE_URL."/editpoll/".$id ?>
+              <!-- edit poll button -->
+              <?php
+              if($authorId == $_SESSION['userId']){
+                  $edit_action = BASE_URL."/editpoll/".$id ?>
               <form id="edit_button_form" action=<?php echo $edit_action ?>>
-                  <button type="submit" id="settings_button">
+                  <button type="submit" style="border: 0;background: transparent;">
                     <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
                   </button>
               </form>
+              <?php } ?>
             <div class="clearfix"></div>
           </div>
           <!-- END POLL FOOTER  -->

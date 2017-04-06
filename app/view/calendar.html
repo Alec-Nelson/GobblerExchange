@@ -74,13 +74,16 @@
             <div id = "body" class="panel-body"><p><?php echo $description ?></p></div>
             <div id = "footer" class="panel-footer">Posted by: <?php echo $username ?>
 
-
-                <?php $edit_action = BASE_URL."/editevent/".$id ?>
+                <!-- edit button -->
+                <?php
+                if($authorId == $_SESSION['userId']){
+                    $edit_action = BASE_URL."/editevent/".$id ?>
                 <form id="edit_button_form" action=<?php echo $edit_action ?>>
                     <button type="submit" style="border: 0; background: transparent">
                         <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
                     </button>
               </form>
+              <?php } ?>
               <div class="clearfix"></div>
           </div>
         </div>

@@ -41,7 +41,7 @@
                       </button>
                       <ul id = "dorp"class="dropdown-menu" role = "menu">
                         <li><a href="#">Date</a></li>
-                        <li><a href="#">Popularity</a></li>                        
+                        <li><a href="#">Popularity</a></li>
                       </ul>
                     </div>
                   </div>
@@ -135,19 +135,26 @@
                             <p> Tagged under: <i><?php echo $tag ?></i></p>
                             <p> Points: <?php echo $score ?> </p>
 
+                        <!-- View comments button -->
                         <?php $viewcomments_action = BASE_URL."/viewcomments/".$id ?>
                         <form action=<?php echo $viewcomments_action ?>>
                             <button id = "button" type="submit" class="btn btn-primary comments_button">
                                 View Comments
                             </button>
                         </form>
-                            <?php $edit_action = BASE_URL."/editpost/".$id ?>
-                            <form action=<?php echo $edit_action ?> >
-                                <button type="submit" id="settings_button">
-                                    <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
-                                </button>
-                          </form>
 
+                        <!-- Edit post button -->
+                            <?php
+                            if($authorId == $_SESSION['userId']){
+                                $edit_action = BASE_URL."/editpost/".$id; ?>
+                                <form action=<?php echo $edit_action ?> >
+                                    <button type="submit" id="settings_button">
+                                        <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+                                    </button>
+                              </form>
+                            <?php } ?>
+
+                          <!-- Pin button -->
                           <?php if(!$pinned){
                               $pin_action = BASE_URL."/pinpost/".$id; ?>
                           <form action=<?php echo $pin_action ?>>
