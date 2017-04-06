@@ -19,6 +19,8 @@ RewriteRule ^viewgroup/?$ app/controller/GroupController.php?action=viewgroup&gr
 RewriteRule ^viewgroup/(\d+)/?$ app/controller/GroupController.php?action=viewgroup&groupId=$1 [QSA,L]
 RewriteRule ^joingroup/?$ app/controller/GroupController.php?action=joingroup&groupId=0 [QSA,L]
 RewriteRule ^joingroup/(\d+)/?$ app/controller/GroupController.php?action=joingroup&groupId=$1 [QSA,L]
+RewriteRule ^leavegroup/?$ app/controller/GroupController.php?action=leavegroup&groupId=0 [QSA,L]
+RewriteRule ^leavegroup/(\d+)/?$ app/controller/GroupController.php?action=leavegroup&groupId=$1 [QSA,L]
 RewriteRule ^chat/?$ app/controller/GroupController.php?action=chat [QSA,L]
 RewriteRule ^newgroup/?$ app/controller/GroupController.php?action=newGroup [QSA,L]
 RewriteRule ^newgroup_submit/?$ app/controller/GroupController.php?action=newGroup_submit [QSA,L]

@@ -26,7 +26,12 @@
           If (!UserGroup::isUserInGroup($_SESSION['userId'], $groupId)){
               $action = BASE_URL."/joingroup/".$groupId; ?>
               <form action=<?php echo $action ?> >
-                  <button id = "button" type="submit" class="btn btn-primary"   aria-label="Left Align">Join</button>
+                  <button id = "button" type="submit" class="btn btn-primary" aria-label="Left Align">Join</button>
+            </form>
+          <?php } else {
+              $action = BASE_URL."/leavegroup/".$groupId; ?>
+              <form action=<?php echo $action ?> >
+                  <button id = "button" type="submit" class="btn btn-primary" aria-label="Left Align">Leave</button>
             </form>
           <?php } ?>
 
