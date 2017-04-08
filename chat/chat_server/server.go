@@ -81,6 +81,6 @@ func (s Server) StartServer(port int) {
 	http.HandleFunc("/chat", s.serveTemplate)
 	http.HandleFunc("/debug_login", s.serveLogin)
 	http.HandleFunc("/_ah/health", healthCheckHandler)
-	log.Printf("Starting on %d", port)
+	log.Printf("Starting on %d (v2)", port)
 	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
 }
