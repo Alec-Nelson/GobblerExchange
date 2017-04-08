@@ -3,7 +3,7 @@ package main
 import "github.com/Alec-Nelson/GobblerExchange/chat/chat_server"
 import "flag"
 
-var port = flag.Int("port", 80, "Port no to start the server")
+var port = flag.Int("port", 8080, "Port no to start the server")
 
 func main() {
 	flag.Parse()
