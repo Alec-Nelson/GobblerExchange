@@ -71,11 +71,16 @@ func (s Server) createSession(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Opened session for %s", name)
 }
 
+func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "ok")
+}
+
 func (s Server) StartServer(port int) {
 	http.HandleFunc("/socket", s.socketHandler)
 	http.HandleFunc("/create_session", s.createSession)
 	http.HandleFunc("/chat", s.serveTemplate)
 	http.HandleFunc("/debug_login", s.serveLogin)
+	http.HandleFunc("/_ah/health", healthCheckHandler)
 	log.Printf("Starting on %d", port)
 	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
 }
