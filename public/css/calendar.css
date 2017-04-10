@@ -65,3 +65,7 @@
 .panel-primary{
     border-color: black;
 }
+
+#notifyTime {
+    color: red;
+}
