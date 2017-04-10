@@ -1,2 +1,8 @@
 runtime: go
 env: flex
+network:
+  forwarded_ports:
+  - 8081
+  instance_tag: gobblerwebsocket
+manual_scaling:
+  instances: 1
