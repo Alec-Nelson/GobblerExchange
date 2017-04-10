@@ -1,0 +1,195 @@
+<html>
+  <head>
+    {{ template "std_header" }}
+<style>
+ 
+</style>
+</head>
+
+
+<body>
+      
+  <div class="container card" style="height: 100%;">
+    <canvas id="whiteboard" style="width: 800px; height: 600px; border: 2px solid;" height=600 width=800></canvas>
+    <button id="clear" class="btn btn-warning" style="display: inline-block;">Clear</button>
+  </div>
+    <script type="text/javascript">
+      var key = {{ .Key }};
+
+      var gobbler = gobbler_realtime(key, "{{ .User.DisplayName }}");
+      
+
+drawingView = function(canvasId){
+   
+    var lines = new Map();
+
+    var tempPoint = null;
+    var el = document.getElementById(canvasId);
+    var elRect = el.getBoundingClientRect();
+
+    midPointBtw = function(p1, p2) {
+	return {
+	    x: p1.x + (p2.x - p1.x) / 2,
+	    y: p1.y + (p2.y - p1.y) / 2
+	};
+    }
+
+    getLine = function(lineId){
+	if(lines.has(lineId)){
+	    return lines.get(lineId);
+	} else {
+	    newL = {
+		lineId: lineId,
+		points: []
+	    }
+	    lines.set(lineId, newL);
+	    return newL;
+	}
+    }
+
+    
+    var ctx = el.getContext('2d');
+
+    ctx.lineWidth = 2;
+    ctx.lineJoin = ctx.lineCap = 'round';
+
+
+    reDraw = function(){
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+	lines.forEach(function(lineEntry){
+	    line = lineEntry.points;
+	    if(tempPoint != null && tempPoint.line == lineEntry.lineId){
+		line = $.merge($.merge([], line), [tempPoint.point]);
+	    }
+	    ctx.beginPath();
+	    var p1 = line[0];
+	    var p2 = line[1];
+	    ctx.moveTo(p1.x, p1.y);
+	    for (var i = 1, len = line.length; i < len; i++) {
+		// we pick the point between pi+1 & pi+2 as the
+		// end point and p1 as our control point
+		var midPoint = midPointBtw(p1, p2);
+		ctx.quadraticCurveTo(p1.x, p1.y, midPoint.x, midPoint.y);
+		p1 = line[i];
+		p2 = line[i+1];
+	    }
+
+	    // Draw last line as a straight line while
+	    // we wait for the next point to be able to calculate
+	    // the bezier control point
+	    ctx.lineTo(p1.x, p1.y);
+	    ctx.stroke();
+	});
+
+    }
+
+    clear = function(){
+	lines = new Map();
+    }
+
+    recvPoint = function(pointMsg){
+	if(pointMsg.Content == "!clear"){
+	    clear();
+	    reDraw();
+	    return;
+	}
+	pt = JSON.parse(pointMsg.Content);
+	getLine(pt.line).points.push(pt.point);
+	reDraw();
+    }
+
+    setTemp = function(temp){
+	tempPoint = temp;
+    }
+
+    return {
+	setTemp: setTemp,
+	recievePoint: recvPoint,
+	reDraw: reDraw
+    }
+
+}
+
+drawingHandler = function(gobblerRT, canvasId, pushTempPoint, reDraw){
+
+    THRESH = 10.0;
+    
+    var el = document.getElementById(canvasId);
+    var elRect = el.getBoundingClientRect();
+
+    isDrawing = false;
+    currLine = null;
+    lastP = null;
+    
+    newID = function(){
+	return Math.floor(10*performance.now())+"-"+Math.floor(Math.random()*1000000);
+    }
+
+    clickPos = function(e){
+	return {
+	    x: e.pageX - elRect.left,
+	    y: e.pageY - elRect.top
+	}
+    }
+
+    stop = function(){
+	lastP = null;
+	currLine = null;
+	isDrawing = false;
+    }
+
+    pushPoint = function(lineId, point){
+	lastP = point;
+	gobbler.sendMessageContent(JSON.stringify({
+	    point: point,
+	    line: lineId
+	}));
+    }
+
+	
+    el.onmousedown = function(e) {
+	isDrawing = true;
+	currLine = newID();
+	pushPoint(currLine, clickPos(e));
+    };
+	
+
+    el.onmousemove = function(e) {
+	if (!isDrawing) return;
+	
+	newP = clickPos(e);
+	if(Math.hypot(lastP.x-newP.x, lastP.y-newP.y) < THRESH){
+	    pushTempPoint({line: currLine, point: newP});
+	    reDraw();
+	    return;
+	} else {
+	    pushTempPoint(null);
+	}
+	pushPoint(currLine, newP);
+	reDraw();
+    };
+
+    el.onmouseup = function(e) {
+	pushPoint(currLine, clickPos(e));
+	stop();
+	reDraw();
+    };
+
+    $(el).mouseleave(function(){
+	stop();
+	reDraw();
+    });
+}
+
+var drawing = null;
+$(function(){
+    gobbler.joinTopic("all_whiteboard");
+    drawing = drawingView('whiteboard');
+    gobbler.setOnMessage(drawing.recievePoint);
+    drawController = drawingHandler(gobbler, 'whiteboard', drawing.setTemp,  drawing.reDraw);
+    $("#clear").click(function(){
+	gobbler.sendMessageContent("!clear");
+    });
+});
+    </script>
+</body>
