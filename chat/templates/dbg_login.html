@@ -8,20 +8,31 @@
       Display name?
       <input id="name">
       <button id="done">Go</button>
+      <button id="whiteboard">Whiteboard</button>
     </p>
 
     <script type="text/javascript">
       $(function(){
 	  $("#done").click(function(){
 	      var name = $("#name").val()
-	      $.get("/create_session?name="+name,
-		    function(data){
-			console.log(data)
+	      getSession(name, function(data){
 			window.location="/chat?session="+data
 		    }
-		   )
+		)
+	  })
+	  $("#whiteboard").click(function(){
+	      var name = $("#name").val();
+	      getSession(name, function(data){
+		  window.location="/whiteboard?session="+data;
+	      });
 	  })
       })
+
+      function getSession(name, after){
+	  $.get("/create_session?name="+name, function(data){
+	      after(data);
+	  });
+      }
     </script>
   </body>
 </html>

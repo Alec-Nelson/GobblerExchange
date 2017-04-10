@@ -76,9 +76,12 @@ func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s Server) StartServer(port int) {
+	http.Handle("/static/", http.StripPrefix("/static/", s.setupStatic()))
+
 	http.HandleFunc("/socket", s.socketHandler)
 	http.HandleFunc("/create_session", s.createSession)
 	http.HandleFunc("/chat", s.serveTemplate)
+	http.HandleFunc("/whiteboard", s.serveWhiteboard)
 	http.HandleFunc("/debug_login", s.serveLogin)
 	http.HandleFunc("/_ah/health", healthCheckHandler)
 	log.Printf("Starting on %d (v3)", port)
