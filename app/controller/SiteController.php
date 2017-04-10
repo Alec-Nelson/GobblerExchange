@@ -33,6 +33,9 @@ class SiteController {
 			case 'logout':
 				$this->logout();
 				break;
+				case 'whiteboard':
+					$this->whiteboard();
+					break;
 			case 'jsontable':
 				$this->jsontable();
 				break;
@@ -205,5 +208,11 @@ class SiteController {
 		header('Location: '.BASE_URL.'/login');
 		// include_once SYSTEM_PATH.'/view/login.html';
 	}
+
+	public function whiteboard() {
+	User::loggedInCheck();
+
+		include_once SYSTEM_PATH.'/view/whiteboard.html';
+}
 
 }

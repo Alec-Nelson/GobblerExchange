@@ -11,6 +11,7 @@ RewriteRule ^signup/?$ app/controller/SiteController.php?action=signup [QSA,L]
 RewriteRule ^postlogin/?$ app/controller/SiteController.php?action=postlogin [QSA,L]
 RewriteRule ^register/?$ app/controller/SiteController.php?action=register [QSA,L]
 RewriteRule ^logout/?$ app/controller/SiteController.php?action=logout [QSA,L]
+RewriteRule ^whiteboard/?$ app/controller/SiteController.php?action=whiteboard [QSA,L]
 RewriteRule ^jsontable/?$ app/controller/SiteController.php?action=jsontable [QSA,L]
 
 
