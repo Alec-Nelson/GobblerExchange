@@ -35,6 +35,7 @@ RewriteRule ^editpost_submit/?$ app/controller/ForumController.php?action=editpo
 RewriteRule ^newpost/?$ app/controller/ForumController.php?action=newpost [QSA,L]
 RewriteRule ^newpost_submit/?$ app/controller/ForumController.php?action=newpost_submit [QSA,L]
 RewriteRule ^forumsearch/?$ app/controller/ForumController.php?action=forumsearch [QSA,L]
+RewriteRule ^forumsort/?$ app/controller/ForumController.php?action=forumsort [QSA,L]
 RewriteRule ^pinpost/?$ app/controller/ForumController.php?action=pinpost&postId=0 [QSA,L]
 RewriteRule ^pinpost/(\d+)/?$ app/controller/ForumController.php?action=pinpost&postId=$1 [QSA,L]
 RewriteRule ^unpinpost/?$ app/controller/ForumController.php?action=unpinpost&postId=0 [QSA,L]

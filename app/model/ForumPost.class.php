@@ -145,6 +145,25 @@ class ForumPost extends DbObject {
         }
     }
 
+    //returns all non-pinned posts, ordered from higher rated posts to lower rated posts
+    public function getAllPosts_SortDescDate($forumId){
+        $query = sprintf("SELECT * FROM forumpost WHERE forumId=%s AND pinned=0  ORDER BY timestamp  DESC",
+            $forumId
+        );
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
+        }
+    }
+
     //**This function can be called from the Forum class.
     public function getAllPinnedPosts($forumId){
         $query = sprintf(" SELECT * FROM %s WHERE forumId=%s AND pinned=1 ORDER BY timestamp DESC",
