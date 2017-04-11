@@ -100,7 +100,7 @@ $(function(){
               <li id = "calendar" role="presentation"><a href="<?= BASE_URL ?>/calendar">Calendar</a></li>
               <li id = "notes" role="presentation"><a href="<?= BASE_URL ?>/notes">Notes</a></li>
               <li id = "polls" role="presentation"><a href="<?= BASE_URL ?>/polls">Polls</a></li>
-              <li id = "whiteboard" role="presentation"><a href="#">Whiteboard</a></li>
+              <li id = "whiteboard" role="presentation"><a href="<?= BASE_URL ?>/whiteboard">Whiteboard</a></li>
             </ul>
         </div>
         <div class="col-lg-2"></div>
