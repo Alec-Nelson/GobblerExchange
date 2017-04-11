@@ -102,6 +102,20 @@ class PollController {
 		$poll = Poll::loadById($pollid);
 
 		if (isset($_POST['Delete'])) {
+			//delete options:
+			$options = $poll->getPollOptions();
+			if($options != null){
+				foreach($options as $opt){
+					$userOpts = UserPollOption::getByPollOptionId($opt->get('id'));
+					if($userOpts != null){
+						foreach($userOpts as $usrOpt){
+							$usrOpt->delete();
+						}
+					}
+					$opt->delete();
+				}
+			}
+			//delete poll:
 			$poll->delete();
 			header('Location: '.BASE_URL.'/polls');
 			exit();
