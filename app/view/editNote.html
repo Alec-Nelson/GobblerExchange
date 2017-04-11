@@ -5,7 +5,7 @@
 <link href="<?= BASE_URL ?>/public/css/editForumPost.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/editForumPost.css');?>" type="text/css" rel="stylesheet">
 
 <link href="<?= BASE_URL ?>/public/css/notes.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/notes.css');?>" type="text/css" rel="stylesheet">
-Edit Notes
+<h2> Edit Notes </h2>
 
 <form method="POST" action="<?= BASE_URL ?>/editnotes_submit" enctype="multipart/form-data">
     <input type="hidden" name="notesId" value="<?php echo $notesId ?>">
@@ -22,11 +22,11 @@ Edit Notes
  </div>
 
 
-  <button id = "optionsButton" type="submit" class="btn btn-success">Update</button>
+  <button id = "button" type="submit" class="btn btn-primary">Update</button>
 
-  <button id = "optionsButton" type="submit" class="btn btn-warning" name="Cancel">Cancel</button>
+  <button id = "button" type="submit" class="btn btn-primary" name="Cancel">Cancel</button>
 
-  <button id = "optionsButton" type="submit" class="btn btn-danger" name="Delete">Delete</button>
+  <button id = "button" type="submit" class="btn btn-primary" name="Delete">Delete</button>
 </form>
 
 <?php

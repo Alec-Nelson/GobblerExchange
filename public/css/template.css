@@ -48,14 +48,11 @@ li {
     text-indent: 5px;
 }
 
-#button {
+#button, #button:hover, #button:active, #button:focus, .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
     background-color: #660000;
+    border-color: white;
+    color: white;
 }
-
-.btn-primary{
-  border-color: white;
-}
-
 
 #classTabs {
     margin-top: 25px;
@@ -112,6 +109,7 @@ li {
 #signout:hover{
     color: white;
     background-color: #ff6600;
+    border-color: white;
     margin-top: 30px;
 }
 

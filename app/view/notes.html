@@ -6,7 +6,7 @@
 <link href="<?= BASE_URL ?>/public/css/notes.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/notes.css');?>" type="text/css" rel="stylesheet">
 <div class="row">
     <div class="col-lg-6">
-            <h1>Notes</h1>
+            <h2>Notes</h2>
     </div>
     <!-- add note button -->
     <div class="col-lg-6">
@@ -87,7 +87,7 @@
     <li>
         <?php $edit_action = BASE_URL."/viewnotescomments/".$id ?>
         <form action=<?php echo $edit_action ?> >
-            <button id = "view" type="submit" class="btn btn-primary">
+            <button id = "button" type="submit" class="btn btn-primary">
                 View Comments
             </button>
         </form>

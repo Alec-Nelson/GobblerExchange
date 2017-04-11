@@ -29,26 +29,13 @@
 }
 
 .panel-primary{
-    border-color: black;
-}
-
-#optionsButton{
-  background-color: #660000;
-  border-color: black;
+    border-color: white;
 }
 
 .btn-results {
-    background-color: #660000;
-    color: white;
     float: right;
 }
 
-.btn:hover {
-    color:white;
-}
-
 .btn-options {
-    background-color: #660000;
-    color: white;
     float: right;
 }

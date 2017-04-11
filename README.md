@@ -38,12 +38,13 @@ Implemented:
 - Leave a group (Megan
 - PDF view preview for notes before downloading (Megan)
 - View past events (Megan)
+- Creating/editing calendar event
+    - the time is checked for correct format, error message displayed and form disabled if not correct (Megan)
 
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable. (Michael)
 - Checking if form input fields are empty (Alec)
   - Check for special characters
-  - Check for correct format (like the time/date)
 - Whiteboard (Greg)
 - User must join/create a group when they create an account (Alec)
 - Ability to add/invite users to a group when a user creates a group (Alec)

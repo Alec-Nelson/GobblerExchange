@@ -82,6 +82,15 @@
   padding-right: 0px;
 }
 
+#heading{
+  color: white;
+  background-color: #660000;
+}
+
+.panel-primary{
+    border-color: white;
+}
+
 
 /*.addforumpost{
   float:left;

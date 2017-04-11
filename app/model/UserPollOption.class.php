@@ -107,5 +107,23 @@ class UserPollOption extends DbObject {
             return count($objects);
         }
     }
+
+    public static function getByPollOptionId($pollOptionId){
+        $query = sprintf(" SELECT id FROM %s where pollOptionId = %s",
+            self::DB_TABLE,
+            $pollOptionId
+            );
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
+        }
+    }
 }
 ?>
