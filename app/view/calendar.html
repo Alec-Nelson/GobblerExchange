@@ -23,6 +23,7 @@
   </div>
 </div>
 
+
 <div class="form-group">
   <label for="exampleSelect1">Month</label>
   <form action = "" method = "post">
@@ -31,7 +32,7 @@
       <option value = "02"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '02') ? 'selected="selected"' : ''; ?>>February</option>
       <option value = "03"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '03') ? 'selected="selected"' : ''; ?>>March</option>
       <option value = "04"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '04') ? 'selected="selected"' : ''; ?>>April</option>
-      <option value = "05"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '05') ? 'selected="selected"' : ''; ?>>May</option>
+      <option value = "05"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '05') ? 'selected="selected"' : ''; ?> >May</option>
       <option value = "06"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '06') ? 'selected="selected"' : ''; ?>>June</option>
       <option value = "07"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '07') ? 'selected="selected"' : ''; ?>>July</option>
       <option value = "08"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '08') ? 'selected="selected"' : ''; ?>>August</option>
@@ -44,7 +45,7 @@
   </form>
  </div>
 
-
+</script>
 <!-- Days view -->
 <div id = "days">
 
@@ -52,7 +53,11 @@
     if(isset($_POST['selectMonth']))
     {
       $select = $_POST['selectMonth'];
-      echo "You have selected: " .$select;
+      //echo "You have selected: " .$select;
+    }
+    else
+    {
+      $select = date('m');
     }
     
     if($events != null){
@@ -62,6 +67,11 @@
 
         $timestamp = $event->get('timestamp');
         $date = Event::convertToReadableDate($timestamp);
+        $month = date('m', strtotime($date));
+        if(isset($month) && $month != $select)
+        {
+          continue;
+        }
         $time = $event->getTime();
         $isPM = $event->isPM();
 
