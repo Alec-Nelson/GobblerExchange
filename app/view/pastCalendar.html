@@ -1,0 +1,80 @@
+
+
+<?php
+  include_once('template.php');
+
+?>
+<link href="<?= BASE_URL ?>/public/css/calendar.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/calendar.css');?>" type="text/css" rel="stylesheet">
+
+<div class="row">
+  <div class="col-lg-6">
+      <h2> Past Events: </h2>
+  </div>
+  <div class="col-lg-6">
+      <form action="<?= BASE_URL ?>/calendar">
+      <button id = "pastEvents" type="submit" class="btn btn-primary newevent_button">
+          View Upcoming Events
+      </button>
+      </form>
+  </div>
+</div>
+<div id = "days">
+
+    <?php
+    if($events != null){
+
+    foreach($events as $event){
+        $id = $event->get('id');
+
+        $timestamp = $event->get('timestamp');
+        $date = Event::convertToReadableDate($timestamp);
+        $time = $event->getTime();
+        $isPM = $event->isPM();
+
+        $ampm = "am";
+        if ($isPM) $ampm = "pm";
+
+        $authorId = $event->get('userId');
+        $author = User::loadById($authorId);
+        $username = $author->get('username');
+
+        $location = $event->get('location');
+        $description = $event->get('description');
+        $title = $event->get('title');
+        ?>
+
+        <div class="panel panel-primary">
+            <div id = "heading" class="panel-heading">
+                <h4><?php echo $title ?><span style="float:right;"><?php echo $date ?> at <?php echo $time; echo $ampm ?> in <?php echo $location ?></span></h4>
+
+            </div>
+            <div id = "body" class="panel-body"><p><?php echo $description ?></p></div>
+            <div id = "footer" class="panel-footer">Posted by: <?php echo $username ?>
+
+                <!-- edit button -->
+                <?php
+                if($authorId == $_SESSION['userId']){
+                    $edit_action = BASE_URL."/editevent/".$id ?>
+                <form id="edit_button_form" action=<?php echo $edit_action ?>>
+                    <button type="submit" style="border: 0; background: transparent">
+                        <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+                    </button>
+              </form>
+              <?php } ?>
+              <div class="clearfix"></div>
+          </div>
+        </div>
+
+        <?php
+            }
+        } else {
+            ?>
+            <p><i> There doesn't seem to be any events coming up. </i></p>
+            <?php
+        }
+        ?>
+</div>
+
+<?php
+  include_once('templateBottom.php');
+?>

@@ -17,6 +17,7 @@ Implemented:
   - Checks for repeated username, checks for vt.edu email address, checks if passwords match
 - User log in authentication
 - Forum posts ordered by rating (decreasing)
+- Sorting forum posts via dropdown (Alec)
 - Notes are ordered by rating (decreasing)
 - Events are ordered by date (increasing)
 - Polls are ordered by date (decreasing)
@@ -33,20 +34,20 @@ Implemented:
 - Put pinned posts at the top (Megan)
 - Edit and delete forum & note comments (Megan)
 - Proper tag categories (Megan)
+- Make entering the dates user-friendly (https://jqueryui.com/datepicker/) (Megan)
+- Only allowing the user who authored the post/event/notes/comment to edit/delete it (currently, anyone can edit or delete any post/event/notes/comment) (Megan)
+- Leave a group (Megan
+- PDF view preview for notes before downloading (Megan)
+- View past events (Megan)
+- Creating/editing calendar event
+    - the time is checked for correct format, error message displayed and form disabled if not correct (Megan)
 
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable. (Michael)
-- Leave a group (Megan)
-- Only allowing the user who authored the post/event/notes/comment to edit/delete it (currently, anyone can edit or delete any post/event/notes/comment) (Megan)
 - Checking if form input fields are empty (Alec)
   - Check for special characters
-  - Check for correct format (like the time/date)
 - Whiteboard (Greg)
-- PDF view preview for notes before downloading (Megan)
 - User must join/create a group when they create an account (Alec)
 - Ability to add/invite users to a group when a user creates a group (Alec)
-- Sorting forum posts via dropdown (Alec)
-- Make entering the dates user-friendly (https://jqueryui.com/datepicker/) (Megan)
 - Scalability (only looks good on desktop/laptop screens for now) (Front-end team)
-- View past events (Megan)
 - Chat room visibility does not update except for upon login. (Greg)

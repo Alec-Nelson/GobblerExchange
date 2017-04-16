@@ -5,7 +5,7 @@
 
 <!-- Chat box -->
       
-<iframe id="chat" src="" style="height: 70vh; width: 20vw;"></iframe>
+<iframe id="chat" src="" style="height: 70vh;text-align: center;"></iframe>
       <script type="text/javascript">
     var chat_token = "<?php
 echo $_SESSION['chat_token'];

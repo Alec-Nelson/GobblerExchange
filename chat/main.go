@@ -8,5 +8,6 @@ var port = flag.Int("port", 80, "Port no to start the server")
 func main() {
 	flag.Parse()
 	svr := chat.NewServer(chat.NewBroker(chat.MakeMemoryBuffer(20000)))
+	chat.StartGAEHealthServer()
 	svr.StartServer(*port)
 }

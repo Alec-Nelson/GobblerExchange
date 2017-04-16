@@ -17,7 +17,6 @@ class ForumController {
 			case 'forum':
 				$this->forum();
 				break;
-
 			case 'editpost':
 				$postId = $_GET['postId'];
 				$this->editpost($postId);
@@ -25,7 +24,6 @@ class ForumController {
 			case 'editpost_submit':
 				$this->editpost_submit();
 				break;
-
 			case 'newpost':
 				$this->newpost();
 				break;
@@ -35,12 +33,13 @@ class ForumController {
 			case 'forumsearch':
 				$this->forumSearch();
 				break;
-
+			case 'forumsort':
+				$this->forumSort();
+				break;
 			case 'pinpost':
 				$postId = $_GET['postId'];
 				$this->pinpost($postId);
 				break;
-
 			case 'unpinpost':
 				$postId = $_GET['postId'];
 				$this->unpinpost($postId);
@@ -72,7 +71,7 @@ class ForumController {
 		//retrieve all posts from the forum
 		$pinned_posts = $forum->getPinnedPosts();
 		$non_pinned_posts = $forum->getPostByRating();
-
+		$sortType = null;
 		if($pinned_posts != null && $non_pinned_posts != null)
 			$posts = array_merge($pinned_posts, $non_pinned_posts);
 		else if ($non_pinned_posts != null) $posts = $non_pinned_posts;
@@ -237,6 +236,44 @@ class ForumController {
 		$forumId = $group_entry->get('forumId');
 		$search_term = $_POST['search']; //entered into search bar
 		$posts = ForumPost::searchByTitleAndDesc($search_term, $forumId);
+
+		include_once SYSTEM_PATH.'/view/forum.html';
+	}
+
+	public function forumSort(){
+		User::loggedInCheck();
+		$groupId = $_SESSION['groupId'];
+
+
+		//do nothing if the user didn't select a group first
+		if ($groupId == 0){
+			header('Location: '.BASE_URL);
+		}
+
+		//Get forumid associated with the current group
+		$group_entry = Group::loadById($groupId);
+		$group_name = $group_entry->get('group_name');
+		$forumId = $group_entry->get('forumId');
+    $forum = Forum::loadById($forumId);
+		$pinned_posts = $forum->getPinnedPosts();
+
+		$sortType = $_POST['sortType'];
+		switch ($sortType) {
+			case "Popularity":
+				$non_pinned_posts = $forum->getPostByRating();
+				break;
+			default: //Date
+				$non_pinned_posts = $forum->getPostByDate();
+			}
+
+		//retrieve all posts from the forum
+		// $pinned_posts = $forum->getPinnedPosts();
+
+		if($pinned_posts != null && $non_pinned_posts != null)
+			$posts = array_merge($pinned_posts, $non_pinned_posts);
+		else if ($non_pinned_posts != null) $posts = $non_pinned_posts;
+		else $posts = $pinned_posts;
+
 
 		include_once SYSTEM_PATH.'/view/forum.html';
 	}

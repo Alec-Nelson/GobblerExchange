@@ -71,11 +71,20 @@ func (s Server) createSession(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Opened session for %s", name)
 }
 
+func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "ok")
+}
+
 func (s Server) StartServer(port int) {
+	http.Handle("/static/", http.StripPrefix("/static/", s.setupStatic()))
+
 	http.HandleFunc("/socket", s.socketHandler)
 	http.HandleFunc("/create_session", s.createSession)
 	http.HandleFunc("/chat", s.serveTemplate)
+	http.HandleFunc("/whiteboard", s.serveWhiteboard)
 	http.HandleFunc("/debug_login", s.serveLogin)
-	log.Printf("Starting on %d", port)
-	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	http.HandleFunc("/_ah/health", healthCheckHandler)
+	log.Printf("Starting on %d (v3)", port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
+	log.Fatal("Quitting.")
 }

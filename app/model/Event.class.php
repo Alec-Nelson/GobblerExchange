@@ -125,73 +125,36 @@ class Event extends DbObject {
         return $obj;
     }
 
-    // public static function getAllEventsByDate($calendarId, $timestamp){
-    //     //get just the database
-    //     $year = date("Y", $timestamp);
-    //     $month = date("m", $timestamp);
-    //     $day = date("d", $timestamp);
-    //
-    //     $start = date("Y-m-d H:i:s", mktime(0, 0, 0, $month, $day, $year));
-    //     $end = date("Y-m-d H:i:s", mktime(23, 59, 59, $month, $day, $year));
-    //
-    //     $query = sprintf("SELECT * FROM %s WHERE calendarId=%s AND timestamp BETWEEN %s and %s",
-    //         self::DB_TABLE,
-    //         $calendarId,
-    //         $start,
-    //         $end
-    //     );
-    //
-    //     $db = Db::instance();
-    //     $result = $db->lookup($query);
-    //     if(!mysql_num_rows($result))
-    //         return null;
-    //     else {
-    //         $objects = array();
-    //         while($row = mysql_fetch_assoc($result)) {
-    //             $objects[] = self::loadById($row['id']);
-    //         }
-    //         return ($objects);
-    //     }
-    // }
-
-    //Note: index month 1 - 12, not 0 - 11
-    // public static function getAllEventsByMonth($calendarId, $month, $year){
-    //
-    //     $start = date("Y-m-d", mktime(0, 0, 0, $month, 1, $year));
-    //     $end = date("Y-m-d", mktime(23, 59, 59, $month, 31, $year));
-    //     if($month == 2){
-    //                 $end = date("Y-m-d", mktime(23, 59, 59, $month, 28, $year));
-    //     }
-    //     else if($month == 4 || $month == 6 || $month == 9 || $month == 11){
-    //         $end = date("Y-m-d", mktime(23, 59, 59, $month, 30, $year));
-    //     }
-    //
-    //     $query = sprintf("SELECT * FROM %s WHERE calendarId=%s AND timestamp BETWEEN '%s' and '%s'",
-    //         self::DB_TABLE,
-    //         $calendarId,
-    //         $start,
-    //         $end
-    //     );
-    //
-    //     $db = Db::instance();
-    //     $result = $db->lookup($query);
-    //     if(!mysql_num_rows($result))
-    //         return null;
-    //     else {
-    //         $objects = array();
-    //         while($row = mysql_fetch_assoc($result)) {
-    //             $objects[] = self::loadById($row['id']);
-    //         }
-    //         return ($objects);
-    //     }
-    // }
-
     //Note: index month 1 - 12, not 0 - 11
     public static function getAllEventsAfterToday($calendarId){
 
         $today = date("Y-m-d", time());
 
         $query = sprintf("SELECT * FROM %s WHERE calendarId=%s AND timestamp >= NOW() ORDER BY timestamp ASC",
+            self::DB_TABLE,
+            $calendarId,
+            $today
+        );
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
+        }
+    }
+
+    //Note: index month 1 - 12, not 0 - 11
+    public static function getAllEventsBeforeToday($calendarId){
+
+        $today = date("Y-m-d", time());
+
+        $query = sprintf("SELECT * FROM %s WHERE calendarId=%s AND timestamp < NOW() ORDER BY timestamp DESC",
             self::DB_TABLE,
             $calendarId,
             $today

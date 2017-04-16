@@ -41,7 +41,7 @@ func (w *WebsocketHandler) handle(t TopicName, k SessionKey, c *websocket.Conn) 
 		func(ms Message) {
 			if writeMessage(ms, c) != nil {
 				log.Print("Disconnecting")
-				w.messages.removeListener(t,k)
+				w.messages.removeListener(t, k)
 			}
 		})
 	go func() {
@@ -61,12 +61,15 @@ func (w *WebsocketHandler) handle(t TopicName, k SessionKey, c *websocket.Conn) 
 	}()
 }
 
-func (wh *WebsocketHandler)  DelegateConnection(w http.ResponseWriter, r* http.Request, responseHeader http.Header, t TopicName, k SessionKey) {
-	upg := websocket.Upgrader{}
-	conn, err := upg.Upgrade(w,r,responseHeader)
+func (wh *WebsocketHandler) DelegateConnection(w http.ResponseWriter, r *http.Request, responseHeader http.Header, t TopicName, k SessionKey) {
+	upg := websocket.Upgrader{
+		CheckOrigin: func(r *http.Request) bool {
+			return true
+		}}
+	conn, err := upg.Upgrade(w, r, responseHeader)
 	if err != nil {
 		log.Print(err)
 		return
 	}
-	wh.handle(t,k,conn)
+	wh.handle(t, k, conn)
 }

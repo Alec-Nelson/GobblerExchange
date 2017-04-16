@@ -1,6 +1,7 @@
-    <html>
-    <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+<html>
+  <head>
+    {{ template "std_header" }}
 <style>
     .chatmsg {
 	padding: 2px;
@@ -19,11 +20,11 @@
 	font-size: x-small;
     }
 </style>
-    </head>
-    
-  <body>
-      
+</head>
 
+
+<body>
+      
     <div class="container card" style="height: 100%;">
     <div>
 
@@ -50,12 +51,10 @@
 
 
 
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    
     <script type="text/javascript">
-    var key = {{ .Key }};
+      var key = {{ .Key }};
+
+      var gobbler = gobbler_realtime(key, "{{ .User.DisplayName }}"); 
 
 
 last_message = {
@@ -161,47 +160,23 @@ $('#sender').keypress(function (e) {
   }
 });
 
-socket = null;
+
 
 function joinTopic(topic) {
     reset();
-
-    if(socket != null){
-	socket.onmessage = function(message){}
-	socket.close();
-    }
-    
-    socket = connectSocket(topic)
-    socket.onmessage = function(message) {
-	msg = JSON.parse(message.data)
-	console.log(msg)
-	renderMessage(msg)
-
-    }
+    gobbler.setOnMessage(renderMessage);
+    gobbler.joinTopic(topic);
     sendMessage = function(){
 	var content = $("#sender").val();
-	msg = {
-	    Content: content,
-	    SenderName: "{{ .User.DisplayName }}"
-	}
-	console.log(msg)
-	socket.send(JSON.stringify(msg))
-	console.log("Sent")
+	gobbler.sendMessageContent(content);
     }
 }
 
-function connectSocket(topic){
-    var host = "ws://"+window.location.host+"/socket?session="+key+"&topic="+topic
-    console.log(host)
-    var socket = new WebSocket(host)
-    return socket
-}
 $(function(){
     joinTopic("all");
     $("#topic_select").change(function(){
 	joinTopic($("#topic_select").val());
     });
 })
-    </script>
-  </body>
-</html>
+				 </script>
+</body>

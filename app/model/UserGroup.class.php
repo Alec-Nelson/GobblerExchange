@@ -41,6 +41,36 @@ class UserGroup extends DbObject {
         return $obj;
     }
 
+    public function delete()
+    {
+         $db = Db::instance();
+            $query = sprintf(" DELETE FROM %s WHERE id = '%s' ",
+            self::DB_TABLE,
+            $this->id
+            );
+            $ex = mysql_query($query);
+            if(!$ex)
+            die ('Query failed:' . mysql_error());
+    }
+
+    public static function loadByUserGroup($userId, $groupId){
+        $query = sprintf(" SELECT id FROM %s WHERE userId='%s' AND groupId='%s'",
+            self::DB_TABLE,
+            $userId,
+            $groupId
+        );
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $row = mysql_fetch_assoc($result);
+            $obj = self::loadById($row['id']);
+            return ($obj);
+        }
+    }
+
     public static function isUserInGroup($userId, $groupId) {
         $query = sprintf(" SELECT id FROM %s WHERE userId='%s' AND groupId='%s'",
             self::DB_TABLE,

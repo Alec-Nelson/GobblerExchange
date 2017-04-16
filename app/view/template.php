@@ -12,12 +12,7 @@
 <script>
 $(function(){
     //Listen for a click on any of the dropdown items
-    $(".type li").click(function(){
-        //Get the value
-        var value = $(this).attr("value");
-        //Put the retrieved value into the hidden input
-        $("input[name='type']").val(value);
-    });
+
 });
 </script>
     </head>
@@ -100,7 +95,7 @@ $(function(){
               <li id = "calendar" role="presentation"><a href="<?= BASE_URL ?>/calendar">Calendar</a></li>
               <li id = "notes" role="presentation"><a href="<?= BASE_URL ?>/notes">Notes</a></li>
               <li id = "polls" role="presentation"><a href="<?= BASE_URL ?>/polls">Polls</a></li>
-              <li id = "whiteboard" role="presentation"><a href="#">Whiteboard</a></li>
+              <li id = "whiteboard" role="presentation"><a href="<?= BASE_URL ?>/whiteboard">Whiteboard</a></li>
             </ul>
         </div>
         <div class="col-lg-2"></div>

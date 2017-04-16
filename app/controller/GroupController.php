@@ -22,6 +22,10 @@ class GroupController {
 				$groupId = $_GET['groupId'];
 				$this->joinGroup($groupId);
 				break;
+			case 'leavegroup':
+				$groupId = $_GET['groupId'];
+				$this->leaveGroup($groupId);
+				break;
 
 			case 'newGroup':
 				$this->newGroup();
@@ -54,7 +58,20 @@ class GroupController {
 
 		$_SESSION['info'] = "You have been added to the group: ".$group_name;
 
-		header('Location: '.BASE_URL);											//TODO: update location?
+		header('Location: '.BASE_URL);
+	}
+
+	public function leaveGroup($groupId){
+		User::loggedInCheck();
+
+		$usr_grp = UserGroup::loadByUserGroup($_SESSION['userId'], $groupId);
+		$usr_grp->delete();
+
+		$group = Group::loadById($groupId);
+		$group_name = $group->get('group_name');
+		$_SESSION['info'] = "You have been removed from the group: ".$group_name;
+
+		header('Location: '.BASE_URL);
 	}
 
 	/* Opens form for creating a new group
@@ -175,6 +192,5 @@ class GroupController {
 				$results = Group::searchGroupName($search_term);
 				include_once SYSTEM_PATH.'/view/searchgroup.html';
 		}
-		include_once SYSTEM_PATH.'/view/test.html';
 	}
 }

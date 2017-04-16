@@ -11,6 +11,7 @@
         <h2> Polls </h2>
     </div>
     <div class="col-lg-4">
+        <!-- new poll button -->
         <form action="<?= BASE_URL ?>/newpoll" >
         <button id = "button" type="submit" class="btn btn-primary newpoll">
           Create New Poll
@@ -44,8 +45,6 @@
               <h3class="panel-title"><?php echo $title ?> <?php if(!$open) echo "[CLOSED]" ?> </h3>
           </div>
 
-
-
           <!-- poll options (poll body) -->
           <div id = "voting_options_<?php echo $id ?>" class="panel-body">
               <input type="hidden" name="pollId" value="<?php echo $id ?>">
@@ -62,7 +61,7 @@
                     }
 
                     ?>
-                    <input type="radio" value="<?php echo $optStr ?>" name="polloption" <?php if($select) echo 'checked="checked"'; ?>><?php echo $optStr ?>
+                    <input type="radio" value="<?php echo $optStr ?>" name="polloption" <?php if($select) echo 'checked="checked"'; ?>> <?php echo $optStr ?>
 
                     <!-- Button appears next to poll selection so you can remove it rather than change your answer -->
                     <?php if($select){
@@ -74,7 +73,8 @@
                     <br>
 
                 <?php }} ?>
-                <button type="submit" class="btn btn-default" <?php if(!$open) echo "disabled" ?> >Submit</button>  </form>
+                <button type="submit" class="btn btn-default" <?php if(!$open) echo "disabled" ?> >Submit</button>
+            </form>
           </div>
           <!-- END: poll options (poll body) -->
 
@@ -117,15 +117,19 @@
           <!-- POLL FOOTER  -->
           <div id = "footer" class="panel-footer">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?>
 
-              <button id="resultsBtn_<?php echo $id ?>" class="btn btn-results" type="button">View Results</button>
-              <button id="optionsBtn_<?php echo $id ?>" class="btn btn-options" type="button" style="display:none;">View Poll Options</button>
+              <button id="resultsBtn_<?php echo $id ?>" class="btn btn-primary btn-results" type="button" style="background-color: maroon;">View Results</button>
+              <button id="optionsBtn_<?php echo $id ?>" class="btn btn-primary btn-options" style="display:none; background-color: maroon;">View Poll Options</button>
 
-              <?php $edit_action = BASE_URL."/editpoll/".$id ?>
+              <!-- edit poll button -->
+              <?php
+              if($authorId == $_SESSION['userId']){
+                  $edit_action = BASE_URL."/editpoll/".$id ?>
               <form id="edit_button_form" action=<?php echo $edit_action ?>>
-                  <button type="submit" id="settings_button">
+                  <button type="submit" style="border: 0;background: transparent;">
                     <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
                   </button>
               </form>
+              <?php } ?>
             <div class="clearfix"></div>
           </div>
           <!-- END POLL FOOTER  -->

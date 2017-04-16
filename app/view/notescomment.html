@@ -9,7 +9,7 @@
 <!-- The notes: -->
 <div class="panel panel-primary">
   <div id = "heading" class="panel-heading">
-    <h3 class="panel-title"><a href="<?= BASE_URL ?>/public/notes/<?php echo $filename ?>" download><?php echo $title ?></a></h3>
+    <h3 class="panel-title"><a href="<?= BASE_URL ?>/public/notes/<?php echo $filename ?>" target="_blank"><?php echo $title ?></a></h3>
   </div>
   <div id = "footer" class="panel-body">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?></div>
 </div>
@@ -47,13 +47,17 @@
                       <div class="panel-footer clearfix">
                           <span style="float:left">Posted by: <?php echo $commenterUsername ?> on <?php echo $commentdate ?></span>
                           <span style="float:right">
-                              <?php $edit_action = BASE_URL."/editnotescomment/".$commentId ?>
+                              <!-- edit comment button -->
+                              <?php
+                              if($commenterId == $_SESSION['userId']){
+                                  $edit_action = BASE_URL."/editnotescomment/".$commentId ?>
                               <form method="POST" action=<?php echo $edit_action ?>>
                                   <input type="hidden" name="notesId" value="<?php echo $notesId ?>">
                                   <button type="submit" id="settings_button">
                                       <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
                                   </button>
                             </form>
+                            <?php } ?>
                           </span>
                       </div>
                  </div>
