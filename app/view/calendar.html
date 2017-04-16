@@ -19,79 +19,113 @@
   </div>
 </div>
 
+<div class = "form-group">
+  <label for = "exampleSelect1">Month</label>
+    <form action = "#" method = "post">
+      <select name = "selectMonth" class = "form-control" id = "selectMonth">
+        <option selected = "selected" value = "01">January</option>
+        <option value = "02">February</option>
+        <option value = "03">March</option>
+        <option value = "04">April</option>
+        <option value = "05">May</option>
+        <option value = "06">June</option>
+        <option value = "07">July</option>
+        <option value = "08">August</option>
+        <option value = "09">September</option>
+        <option value = "10">October</option>
+        <option value = "11">November</option>
+        <option value = "12">December</option>
+      </select>
+      <input type = "submit" name = "submit" value = "View Month" />
+    </form>
+ </div>
 
-
-
-<!-- <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/public/css/calendar.css"> -->
-<!-- <div class="form-group">
-  <label for="exampleSelect1">Month</label>
-  <select class="form-control" id="selectMonth" onchange="showEvents()">
-    <option value = "1">January</option>
-    <option value = "2">February</option>
-    <option value = "3">March</option>
-    <option value = "4">April</option>
-    <option value = "5">May</option>
-    <option value = "6">June</option>
-    <option value = "7">July</option>
-    <option value = "8">August</option>
-    <option value = "9">September</option>
-    <option value = "10">October</option>
-    <option value = "11">November</option>
-    <option value = "12">December</option>
-  </select> -->
-<!-- </div> -->
 <!-- Days view -->
 <div id = "days">
-
+  <p id = "chosenM"></p>
     <?php
-    if($events != null){
+    if(isset($_POST['submit'])){
+          $select = $_POST['selectMonth'];
+        }
+    if($events != null)
+    {
 
-    foreach($events as $event){
-        $id = $event->get('id');
+      foreach($events as $event)
+      {
+          $id = $event->get('id');
 
-        $timestamp = $event->get('timestamp');
-        $date = Event::convertToReadableDate($timestamp);
-        $time = $event->getTime();
-        $isPM = $event->isPM();
+          $timestamp = $event->get('timestamp');
+          $date = Event::convertToReadableDate($timestamp);
+          $month = date('m', strtotime($date)); 
+          $day = date('d', strtotime($date));
+          $time = $event->getTime();
+          $isPM = $event->isPM();
 
-        $ampm = "am";
-        if ($isPM) $ampm = "pm";
+          $ampm = "am";
+          if ($isPM) $ampm = "pm";
 
-        $authorId = $event->get('userId');
-        $author = User::loadById($authorId);
-        $username = $author->get('username');
+          $authorId = $event->get('userId');
+          $author = User::loadById($authorId);
+          $username = $author->get('username');
 
-        $location = $event->get('location');
-        $description = $event->get('description');
-        $title = $event->get('title');
-        ?>
+          $location = $event->get('location');
+          $description = $event->get('description');
+          $title = $event->get('title');
+          ?>
+          
+        <!--$month = date('F', strtotime($date)); -->
 
-        <div class="panel panel-primary">
-            <div id = "heading" class="panel-heading">
-                <h4><?php echo $title ?><span style="float:right;"><?php echo $date ?> at <?php echo $time; echo $ampm ?> in <?php echo $location ?></span></h4>
+              <div id = "event" class="panel panel-primary">
+                <!--hides events until the month is confirmed -->
+                <script language = "javascript">
+                $(document).ready(function(){
+                  document.getElementById('event').style.display = "none";
+                });
+                </script>
+                  <div id = "heading" class="panel-heading">
+                      <h4><?php echo $title ?><span style="float:right;"><?php echo $date ?> at <?php echo $time; echo $ampm; echo $chosenM ?> in <?php echo $location ?></span></h4>
 
-            </div>
-            <div id = "body" class="panel-body"><p><?php echo $description ?></p></div>
-            <div id = "footer" class="panel-footer">Posted by: <?php echo $username ?>
+                  </div>
+                  <div id = "body" class="panel-body"><p><?php echo $description ?></p></div>
+                  <div id = "footer" class="panel-footer">Posted by: <?php echo $username ?>
 
 
-                <?php $edit_action = BASE_URL."/editevent/".$id ?>
-                <form id="edit_button_form" action=<?php echo $edit_action ?>>
-                    <button type="submit" style="border: 0; background: transparent">
-                        <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
-                    </button>
-              </form>
-              <div class="clearfix"></div>
-          </div>
-        </div>
-
-        <?php
+                      <?php $edit_action = BASE_URL."/editevent/".$id ?>
+                      <form id="edit_button_form" action=<?php echo $edit_action ?>>
+                          <button type="submit" style="border: 0; background: transparent">
+                              <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+                          </button>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+              </div>
+              <script language = "javascript">
+                $(document).ready(function(){
+                  $('.form-group').click(function(){
+                  var e = document.getElementById("selectMonth");
+                  var m = e.options[e.selectedIndex].value;
+                  var phpM = "<?php echo $month ?>";
+                  if(phpM == m)
+                  {
+                    document.getElementById('event').style.display = "";
+                  }
+                  else
+                  {
+                    document.getElementById('event').style.display = "none";
+                  }
+                  
+                  });
+                });
+              </script>
+          <?php
             }
-        } else {
+        } 
+        else 
+          {
             ?>
             <p><i> There doesn't seem to be any events coming up. </i></p>
             <?php
-        }
+          }
         ?>
 </div>
 
