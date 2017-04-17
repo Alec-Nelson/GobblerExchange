@@ -23,55 +23,21 @@
   </div>
 </div>
 
-
-<div class="form-group">
-  <label for="exampleSelect1">Month</label>
-  <form action = "" method = "post">
-    <select name = "selectMonth" class="form-control" id="selectMonth">
-      <option value = "01" <?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '01') ? 'selected="selected"' : ''; ?>>January</option>
-      <option value = "02"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '02') ? 'selected="selected"' : ''; ?>>February</option>
-      <option value = "03"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '03') ? 'selected="selected"' : ''; ?>>March</option>
-      <option value = "04"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '04') ? 'selected="selected"' : ''; ?>>April</option>
-      <option value = "05"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '05') ? 'selected="selected"' : ''; ?> >May</option>
-      <option value = "06"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '06') ? 'selected="selected"' : ''; ?>>June</option>
-      <option value = "07"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '07') ? 'selected="selected"' : ''; ?>>July</option>
-      <option value = "08"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '08') ? 'selected="selected"' : ''; ?>>August</option>
-      <option value = "09"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '09') ? 'selected="selected"' : ''; ?>>September</option>
-      <option value = "10"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '10') ? 'selected="selected"' : ''; ?>>October</option>
-      <option value = "11"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '11') ? 'selected="selected"' : ''; ?>>November</option>
-      <option value = "12"<?php echo (isset($_POST['selectMonth']) && $_POST['selectMonth'] == '12') ? 'selected="selected"' : ''; ?>>December</option>
-    </select>
-    <input type = "submit" name = "submit" value = "View Month" />
-  </form>
- </div>
-
-</script>
 <!-- Days view -->
 <div id = "days">
 
     <?php
-    if(isset($_POST['selectMonth']))
-    {
-      $select = $_POST['selectMonth'];
-      //echo "You have selected: " .$select;
-    }
-    else
-    {
-      $select = date('m');
-    }
-    
     if($events != null){
 
-    foreach($events as $event){
+        $current_month = -1;
+        $current_year = -1;
+        foreach($events as $event){
         $id = $event->get('id');
 
         $timestamp = $event->get('timestamp');
         $date = Event::convertToReadableDate($timestamp);
         $month = date('m', strtotime($date));
-        if(isset($month) && $month != $select)
-        {
-          continue;
-        }
+        $year = date('y', strtotime($date));
         $time = $event->getTime();
         $isPM = $event->isPM();
 
@@ -87,6 +53,16 @@
         $title = $event->get('title');
         ?>
 
+        <?php
+            if($current_month != $month || $current_year != $year){
+                $current_month = $month;
+                $current_year = $year ?>
+
+<h4><?php echo date('F Y', mktime(0,0,0,$current_month+1,0,$current_year)); ?></h4><hr>
+
+            <?php }
+        ?>
+
         <div class="panel panel-primary">
             <div id = "heading" class="panel-heading">
                 <h4><?php echo $title ?><span style="float:right;"><?php echo $date ?> at <?php echo $time; echo $ampm?> in <?php echo $location ?></span></h4>
@@ -95,7 +71,6 @@
             <div id = "body" class="panel-body"><p><?php echo $description ?></p></div>
             <div id = "footer" class="panel-footer">Posted by: <?php echo $username ?>
 
-                <!-- edit button -->
                 <?php
                 if($authorId == $_SESSION['userId']){
                     $edit_action = BASE_URL."/editevent/".$id ?>
@@ -110,13 +85,9 @@
         </div>
 
         <?php
-            }
-        } else {
-            ?>
-            <p><i> There doesn't seem to be any events coming up. </i></p>
-            <?php
-        }
+    }}
         ?>
+    </tbody></table>
 </div>
 
 <?php
