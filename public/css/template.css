@@ -152,3 +152,7 @@ li {
     color: white;
     background-color: #ff6600;
 }
+
+.panel-body  {
+    word-break:break-all
+}
