@@ -39,7 +39,7 @@
             $authorUsername = $author->get('username');
   ?>
 
-  <form method="POST" action="<?= BASE_URL ?>/vote">
+
       <div class="panel panel-primary">
           <div  id = "heading" class="panel-heading">
               <h3class="panel-title"><?php echo $title ?> <?php if(!$open) echo "[CLOSED]" ?> </h3>
@@ -47,6 +47,7 @@
 
           <!-- poll options (poll body) -->
           <div id = "voting_options_<?php echo $id ?>" class="panel-body">
+            <form method="POST" action="<?= BASE_URL ?>/vote">
               <input type="hidden" name="pollId" value="<?php echo $id ?>">
               <?php
               if($options != null){
@@ -75,12 +76,12 @@
                 <?php }} ?>
                 <button type="submit" class="btn btn-default" <?php if(!$open) echo "disabled" ?> >Submit</button>
             </form>
-          </div>
+        </div>
           <!-- END: poll options (poll body) -->
 
 
           <!-- Alternative poll body (results) -->
-          <div id="results_<?php echo $id ?>" style="display:none;">
+          <div id="results_<?php echo $id ?>" style="display:none;" class="panel-body">
               <table class="table">
                   <thead>
                       <tr>
