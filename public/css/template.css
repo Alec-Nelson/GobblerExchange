@@ -124,11 +124,12 @@ li {
     /*background-color: lightgrey;*/
     height: 100%;
     border-radius: 10px;
-    text-indent: 12px;
+    /*text-indent: 12px;*/
     /*opacity: 0.4;*/
     background-color: rgba(255,255,255,.5);
     /*backdrop-filter: blur(5px);*/
     padding: 3%;
+
 }
 
 #chat {
