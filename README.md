@@ -17,6 +17,7 @@ Implemented:
   - Checks for repeated username, checks for vt.edu email address, checks if passwords match
 - User log in authentication
 - Forum posts ordered by rating (decreasing)
+- Sorting forum posts via dropdown (Alec)
 - Notes are ordered by rating (decreasing)
 - Events are ordered by date (increasing)
 - Polls are ordered by date (decreasing)
@@ -38,15 +39,15 @@ Implemented:
 - Leave a group (Megan
 - PDF view preview for notes before downloading (Megan)
 - View past events (Megan)
+- Creating/editing calendar event
+    - the time is checked for correct format, error message displayed and form disabled if not correct (Megan)
 
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable. (Michael)
 - Checking if form input fields are empty (Alec)
   - Check for special characters
-  - Check for correct format (like the time/date)
 - Whiteboard (Greg)
 - User must join/create a group when they create an account (Alec)
 - Ability to add/invite users to a group when a user creates a group (Alec)
-- Sorting forum posts via dropdown (Alec)
 - Scalability (only looks good on desktop/laptop screens for now) (Front-end team)
 - Chat room visibility does not update except for upon login. (Greg)

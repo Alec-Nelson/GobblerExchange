@@ -5,11 +5,9 @@ include_once('template.php');
 
 <link href="<?= BASE_URL ?>/public/css/calendar.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/calendar.css');?>" type="text/css" rel="stylesheet">
 
-<body>
 <h2>Edit Calendar Event</h2>
-</body>
+<div id="error_box" style="display:none;" class='alert alert-danger' role='alert'><p id="notifyTime"></p></div>
  <form method="POST" action="<?= BASE_URL ?>/editevent_submit">
-
   <input type="hidden" name="eventId" value="<?php echo $eventId ?>">
 
   <div class="form-group">
@@ -18,7 +16,7 @@ include_once('template.php');
   </div>
   <div class="form-group time-group">
     <label for="startTime">Start Time</label>
-    <input class="form-control" id="startTime" type="text" placeholder="00:00" name="time" value="<?php echo $time ?>">
+    <input class="form-control" id="timepicker" type="text" placeholder="00:00" name="time" value="<?php echo $time ?>">
     <label class="radio-inline"><input type="radio" name="ampm" value="am" <?php if($ampm == "am") echo "checked"?>>am</label>
     <label class="radio-inline"><input type="radio" name="ampm" value="pm" <?php if($ampm == "pm") echo "checked"?>>pm</label>
   </div>
@@ -34,30 +32,16 @@ include_once('template.php');
     <label for="comment">Description:</label>
     <textarea class="form-control" rows="5" id="description" name="description"><?php echo $description ?></textarea>
   </div>
-  <!-- <div class="form-group">
-      <label for="tag">Tag:</label>
-      <select class="form-control" id="tag">
-        <option value="studyGroup">Study Group</option>
-        <option value="exam">Exam</option>
-        <option value="study">Study</option>
-        <option value="homeworkDue">Homework Due</option>
-      </select>
-      <br>
-    </div> -->
-    <button type="submit" class="btn btn-success">Update</button>
+    <button id="button" type="submit" class="btn btn-primary">Update</button>
 
-    <button type="submit" class="btn btn-warning" name="Cancel">Cancel</button>
+    <button id="button" type="submit" class="btn btn-primary" name="Cancel">Cancel</button>
 
-    <button type="submit" class="btn btn-danger" name="Delete">Delete</button>
+    <button id="button" type="submit" class="btn btn-primary" name="Delete">Delete</button>
 </form>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-  $( function() {
-    $( "#datepicker" ).datepicker({dateFormat: "yy-mm-dd"});
-  } );
-</script>
+<script src="<?= BASE_URL ?>/public/js/calendar.js"></script>
 
 <?php
   include_once('templateBottom.php');

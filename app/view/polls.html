@@ -39,16 +39,15 @@
             $authorUsername = $author->get('username');
   ?>
 
-  <form method="POST" action="<?= BASE_URL ?>/vote">
+
       <div class="panel panel-primary">
           <div  id = "heading" class="panel-heading">
               <h3class="panel-title"><?php echo $title ?> <?php if(!$open) echo "[CLOSED]" ?> </h3>
           </div>
 
-
-
           <!-- poll options (poll body) -->
           <div id = "voting_options_<?php echo $id ?>" class="panel-body">
+            <form method="POST" action="<?= BASE_URL ?>/vote">
               <input type="hidden" name="pollId" value="<?php echo $id ?>">
               <?php
               if($options != null){
@@ -63,7 +62,7 @@
                     }
 
                     ?>
-                    <input type="radio" value="<?php echo $optStr ?>" name="polloption" <?php if($select) echo 'checked="checked"'; ?>><?php echo $optStr ?>
+                    <input type="radio" value="<?php echo $optStr ?>" name="polloption" <?php if($select) echo 'checked="checked"'; ?>> <?php echo $optStr ?>
 
                     <!-- Button appears next to poll selection so you can remove it rather than change your answer -->
                     <?php if($select){
@@ -75,13 +74,14 @@
                     <br>
 
                 <?php }} ?>
-                <button type="submit" class="btn btn-default" <?php if(!$open) echo "disabled" ?> >Submit</button>  </form>
-          </div>
+                <button type="submit" class="btn btn-default" <?php if(!$open) echo "disabled" ?> >Submit</button>
+            </form>
+        </div>
           <!-- END: poll options (poll body) -->
 
 
           <!-- Alternative poll body (results) -->
-          <div id="results_<?php echo $id ?>" style="display:none;">
+          <div id="results_<?php echo $id ?>" style="display:none;" class="panel-body">
               <table class="table">
                   <thead>
                       <tr>
@@ -118,8 +118,8 @@
           <!-- POLL FOOTER  -->
           <div id = "footer" class="panel-footer">Posted by: <?php echo $authorUsername ?> on <?php echo $date ?>
 
-              <button id="resultsBtn_<?php echo $id ?>" class="btn btn-results" type="button">View Results</button>
-              <button id="optionsBtn_<?php echo $id ?>" class="btn btn-options" type="button" style="display:none;">View Poll Options</button>
+              <button id="resultsBtn_<?php echo $id ?>" class="btn btn-primary btn-results" type="button" style="background-color: #660000;">View Results</button>
+              <button id="optionsBtn_<?php echo $id ?>" class="btn btn-primary btn-options" style="display:none; background-color: #660000;">View Poll Options</button>
 
               <!-- edit poll button -->
               <?php

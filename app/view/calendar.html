@@ -1,10 +1,9 @@
-
-
 <?php
   include_once('template.php');
 
 ?>
 <link href="<?= BASE_URL ?>/public/css/calendar.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/calendar.css');?>" type="text/css" rel="stylesheet">
+<script src="<?= BASE_URL ?>/public/js/calendarold.js"></script>
 
 <div class="row">
   <div class="col-lg-6">
@@ -24,38 +23,21 @@
   </div>
 </div>
 
-
-
-
-<!-- <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/public/css/calendar.css"> -->
-<!-- <div class="form-group">
-  <label for="exampleSelect1">Month</label>
-  <select class="form-control" id="selectMonth" onchange="showEvents()">
-    <option value = "1">January</option>
-    <option value = "2">February</option>
-    <option value = "3">March</option>
-    <option value = "4">April</option>
-    <option value = "5">May</option>
-    <option value = "6">June</option>
-    <option value = "7">July</option>
-    <option value = "8">August</option>
-    <option value = "9">September</option>
-    <option value = "10">October</option>
-    <option value = "11">November</option>
-    <option value = "12">December</option>
-  </select> -->
-<!-- </div> -->
 <!-- Days view -->
 <div id = "days">
 
     <?php
     if($events != null){
 
-    foreach($events as $event){
+        $current_month = -1;
+        $current_year = -1;
+        foreach($events as $event){
         $id = $event->get('id');
 
         $timestamp = $event->get('timestamp');
         $date = Event::convertToReadableDate($timestamp);
+        $month = date('m', strtotime($date));
+        $year = date('y', strtotime($date));
         $time = $event->getTime();
         $isPM = $event->isPM();
 
@@ -71,15 +53,24 @@
         $title = $event->get('title');
         ?>
 
+        <?php
+            if($current_month != $month || $current_year != $year){
+                $current_month = $month;
+                $current_year = $year ?>
+
+<h4><?php echo date('F Y', mktime(0,0,0,$current_month+1,0,$current_year)); ?></h4><hr>
+
+            <?php }
+        ?>
+
         <div class="panel panel-primary">
             <div id = "heading" class="panel-heading">
-                <h4><?php echo $title ?><span style="float:right;"><?php echo $date ?> at <?php echo $time; echo $ampm ?> in <?php echo $location ?></span></h4>
+                <h4><?php echo $title ?><span style="float:right;"><?php echo $date ?> at <?php echo $time; echo $ampm?> in <?php echo $location ?></span></h4>
 
             </div>
             <div id = "body" class="panel-body"><p><?php echo $description ?></p></div>
             <div id = "footer" class="panel-footer">Posted by: <?php echo $username ?>
 
-                <!-- edit button -->
                 <?php
                 if($authorId == $_SESSION['userId']){
                     $edit_action = BASE_URL."/editevent/".$id ?>
@@ -94,13 +85,9 @@
         </div>
 
         <?php
-            }
-        } else {
-            ?>
-            <p><i> There doesn't seem to be any events coming up. </i></p>
-            <?php
-        }
+    }}
         ?>
+    </tbody></table>
 </div>
 
 <?php

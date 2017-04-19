@@ -1,12 +1,14 @@
 <?php
   include_once('template.php');
 ?>
+          <script src="<?= BASE_URL ?>/public/js/forum.js"></script>
+
 
           <link href="<?= BASE_URL ?>/public/css/forum.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/forum.css');?>" type="text/css" rel="stylesheet">
                 <!-- START CODE -->
                   <div class="row">
                     <div class="col-lg-5">
-                      <h1><?php echo $group_name; ?> Forum</h1>
+                      <h2><?php echo $group_name; ?> Forum</h2>
                     </div>
                     <div class="col-lg-3">
 
@@ -36,14 +38,29 @@
                     </div>
                     </form>
                     <div class="col-lg-1" style="float: right;">
-                      <button id = "filterdropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: right;">
-                        Date <span class="caret"><span>
+                      <div  class="input-group-btn">
+                      <form id="forumsort" method="POST" action="<?= BASE_URL ?>/forumsort">
+                      <button id = "filterdropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: left;">
+                        <?php
+                        if ($sortType === null)
+                        {
+                          echo 'Popularity';
+                        }
+                        else
+                        {
+                          echo $sortType;
+                        }
+                        ?>
+                      <span class="caret"><span>
                       </button>
-                      <ul id = "dorp"class="dropdown-menu" role = "menu">
-                        <li><a href="#">Date</a></li>
-                        <li><a href="#">Popularity</a></li>
+                      <input type="hidden" name="sortType">
+                      <ul id = "dorp"class="dropdown-menu sortTypes" role = "menu" name="sortTypes">
+                        <li class="dropdownoptions" value="Date"><a href="#">Date</a></li>
+                        <li class="dropdownoptions" value="Popularity"><a href="#">Popularity</a></li>
                       </ul>
+                    </form>
                     </div>
+                  </div>
                   </div>
 
                   <?php
