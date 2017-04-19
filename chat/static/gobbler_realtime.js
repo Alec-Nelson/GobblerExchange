@@ -42,6 +42,7 @@ gobbler_realtime = function(key, username){
 	sendMessage: sendMessage,
 	setOnMessage: _setOnMessage,
 	joinTopic: _connectSocket,
-	sendMessageContent: sendMessageContent
+	sendMessageContent: sendMessageContent,
+	currentName: myuname
     }
 }

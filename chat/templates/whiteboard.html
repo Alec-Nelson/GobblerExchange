@@ -9,9 +9,18 @@
 
 <body>
       
-  <div class="container card" style="height: 100%;">
+    <div class="container card" style="height: 100%;">
+    <div>
+    <button id="textpen" class="btn btn-default editor_selector" ><i class="fa fa-font" aria-hidden="true"></i></button>
+    <button id="pen" class="btn btn-default editor_selector"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+    <input type="range" class="pen-config" id="pen_weight" min=1 value=10 step=2 max=100>
+    <input type="color" class="pen-config" id="pen_color">
+</div>
     <canvas id="whiteboard" style="width: 800px; height: 600px; border: 2px solid;" height=600 width=800></canvas>
-    <button id="clear" class="btn btn-warning" style="display: inline-block;">Clear</button>
+    <div class="container">
+    <button id="clear" class="btn btn-danger" style="display: inline-block;">Clear</button>
+    <button id="delete" class="btn btn-warning" style="display: inline-block;">Delete</button>
+    <div>
   </div>
     <script type="text/javascript">
       var key = {{ .Key }};
@@ -20,8 +29,11 @@
       
 
 drawingView = function(canvasId){
+
+    var pencil = { render: function(ctx){} }
    
     var lines = new Map();
+    var objects = new Map();
 
     var tempPoint = null;
     var el = document.getElementById(canvasId);
@@ -47,6 +59,16 @@ drawingView = function(canvasId){
 	}
     }
 
+    updateObject = function(pt){
+	var idC = pt.id;
+
+	if(pt.action == "delete"){
+	    objects.delete(idC);
+	} else {
+	    objects.set(idC, pt);
+	}
+    }
+
     
     var ctx = el.getContext('2d');
 
@@ -55,6 +77,7 @@ drawingView = function(canvasId){
 
 
     reDraw = function(){
+	ctx.lineWidth = 2;
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	lines.forEach(function(lineEntry){
 	    line = lineEntry.points;
@@ -63,6 +86,8 @@ drawingView = function(canvasId){
 	    }
 	    ctx.beginPath();
 	    var p1 = line[0];
+	    ctx.lineWidth = p1.weight;
+	    ctx.strokeStyle = p1.color;
 	    var p2 = line[1];
 	    ctx.moveTo(p1.x, p1.y);
 	    for (var i = 1, len = line.length; i < len; i++) {
@@ -80,6 +105,17 @@ drawingView = function(canvasId){
 	    ctx.lineTo(p1.x, p1.y);
 	    ctx.stroke();
 	});
+	ctx.strokeStyle = "#000000"
+	objects.forEach(function(object){
+	    if(object.type == "text"){
+		ctx.font = "30px Arial";
+		var pt = drawable_point(object);
+		ctx.fillText(object.text, pt.x, pt.y);		
+		console.log(object.text);
+	    }
+	});
+	ctx.lineWidth = 2;
+	pencil.render(ctx);
 
     }
 
@@ -88,13 +124,36 @@ drawingView = function(canvasId){
     }
 
     recvPoint = function(pointMsg){
-	if(pointMsg.Content == "!clear"){
-	    clear();
-	    reDraw();
+	if(pointMsg.Content[0] == "!"){
+	    if(pointMsg.Content == "!clear"){
+		clear();
+		reDraw();
+		return;
+	    }
+	    if(pointMsg.Content == "!clear_mine"){
+		lines.forEach(function(line, key){
+		    if(line.creator == pointMsg.SenderName){
+			lines.delete(key)
+		    }
+		});
+		objects.forEach(function(ob, key){
+		    if(ob.creator == pointMsg.SenderName){
+			objects.delete(key);
+		    }
+		});
+		reDraw();
+		return;
+	    }
 	    return;
 	}
 	pt = JSON.parse(pointMsg.Content);
-	getLine(pt.line).points.push(pt.point);
+	pt.creator = pointMsg.SenderName
+	if(pt.type == "line"){
+	    getLine(pt.id).points.push(pt.point);
+	    getLine(pt.id).creator = pt.creator
+	} else {
+	    updateObject(pt)
+	}
 	reDraw();
     }
 
@@ -105,22 +164,208 @@ drawingView = function(canvasId){
     return {
 	setTemp: setTemp,
 	recievePoint: recvPoint,
-	reDraw: reDraw
+	reDraw: reDraw,
+	lines,
+	objects,
+	set_pencil: function(pen){ pencil = pen }
     }
 
 }
 
+function drawable_point(object){
+    if(object.updating_point){
+	return object.updating_point;
+    }
+    return object.point;
+}
+
+lineDrawer = function(controller){
+    var THRESH = 10.0;
+    
+    var isDrawing = false;
+    var currLine = null;
+    var lastP = null;
+
+    var pushPoint = function(lineId, point){
+	lastP = point;
+	point.weight = $("#pen_weight").val();
+	point.color = $("#pen_color").val();
+	controller.message_sender({
+	    point: point,
+	    id: lineId,
+	    type: "line",
+	});
+    }
+    var stop_draw = function(){
+	lastP = null;
+	currLine = null;
+	isDrawing = false;
+    }
+    
+    var mouseDown = function(e){
+	isDrawing = true;
+	currLine = controller.new_id();
+	pushPoint(currLine, controller.click_pos(e));
+    }
+
+    var mouseMove = function(e) {
+	if (!isDrawing) return;
+	
+	newP = controller.click_pos(e);
+	if(Math.hypot(lastP.x-newP.x, lastP.y-newP.y) < THRESH){
+	    controller.push_temp_point({line: currLine, point: newP});
+	    reDraw();
+	    return;
+	} else {
+	    controller.push_temp_point(null);
+	}
+	pushPoint(currLine, newP);
+	controller.re_draw();
+    }
+
+    var mouseUp = function(e){
+	console.log("GOT MOUSE UP");
+    	pushPoint(currLine, clickPos(e));
+	stop_draw();
+	controller.re_draw();
+    }
+
+    var mouseLeave = function(){
+	stop();
+	controller.re_draw();
+    }
+    
+    return {
+	mouseDown,
+	mouseUp,
+	mouseMove,
+	mouseLeave,
+	render: function(ctx){}
+    }
+}
+
+textDrawer = function(controller, view){
+    var THRESH = 20.0;
+    
+    drawing_obj = null;
+    last_drawing = null;
+    
+    place = function(e){
+	point =controller.click_pos(e);
+	new_id = controller.new_id();
+	var txt = prompt("Contents?")
+	if(!txt){
+	    return;
+	}
+	var new_obj  = { point, type: "text", text: txt, id: new_id }
+	last_drawing = new_obj;
+	controller.message_sender(new_obj)
+    }
+
+    drag_box = function(textbox){
+	var pt = drawable_point(textbox);
+	return {
+	    x: pt.x-15,
+	    y: pt.y-20,
+	    w: 10,
+	    h: 10,
+	}
+    }
+
+    drag_or_place = function(e){
+	var chosen = null;
+	var pt = controller.click_pos(e)
+	view.objects.forEach(function(object){
+	    if(object.type == "text" && object.creator == gobbler.currentName){
+		var box = drag_box(object);
+		if(pt.x >= box.x && pt.x <= box.x+box.w && pt.y <= box.y + box.h && pt.y >= box.y){
+		    chosen = object;
+		}
+	    }
+	});
+	if(chosen == null){
+	    place(e);
+	} else {
+	    drawing_obj = chosen;
+	    last_drawing = chosen;
+	}
+    }
+
+    move = function(e, force){
+	point = controller.click_pos(e);
+	point = {x: point.x+7.5, y:point.y+15};
+	if(drawing_obj != null){
+	    drawing_obj = view.objects.get(drawing_obj.id)
+	    if(force || Math.hypot(drawing_obj.point.x - point.x, drawing_obj.point.y - point.y) > THRESH){
+		drawing_obj.point = point;
+		drawing_obj.updating_point = null;
+		controller.message_sender(drawing_obj)
+	    } else {
+		console.log("updating..")
+		drawing_obj.updating_point = point;
+		controller.re_draw();
+	    }
+	}
+    }
+
+    noop = function(e){}
+
+    stop = function(e){
+	if(e){
+	    move(e, true);
+	}
+	drawing_obj = null;
+    }
+
+    render = function(ctx){
+	view.objects.forEach(function(object){
+	    if(object.type == "text" && object.creator == gobbler.currentName){
+		if(last_drawing && last_drawing.id == object.id){
+		    ctx.strokeStyle="#FF0000";
+		} 
+		dragbox = drag_box(object);
+		ctx.strokeRect(dragbox.x, dragbox.y, dragbox.w, dragbox.h)
+		ctx.strokeStyle = "#000000";
+	    }
+	});
+
+    }
+
+    deleter = function(){
+	if(last_drawing != null){
+	    controller.message_sender({ type: 'object', action: 'delete', id: last_drawing.id})
+	}
+    }
+
+    return {
+	mouseMove: move,
+	mouseLeave: stop,
+	mouseDown: drag_or_place,
+	mouseUp: stop,
+	render,
+	deleter
+    }
+
+}
+
+
+
 drawingHandler = function(gobblerRT, canvasId, pushTempPoint, reDraw){
 
-    THRESH = 10.0;
-    
     var el = document.getElementById(canvasId);
     var elRect = el.getBoundingClientRect();
 
     isDrawing = false;
     currLine = null;
     lastP = null;
-    
+
+    var pencil = {
+	mouseDown: function(e){},
+	mouseUp: function(e){},
+	mouseMove: function(e){},
+	mouseLeave: function(){}
+    }
+
     newID = function(){
 	return Math.floor(10*performance.now())+"-"+Math.floor(Math.random()*1000000);
     }
@@ -132,54 +377,72 @@ drawingHandler = function(gobblerRT, canvasId, pushTempPoint, reDraw){
 	}
     }
 
-    stop = function(){
-	lastP = null;
-	currLine = null;
-	isDrawing = false;
-    }
-
-    pushPoint = function(lineId, point){
-	lastP = point;
-	gobbler.sendMessageContent(JSON.stringify({
-	    point: point,
-	    line: lineId
-	}));
+    message_sender = function(message){
+	gobbler.sendMessageContent(JSON.stringify(message));
     }
 
 	
     el.onmousedown = function(e) {
-	isDrawing = true;
-	currLine = newID();
-	pushPoint(currLine, clickPos(e));
+	pencil.mouseDown(e);
     };
 	
 
     el.onmousemove = function(e) {
-	if (!isDrawing) return;
-	
-	newP = clickPos(e);
-	if(Math.hypot(lastP.x-newP.x, lastP.y-newP.y) < THRESH){
-	    pushTempPoint({line: currLine, point: newP});
-	    reDraw();
-	    return;
-	} else {
-	    pushTempPoint(null);
-	}
-	pushPoint(currLine, newP);
-	reDraw();
+	pencil.mouseMove(e);
     };
 
     el.onmouseup = function(e) {
-	pushPoint(currLine, clickPos(e));
-	stop();
-	reDraw();
+	console.log("UP!")
+	pencil.mouseUp(e);
     };
 
     $(el).mouseleave(function(){
-	stop();
-	reDraw();
+	pencil.mouseLeave();
     });
+    
+    return {
+	new_id: newID,
+	message_sender,
+	click_pos: clickPos,
+	set_pencil: function(pen) { pencil = pen },
+	push_temp_point: pushTempPoint,
+	re_draw: reDraw,
+    }
 }
+
+CurrentPencil = null;
+function choosePencil(pencil){
+    CurrentPencil = pencil;
+    drawController.set_pencil(pencil);
+    drawing.set_pencil(pencil);
+    if(pencil.deleter){
+	$("#delete").show();
+    } else {
+	$("#delete").hide();
+    }
+    drawController.re_draw()
+}
+
+$(function(){
+    $("#delete").click(function(){
+	CurrentPencil.deleter();
+    })
+
+    $("#textpen").click(function(){
+	$(".editor_selector").removeClass("btn-success");
+	choosePencil(text_boxes);
+	$("#textpen").addClass("btn-success");
+	$(".pen-config").hide();
+    });
+    $("#pen").click(function(){
+	$(".editor_selector").removeClass("btn-success");
+	choosePencil(line_pencil);
+	$("#pen").addClass("btn-success");
+	$(".pen-config").show();
+    })
+});
+
+
 
 var drawing = null;
 $(function(){
@@ -187,8 +450,14 @@ $(function(){
     drawing = drawingView('whiteboard');
     gobbler.setOnMessage(drawing.recievePoint);
     drawController = drawingHandler(gobbler, 'whiteboard', drawing.setTemp,  drawing.reDraw);
+
+    line_pencil = lineDrawer(drawController);
+    text_boxes = textDrawer(drawController, drawing);
+
+    $("#pen").click()
+    
     $("#clear").click(function(){
-	gobbler.sendMessageContent("!clear");
+	gobbler.sendMessageContent("!clear_mine");
     });
 });
     </script>
