@@ -27,20 +27,20 @@
 
 
                   <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-7">
                       <form method="POST" action="<?= BASE_URL ?>/forumsearch">
                       <input id = "searchBar" name="search" type="text" class="form-control" aria-label="...">
                     </div>
-                    <div class="col-lg-1">
+                    <div class="col-lg-1" style="padding: 0">
                       <button id = "button" type="submit" class="btn btn-primary">
                         Search
                       </button>
                     </div>
                     </form>
-                    <div class="col-lg-1" style="float: right;">
+                    <div class="col-lg-3" style="float: right;">
                       <div  class="input-group-btn">
                       <form id="forumsort" method="POST" action="<?= BASE_URL ?>/forumsort">
-                      <button id = "filterdropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: left;">
+                      <button id = "filterdropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php
                         if ($sortType === null)
                         {
