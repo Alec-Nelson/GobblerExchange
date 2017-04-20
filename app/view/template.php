@@ -28,15 +28,6 @@ $(function(){
                 <!-- <span class="orange">Exchange</span> -->
             </h1>
         </div>
-        <div class="col-lg-2">
-            <p id = "signedinas" class="orange description" style="float: right;">
-            Signed in as
-            <?php
-            $user = User::loadByid($_SESSION['userId']);
-            echo $user->get("username");
-             ?>
-            </p>
-        </div>
         <!-- <div class="col-lg-2"> -->
         <form action="<?= BASE_URL ?>/logout">
             <button id = "signout" type="submit"  class="btn btn-primary" style="float: right;">
@@ -44,6 +35,15 @@ $(function(){
             </button>
           </form>
         <!-- </div> -->
+        <div class="col-lg-2" style="float: right">
+            <p id = "signedinas" class="orange description" style="float: right; text-align: right">
+            Signed in as
+            <?php
+            $user = User::loadByid($_SESSION['userId']);
+            echo $user->get("username");
+             ?>
+            </p>
+        </div>
       </div>
 
 <!-- Search bar -->
