@@ -58,7 +58,7 @@ $(function(){
                 Group <span class="caret"><span>
             </button>
             <ul class="dropdown-menu type" role = "menu" name="types">
-              <li value="crn"><a href="#">Crn</a></li>
+              <li value="crn"><a href="#">CRN</a></li>
               <li value="username"><a href="#">Username</a></li>
               <li value="email"><a href="#">Email</a></li>
               <li value="group"><a href="#">Group</a></li>
