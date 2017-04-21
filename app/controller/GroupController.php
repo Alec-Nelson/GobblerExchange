@@ -1,6 +1,7 @@
 <?php
 
 include_once '../global.php';
+include_once 'SiteController.php';
 
 // get the identifier for the page we want to load
 $action = $_GET['action'];
@@ -57,6 +58,8 @@ class GroupController {
 		$group_name = $group->get('group_name');
 
 		$_SESSION['info'] = "You have been added to the group: ".$group_name;
+
+        SiteController::negotiateRealtimeToken();
 
 		header('Location: '.BASE_URL);
 	}
@@ -162,6 +165,8 @@ class GroupController {
 		$usrgrp->set('userId', $userId);
 		$usrgrp->set('groupId', $group->get('id'));
 		$usrgrp->save();
+
+        SiteController::negotiateRealtimeToken();
 
 		header('Location: '.BASE_URL.'/');
 		exit();
