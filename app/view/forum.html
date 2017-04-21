@@ -42,7 +42,7 @@
                       <form id="forumsort" method="POST" action="<?= BASE_URL ?>/forumsort">
                       <button id = "filterdropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: left;">
                         <?php
-                        if ($sortType === null)
+                        if ($sortType == "")
                         {
                           echo 'Popularity';
                         }
