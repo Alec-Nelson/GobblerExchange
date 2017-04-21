@@ -17,14 +17,14 @@ $(document).ready(function(){
         // var timeFormat = /^\s*([1-9]|0[1-9]|1[0-2]):[0-5][0-9]\s*$/i;
         if (!correctFormat.test(this.value) || this.value.trim() == "" ){
           // alert("using incorrect format");
-            $('#notifyError').text('You are utilizing prohibited symbols');
-            $("#submit_form").prop("disabled",true);
-            $('#error_box').show();
+            // $('#notifyError').text('You are utilizing prohibited symbols');
+            // $("#submit_form").prop("disabled",true);
+            // $('#error_box').show();
         } else {
 
-            $('#notifyError').text('');
-            $("#submit_form").prop("disabled",false);
-            $('#error_box').hide();
+            // $('#notifyError').text('');
+            // $("#submit_form").prop("disabled",false);
+            // $('#error_box').hide();
         }
     });
 
