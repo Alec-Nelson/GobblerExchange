@@ -26,28 +26,28 @@
 <body>
       
     <div class="container card" style="height: 100%;">
-    <div>
-
-    <div class="row">
-    <div class="col-4">
-    <p>
-    {{ .User.DisplayName }}
-    </p>
-    </div>
-    <div class="col-8">
-      <select class="form-control" id="topic_select">
-	{{range .User.AvailableTopics }}
-	<option value="{{ .}}">{{.}}</option>
-	{{end}}
-      </select>
-    </div>
-    </div>
-    </div>
-	<div id="chat" style="overflow-y: scroll; height: 100%; margin-bottom: 25px;">
-
+      <div>
+	<div class="row">
+	  <div class="col-4">
+	    <p>
+	      {{ .User.DisplayName }}
+	    </p>
+	  </div>
+	  <div class="col-8">
+	    <select class="form-control" id="topic_select">
+	      {{range .User.AvailableTopics }}
+	      <option value="{{ .}}">{{.}}</option>
+	      {{end}}
+	    </select>
+	  </div>
 	</div>
-	<input id="sender" class="form-control input-lg" placeholder="enter message">
       </div>
+      
+      <div id="chat" style="overflow-y: scroll; height: 100%; margin-bottom: 25px;">
+      </div>
+
+      <input id="sender" class="form-control input-lg" placeholder="enter message">
+    </div>
 
 
 

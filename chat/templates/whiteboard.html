@@ -9,24 +9,52 @@
 
 <body>
       
-    <div class="container card" style="height: 100%;">
-    <div>
-    <button id="textpen" class="btn btn-default editor_selector" ><i class="fa fa-font" aria-hidden="true"></i></button>
-    <button id="pen" class="btn btn-default editor_selector"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-    <input type="range" class="pen-config" id="pen_weight" min=1 value=10 step=2 max=100>
-    <input type="color" class="pen-config" id="pen_color">
-</div>
-    <canvas id="whiteboard" style="width: 800px; height: 600px; border: 2px solid;" height=600 width=800></canvas>
-    <div class="container">
-    <button id="clear" class="btn btn-danger" style="display: inline-block;">Clear</button>
-    <button id="delete" class="btn btn-warning" style="display: inline-block;">Delete</button>
-    <div>
-  </div>
+    <div class="container card" style="height: 100%; width: 100%;">
+      <div class="row" style="height: 50px">
+	<button id="textpen" class="btn btn-default editor_selector" ><i class="fa fa-font" aria-hidden="true"></i></button>
+	<button id="pen" class="btn btn-default editor_selector"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+	<input type="range" class="pen-config" id="pen_weight" min=1 value=10 step=2 max=100>
+	<input type="color" class="pen-config" id="pen_color">
+    </div>
+    <div class="row" style="height: 100%; width: 100%; margin-bottom: 10px;">
+      <canvas id="whiteboard" style="border: 2px solid; height: 100%; width: 100%;"></canvas>
+    </div>
+    <div class="row" style="height: 50px;">
+	<button id="clear" class="btn btn-danger" style="display: inline-block;">Clear</button>
+	<button id="delete" class="btn btn-warning" style="display: inline-block;">Delete</button>
+      </div>
+    </div>
+	
     <script type="text/javascript">
-      var key = {{ .Key }};
 
-      var gobbler = gobbler_realtime(key, "{{ .User.DisplayName }}");
-      
+function resizeCanvasToDisplaySize(canvas) {
+   // look up the size the canvas is being displayed
+    const width = canvas.clientWidth;
+   const height = canvas.clientHeight;
+
+   // If it's resolution does not match change it
+   if (canvas.width !== width || canvas.height !== height) {
+     canvas.width = width;
+canvas.height = height;
+console.log("resizing..")
+     return true;
+   }
+
+    return false;
+}
+
+var resizer = function(controller){
+    if(resizeCanvasToDisplaySize($("#whiteboard")[0])){
+	controller.re_draw();
+    }
+    requestAnimationFrame(function(){resizer(controller)});
+}
+
+
+var key = {{ .Key }};
+
+var gobbler = gobbler_realtime(key, "{{ .User.DisplayName }}");
+
 
 drawingView = function(canvasId){
 
@@ -68,15 +96,12 @@ drawingView = function(canvasId){
 	    objects.set(idC, pt);
 	}
     }
-
     
-    var ctx = el.getContext('2d');
-
-    ctx.lineWidth = 2;
-    ctx.lineJoin = ctx.lineCap = 'round';
-
 
     reDraw = function(){
+	var ctx = el.getContext('2d');
+	ctx.lineWidth = 2;
+	ctx.lineJoin = ctx.lineCap = 'round';
 	ctx.lineWidth = 2;
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	lines.forEach(function(lineEntry){
@@ -422,7 +447,6 @@ function choosePencil(pencil){
     }
     drawController.re_draw()
 }
-
 $(function(){
     $("#delete").click(function(){
 	CurrentPencil.deleter();
@@ -446,13 +470,15 @@ $(function(){
 
 var drawing = null;
 $(function(){
-    gobbler.joinTopic("all_whiteboard");
+    gobbler.joinTopic(window.location.hash.substr(1));
     drawing = drawingView('whiteboard');
     gobbler.setOnMessage(drawing.recievePoint);
     drawController = drawingHandler(gobbler, 'whiteboard', drawing.setTemp,  drawing.reDraw);
 
     line_pencil = lineDrawer(drawController);
     text_boxes = textDrawer(drawController, drawing);
+
+    resizer(drawController);
 
     $("#pen").click()
     

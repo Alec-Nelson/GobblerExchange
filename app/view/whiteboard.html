@@ -2,12 +2,12 @@
   include_once('template.php');
 ?>
 
-<iframe id="chat" src="" style="height: 70vh; width: 20vw;"></iframe>
+<iframe id="_whiteboard_frm" src="" style="height: 60vh; width: 100%;"></iframe>
       <script type="text/javascript">
     var chat_token = "<?php
     echo $_SESSION['chat_token'];
 ?>";
-$("#chat").attr('src', "<?php echo $_SESSION['chat_server'] ?>/chat?session="+chat_token);
+$("#_whiteboard_frm").attr('src', "<?php echo $_SESSION['chat_server'] ?>/whiteboard?session="+chat_token+"#<?php echo $_SESSION['groupId'] ?>_whiteboard");
       </script>
 
 <?php

@@ -95,7 +95,7 @@ class SiteController {
                 }
             }
 
-            $chat_server = "http://" . /*"localhost:8080";*/ "104.236.205.162";
+            $chat_server = "http://" . /*"localhost:8050"; */ "104.236.205.162";
             $_SESSION['chat_server'] = $chat_server;
             $token = file_get_contents($chat_server . "/create_session?name=$un$_topic_query_st");
             $_SESSION['chat_token'] = $token;
