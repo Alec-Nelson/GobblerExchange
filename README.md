@@ -46,8 +46,6 @@ Implemented:
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable. (Michael)
   - Check for special characters
-- Whiteboard (Greg)
-- User must join/create a group when they create an account (Alec)
-- Ability to add/invite users to a group when a user creates a group (Alec)
+- Whiteboard (Greg
 - Scalability (only looks good on desktop/laptop screens for now) (Front-end team)
 - Chat room visibility does not update except for upon login. (Greg)
