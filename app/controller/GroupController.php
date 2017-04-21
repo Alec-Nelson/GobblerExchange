@@ -101,11 +101,18 @@ class GroupController {
 		}
 
 		//Check if group name is available (doesn't already exist)
-		$groupName = $_POST['groupName'];
+
+
 		// if class, number = crn; null otherwise
-		$number = $_POST['crn'];
 		if($_POST['checkBox'] == "1"){
 			//Pull info from JSON:
+			$number = $_POST['crn'];
+			if ($number == "" )
+			{
+				$_SESSION['error'] = 'Please complete all fields.';
+				self::newGroup();
+				exit();
+			}
 	        $str = file_get_contents(BASE_URL."/public/json/timetable.json");
 	        $json_a = json_decode($str);
 	        $valid = false;
@@ -116,10 +123,19 @@ class GroupController {
 	            }
 	        }
 		}
+		else{
+			$groupName = $_POST['groupName'];
+			if ($groupName == "" )
+			{
+				$_SESSION['error'] = 'Please complete all fields.';
+				self::newGroup();
+				exit();
+			}
+		}
 
 		if (!$valid && $_POST['checkBox'] == "1") {
 			//Invalid CRN
-			$_SESSION['error'] = 'Sorry, that CRN,'.$number.', is not valid.';	  //TODO make sure SESSION[error] is available in tpl
+			$_SESSION['error'] = 'Sorry, the CRN '.$number.' is not valid.';	  //TODO make sure SESSION[error] is available in tpl
 			header('Location: '.BASE_URL.'/newgroup');											//TODO update location?
 			exit();
 		}

@@ -124,16 +124,25 @@ class ForumController {
 
 		$title = $_POST['title'];
 		$body = $_POST['description'];
-		$tag = $_POST['tag'];
-		$timestamp = date("Y-m-d", time());
+		if ($title == "" || $body == "")
+		{
+			$_SESSION['error'] = 'Please complete all fields.';
+			self::editpost($postid);
+		}
+		else
+		{
+			$tag = $_POST['tag'];
+			$timestamp = date("Y-m-d", time());
 
-		$post->set('title', $title);
-		$post->set('description', $body);
-		$post->set('tag', $tag);
-		$post->set('timestamp', $timestamp);
-		$post->save();
+			$post->set('title', $title);
+			$post->set('description', $body);
+			$post->set('tag', $tag);
+			$post->set('timestamp', $timestamp);
+			$post->save();
 
-		header('Location: '.BASE_URL.'/forum');
+			header('Location: '.BASE_URL.'/forum');
+		}
+
 	}
 
 	/* Opens form for a new post
@@ -162,6 +171,13 @@ class ForumController {
 		$description = $_POST['description'];
 		$tag = $_POST['tag'];
 		$timestamp = date("Y-m-d", time());
+
+		if ($title == "" || $description == "")
+		{
+			$_SESSION['error'] = 'Please complete all fields.';
+			header('Location: '.BASE_URL.'/newpost');
+			exit();
+		}
 
 		//get author's id
 		$user_row = User::loadById($_SESSION['userId']);

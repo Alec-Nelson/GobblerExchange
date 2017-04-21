@@ -105,6 +105,13 @@ class NotesController {
 		$title = $_POST['title'];
 		$timestamp = date("Y-m-d", time());
 
+		if ($title == "")
+		{
+			$_SESSION['error'] = 'Please complete all fields.';
+			self::editnotes($notesId);
+			exit();
+		}
+
 		//update fields (except for 'link')
 		$notes->set('timestamp', $timestamp);
 		$notes->set('title', $title);
@@ -186,6 +193,13 @@ class NotesController {
 		$timestamp = date("Y-m-d", time());
 		$authorId = $_SESSION['userId'];
 		$groupId = $_SESSION['groupId'];
+
+		if ($title == "")
+		{
+			$_SESSION['error'] = 'Please complete all fields.';
+			self::newnotes();
+			exit();
+		}
 
 		if(isset($_FILES['attached'])){
 		      $errors = array();
