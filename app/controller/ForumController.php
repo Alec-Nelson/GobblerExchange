@@ -236,7 +236,7 @@ class ForumController {
 		$forumId = $group_entry->get('forumId');
 		$search_term = $_POST['search']; //entered into search bar
 		$posts = ForumPost::searchByTitleAndDesc($search_term, $forumId);
-
+		$sortType = null;
 		include_once SYSTEM_PATH.'/view/forum.html';
 	}
 

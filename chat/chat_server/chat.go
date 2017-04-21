@@ -44,10 +44,9 @@ func (m MessageBroker) sendMessage(t TopicName, ms Message) {
 		buf = m.NewBuf()
 		m.messages[t] = buf
 	}
-	if ms.Content == "!clear" {
-		m.messages[t] = m.NewBuf()
-		buf = m.messages[t]
-	}
+
+	buf = m.applySpecialActions(t, ms, buf)
+
 	buf.addMessage(ms)
 	for _, v := range m.listeners[t] {
 		v(ms) // trigger listener
