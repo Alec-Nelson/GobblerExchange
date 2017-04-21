@@ -16,6 +16,7 @@ Implemented:
 - User account creation
   - Checks for repeated username, checks for vt.edu email address, checks if passwords match
 - User log in authentication
+- Checking if form input fields are empty (Alec)
 - Forum posts ordered by rating (decreasing)
 - Sorting forum posts via dropdown (Alec)
 - Notes are ordered by rating (decreasing)
@@ -44,7 +45,6 @@ Implemented:
 
 Not Implemented (yet):
 - Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable. (Michael)
-- Checking if form input fields are empty (Alec)
   - Check for special characters
 - Whiteboard (Greg)
 - User must join/create a group when they create an account (Alec)
