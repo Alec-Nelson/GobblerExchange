@@ -9,12 +9,6 @@
         <link href="<?= BASE_URL ?>/public/css/bootstrap.min.css" type="text/css" rel="stylesheet">
         <link href="<?= BASE_URL ?>/public/css/template.css?ver=<?php echo filemtime('<?= BASE_URL ?>/public/css/template.css');?>" type="text/css" rel="stylesheet">
         <script src="https://use.fontawesome.com/625f8d2098.js"></script>
-<script>
-$(function(){
-    //Listen for a click on any of the dropdown items
-
-});
-</script>
     </head>
     <body>
       <div id="banner">
@@ -89,6 +83,9 @@ $(function(){
             </button>
           </form>
         </div>
+        <?php
+        if(isset($_SESSION['groupId']) && $_SESSION['groupId'] != 0){
+        ?>
         <div class="col-lg-8">
             <ul class="nav nav-tabs">
               <li id = "forum" role="presentation"><a href="<?= BASE_URL ?>/forum">Forum</a></li>
@@ -98,6 +95,7 @@ $(function(){
               <li id = "whiteboard" role="presentation"><a href="<?= BASE_URL ?>/whiteboard">Whiteboard</a></li>
             </ul>
         </div>
+        <?php } ?>
         <div class="col-lg-2"></div>
       </div>
     </div>

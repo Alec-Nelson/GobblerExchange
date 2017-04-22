@@ -61,6 +61,8 @@ class GroupController {
 
         SiteController::negotiateRealtimeToken();
 
+		$_SESSION['groupId'] = $groupId;
+
 		header('Location: '.BASE_URL);
 	}
 
@@ -74,6 +76,15 @@ class GroupController {
 		$group_name = $group->get('group_name');
 		$_SESSION['info'] = "You have been removed from the group: ".$group_name;
 
+		//$_SESSION['groupId'] = 0;
+
+
+		$user = User::loadById($_SESSION['userId']);
+		$groups = $user->getGroups();
+		if ($groups != null)
+			$_SESSION['groupId'] = $groups[0]->get("id");
+		else
+			$_SESSION['groupId'] = 0;
 		header('Location: '.BASE_URL);
 	}
 
