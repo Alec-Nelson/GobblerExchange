@@ -128,6 +128,13 @@ class PollController {
 		$timestamp = date("Y-m-d", time());
 		$poll_status = $_POST['poll_status'];
 
+		if ($title == "" || $options == "")
+		{
+			$_SESSION['error'] = 'Please complete all fields.';
+			self::editpoll($pollid);
+			exit();
+		}
+
 		if($poll_status == "open"){
 			$poll->set('isOpen', 1);
 		} else {
@@ -181,6 +188,13 @@ class PollController {
 		$title = $_POST['title'];
 		$options = trim($_POST['options']);
 		$timestamp = date("Y-m-d", time());
+
+		if ($title == "" || $options == "")
+		{
+			$_SESSION['error'] = 'Please complete all fields.';
+			self::newpoll();
+			exit();
+		}
 
 		//create poll
 		$poll = new Poll();

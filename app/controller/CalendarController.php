@@ -111,7 +111,14 @@ class CalendarController {
 		$title = $_POST['title'];
 		$date = $_POST['date'];
 		$time = $_POST['time'];
-		$ampm =$_POST['ampm'];
+		$ampm = $_POST['ampm'];
+
+		if ($location == "" || $description == "" || $title == "" || $date == "" || $time == "")
+		{
+			$_SESSION['error'] = 'Please complete all fields.';
+			self::newEvent();
+			exit();
+		}
 
 		if($ampm == "pm") $timestamp = Event::convertToSQLDateTime($date, $time, true);
 		else $timestamp = Event::convertToSQLDateTime($date, $time, false);
@@ -187,6 +194,13 @@ class CalendarController {
 		$date = $_POST['date'];
 		$time = $_POST['time'];
 		$ampm =$_POST['ampm'];
+
+		if ($location == "" || $description == "" || $title == "" || $date == "" || $time == "")
+		{
+			$_SESSION['error'] = 'Please complete all fields.';
+			self::editEvent($eventId);
+			exit();
+		}
 
 		if($ampm == "pm") $timestamp = Event::convertToSQLDateTime($date, $time, true);
 		else $timestamp = Event::convertToSQLDateTime($date, $time, false);

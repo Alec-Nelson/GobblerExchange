@@ -128,9 +128,9 @@ class SiteController {
 		$name = $firstName." ".$lastName;
 
 		// are all the required fields filled?
-		if ($name == '' || $username == '' || $passwd == '' || $email == '') {
+		if ($firstName == "" || $lastName == "" || $username == '' || $passwd == '' || $passwdConf == "" || $email == '') {
 			// missing form data; send us back
-			$_SESSION['error'] = -'Please complete all registration fields.';
+			$_SESSION['error'] = 'Please complete all registration fields.';
 			header('Location: '.BASE_URL.'/login');
 			exit();
 		}

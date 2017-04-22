@@ -76,7 +76,7 @@
     <!-- Class navigation (forum, calendar, notes, whiteboard) -->
     <div class="container">
       <div class="row">
-        <div class="col-lg-2" style="text-align: center;">
+        <div class="col-lg-2" style="text-align: left;">
           <form method="POST" action="<?= BASE_URL ?>/newgroup">
             <button id = "button" type="submit" class="btn btn-primary">
                 Create New Group
