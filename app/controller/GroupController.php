@@ -195,7 +195,7 @@ class GroupController {
 
         SiteController::negotiateRealtimeToken();
 
-		header('Location: '.BASE_URL.'/');
+		header('Location: '.BASE_URL.'/viewgroup/'.$group->get('id'));
 		exit();
 	}
 
