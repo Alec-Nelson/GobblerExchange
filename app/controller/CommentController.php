@@ -121,6 +121,13 @@ class CommentController {
 		$notesId = $_POST['notesId'];
 		$userid = $_SESSION['userId'];
 
+		if ($comment == "")
+		{
+			$_SESSION['error'] = 'Please complete all fields.';
+			self::newNotesComment($notesId);
+			exit();
+		}
+
 		$comment_entry = new Comment();
 		$comment_entry->set('timestamp', $timestamp);
 		$comment_entry->set('comment', $comment);
@@ -183,6 +190,13 @@ class CommentController {
 
 		$comment = $_POST['comment'];
 		$timestamp = date("Y-m-d", time());
+
+		if ($comment == "")
+		{
+			$_SESSION['error'] = 'Please complete all fields.';
+			self::editnotescomment($commentId);
+			exit();
+		}
 
 		$comment_entry->set('comment', $comment);
 		$comment_entry->set('timestamp', $timestamp);
@@ -261,6 +275,13 @@ class CommentController {
 		$text = $_POST['comment'];
 		$postId = $_POST['postId'];
 
+		if ($text == "")
+		{
+			$_SESSION['error'] = 'Please complete all fields.';
+			self::newPostComment($postId);
+			exit();
+		}
+
 		//get author's id
 		$authorId = $_SESSION['userId'];
 
@@ -328,6 +349,13 @@ class CommentController {
 
 		$comment = $_POST['comment'];
 		$timestamp = date("Y-m-d", time());
+
+		if ($comment == "")
+		{
+			$_SESSION['error'] = 'Please complete all fields.';
+			self::editComment($commentId);
+			exit();
+		}
 
 		$comment_entry->set('comment', $comment);
 		$comment_entry->set('timestamp', $timestamp);

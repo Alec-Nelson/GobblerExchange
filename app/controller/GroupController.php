@@ -1,6 +1,7 @@
 <?php
 
 include_once '../global.php';
+include_once 'SiteController.php';
 
 // get the identifier for the page we want to load
 $action = $_GET['action'];
@@ -58,6 +59,10 @@ class GroupController {
 
 		$_SESSION['info'] = "You have been added to the group: ".$group_name;
 
+        SiteController::negotiateRealtimeToken();
+
+		$_SESSION['groupId'] = $groupId;
+
 		header('Location: '.BASE_URL);
 	}
 
@@ -71,6 +76,15 @@ class GroupController {
 		$group_name = $group->get('group_name');
 		$_SESSION['info'] = "You have been removed from the group: ".$group_name;
 
+		//$_SESSION['groupId'] = 0;
+
+
+		$user = User::loadById($_SESSION['userId']);
+		$groups = $user->getGroups();
+		if ($groups != null)
+			$_SESSION['groupId'] = $groups[0]->get("id");
+		else
+			$_SESSION['groupId'] = 0;
 		header('Location: '.BASE_URL);
 	}
 
@@ -98,11 +112,18 @@ class GroupController {
 		}
 
 		//Check if group name is available (doesn't already exist)
-		$groupName = $_POST['groupName'];
+
+
 		// if class, number = crn; null otherwise
-		$number = $_POST['crn'];
 		if($_POST['checkBox'] == "1"){
 			//Pull info from JSON:
+			$number = $_POST['crn'];
+			if ($number == "" )
+			{
+				$_SESSION['error'] = 'Please complete all fields.';
+				self::newGroup();
+				exit();
+			}
 	        $str = file_get_contents(BASE_URL."/public/json/timetable.json");
 	        $json_a = json_decode($str);
 	        $valid = false;
@@ -113,10 +134,19 @@ class GroupController {
 	            }
 	        }
 		}
+		else{
+			$groupName = $_POST['groupName'];
+			if ($groupName == "" )
+			{
+				$_SESSION['error'] = 'Please complete all fields.';
+				self::newGroup();
+				exit();
+			}
+		}
 
 		if (!$valid && $_POST['checkBox'] == "1") {
 			//Invalid CRN
-			$_SESSION['error'] = 'Sorry, that CRN,'.$number.', is not valid.';	  //TODO make sure SESSION[error] is available in tpl
+			$_SESSION['error'] = 'Sorry, the CRN '.$number.' is not valid.';	  //TODO make sure SESSION[error] is available in tpl
 			header('Location: '.BASE_URL.'/newgroup');											//TODO update location?
 			exit();
 		}
@@ -162,6 +192,8 @@ class GroupController {
 		$usrgrp->set('userId', $userId);
 		$usrgrp->set('groupId', $group->get('id'));
 		$usrgrp->save();
+
+        SiteController::negotiateRealtimeToken();
 
 		header('Location: '.BASE_URL.'/');
 		exit();

@@ -64,6 +64,26 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/login.html';
 	}
 
+    public function negotiateRealtimeToken(){
+        // Negotiate a token with the Gobbler Realtime server.
+        // This powers chat and whiteboard.
+        $user = User::loadById($_SESSION['userId']);
+        $groups = $user->getGroups();
+        $_topic_query_st = "";
+        if ($groups != null)
+        {
+            foreach ($groups as $group) {
+                $gname = urlencode($group->get('group_name'));
+                $_topic_query_st = ($_topic_query_st . "&topics=" . $gname);
+            }
+        }
+        $un = $user->get('username');
+        $chat_server = "http://" . /*"localhost:8050"; */ "104.236.205.162";
+        $_SESSION['chat_server'] = $chat_server;
+        $token = file_get_contents($chat_server . "/create_session?name=$un$_topic_query_st");
+        $_SESSION['chat_token'] = $token;
+    }
+
 	public function postlogin(){
 	 	$un = $_POST['userlogin'];
 		$pw = $_POST['passlogin'];
@@ -86,24 +106,11 @@ class SiteController {
 				$_SESSION['groupId'] = $groups[0]->get("id");
 			}
 
-            $_topic_query_st = "";
-            if ($groups != null)
-            {
-                foreach ($groups as $group) {
-                    $gname = urlencode($group->get('group_name'));
-                    $_topic_query_st = ($_topic_query_st . "&topics=" . $gname);
-                }
-            }
-
-            $chat_server = "http://" . /*"localhost:8080";*/ "104.236.205.162";
-            $_SESSION['chat_server'] = $chat_server;
-            $token = file_get_contents($chat_server . "/create_session?name=$un$_topic_query_st");
-            $_SESSION['chat_token'] = $token;
-
 			// else{
 			// 	$_SESSION['groupId'] = 0;
 			// }
 			$_SESSION['userId'] = $user->get("id");
+            SiteController::negotiateRealtimeToken();
 			header('Location: '.BASE_URL);
 		}
 	}
@@ -121,9 +128,9 @@ class SiteController {
 		$name = $firstName." ".$lastName;
 
 		// are all the required fields filled?
-		if ($name == '' || $username == '' || $passwd == '' || $email == '') {
+		if ($firstName == "" || $lastName == "" || $username == '' || $passwd == '' || $passwdConf == "" || $email == '') {
 			// missing form data; send us back
-			$_SESSION['error'] = -'Please complete all registration fields.';
+			$_SESSION['error'] = 'Please complete all registration fields.';
 			header('Location: '.BASE_URL.'/login');
 			exit();
 		}
