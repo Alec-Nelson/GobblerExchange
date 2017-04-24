@@ -69,4 +69,30 @@
 #notifyTime {
     color: red;
 }
+.table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+#Month{
+  padding: 5px;
+  font-weight: bold;
+  font-size: 200%;
+}
+
+#break {
+  display: block;
+  border-width: 10px;
+  border-color: #ff6600;
+}
+#topbreak {
+  display: block;
+  border-color: black;
+}
+
+#top{
+  border-radius: 10px;
+  margin-left: 4px;
+  margin-right: 4px;
+  padding-bottom: 10px;
+}
 

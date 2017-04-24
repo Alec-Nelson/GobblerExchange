@@ -37,13 +37,21 @@ func (w *WebsocketHandler) catchUpConn(t TopicName, c *websocket.Conn) error {
 func (w *WebsocketHandler) handle(t TopicName, k SessionKey, c *websocket.Conn) {
 	log.Print("Connecting to ", t)
 	w.catchUpConn(t, c)
+	msg_channel := make(chan Message, 5)
 	w.messages.addListener(t, k,
 		func(ms Message) {
-			if writeMessage(ms, c) != nil {
+			msg_channel <- ms
+		})
+
+	go func() {
+		for {
+			msg := <-msg_channel
+			if writeMessage(msg, c) != nil {
 				log.Print("Disconnecting")
 				w.messages.removeListener(t, k)
 			}
-		})
+		}
+	}()
 	go func() {
 		m := Message{}
 		for {
