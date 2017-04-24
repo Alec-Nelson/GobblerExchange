@@ -42,10 +42,18 @@ Implemented:
 - View past events (Megan)
 - Creating/editing calendar event
     - the time is checked for correct format, error message displayed and form disabled if not correct (Megan)
-
-Not Implemented (yet):
-- Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable. (Michael)
-  - Check for special characters
-- Whiteboard (Greg
-- Scalability (only looks good on desktop/laptop screens for now) (Front-end team)
+- Whiteboard (Greg)
 - Chat room visibility does not update except for upon login. (Greg)
+
+Not Implemented:
+- Dynamic CRN matching. Currently uses hardcoded JSON file of classes from the current semester, instead of dynamically scraping the timetable.
+- Check for special characters
+- Scalability (only looks good on desktop/laptop screens for now)
+- Checking that a @vt.edu email is actually valid
+- Checking & limiting the lengths of input text fields
+- Adding pagination for groups with many posts, events, etc.
+- Calendar month-style view
+- Adding password protection (password hashing)
+- Logging/monitoring system
+- Ability for users to add other users to the groups they've made
+- Ability for user to be automatically logged in after they register an account
