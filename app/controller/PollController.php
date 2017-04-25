@@ -180,7 +180,7 @@ class PollController {
         User::loggedInCheck();
 
 		if (isset($_POST['Cancel'])) {
-			header('Location: '.BASE_URL);
+			header('Location: '.BASE_URL.'/polls');
 			exit();
 		}
 

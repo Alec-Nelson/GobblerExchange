@@ -101,7 +101,7 @@ class CalendarController {
 
 		//user canceled new event
 		if (isset($_POST['Cancel'])) {
-			header('Location: '.BASE_URL.'/calendar');											//TODO: update location?
+			header('Location: '.BASE_URL.'/calendar');										
 			exit();
 		}
 
