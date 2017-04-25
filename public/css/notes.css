@@ -15,6 +15,7 @@
 #titlef a{
     background:transparent;
     color:black;
+    float:left;
 }
 #titlef a:hover{
     background:transparent;
@@ -42,3 +43,18 @@
 .panel-primary{
     border-color: white;
 }
+
+#addNote{
+    background-color: #660000;
+    color: white;
+    float: right;
+    border-color: white;
+    margin-top: 25px;
+}
+
+.vote_arrows {
+    width:30px;
+    height:30px;
+    float: left;
+}
+

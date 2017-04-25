@@ -11,12 +11,14 @@
     <!-- add note button -->
     <div class="col-lg-6">
 		<a href="<?= BASE_URL ?>/newnotes">
-			<button id = "button" type="button" class="btn btn-primary">
+			<button id = "addNote" type="button" class="btn btn-primary">
 				Add Note
 			</button>
 		</a>
     </div>
 </div>
+
+
 <div>
     <?php
     if($notes != null){
@@ -44,56 +46,86 @@
                     else if ($user_rating->get('vote') == -1) $downvoted = true;
                 }
               ?>
-    <ul>
-    <li>
-        <!-- upvote -->
-         <?php $upvote_action = BASE_URL."/upvotenotes/".$id;
-         if (!$upvoted){ ?>
-         <form action=<?php echo $upvote_action ?> >
-             <button type="submit" style="border: 0; background: transparent">
-                 <i class="fa fa-chevron-up" aria-hidden="true"></i>
-             </button>
-       </form>
-       <?php } ?>
-        <!-- downvote -->
-        <?php $downvote_action = BASE_URL."/downvotenotes/".$id;
-        if (!$downvoted){
-        ?>
-        <form action=<?php echo $downvote_action ?> >
-            <button type="submit" style="border: 0; background: transparent">
-               <i class="fa fa-chevron-down" aria-hidden="true"></i>
-            </button>
-      </form>
-      <?php } ?>
-    </li>
-    <li id = "titlef">
-    	<h4> <a href="public/notes/<?php echo $filename ?>" target="_blank"><?php echo $title ?></a> </h4>
-    	<h5> Author: <?php echo $authorUsername ?> </h5>
-    	<h5> Date: <?php echo $date ?> </h5>
-        <p> Points: <?php echo $score ?> </p>
-    </li>
-    <li>
-        <!-- edit button -->
-        <?php
-        if($authorId == $_SESSION['userId']){
-            $edit_action = BASE_URL."/editnotes/".$id ?>
-        <form action=<?php echo $edit_action ?> >
-            <button type="submit" style="border: 0; background: transparent">
-                        <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
-            </button>
-        </form>
-        <?php } ?>
-    </li>
-    <li>
-        <?php $edit_action = BASE_URL."/viewnotescomments/".$id ?>
-        <form action=<?php echo $edit_action ?> >
-            <button id = "button" type="submit" class="btn btn-primary">
-                View Comments
-            </button>
-        </form>
-    </li>
-    </ul>
+        <div class="row">
+          <div class="col-lg-10">
+            <h4><?php echo $title ?></h4>
+          </div>
+          <div  class="col-lg-2">
+            <h6><?php echo $date ?></h6>
+          </div>
+        </div>
 
+
+
+        <!-- upvote -->
+        <div class="row">
+          <div class="col-lg-1">
+              <?php $upvote_action = BASE_URL."/upvotenotes/".$id;
+             if (!$upvoted){ ?>
+             <form action=<?php echo $upvote_action ?> >
+                 <button type="submit" style="border: 0; background: transparent">
+                     <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                 </button>
+           </form>
+           <?php } ?>
+          </div>
+          <div class="col-lg-11">
+          </div>
+        </div>
+        
+
+        <!-- downvote -->
+        <div class="row">
+          <div class="col-lg-1">
+            <?php $downvote_action = BASE_URL."/downvotenotes/".$id;
+            if (!$downvoted){
+            ?>
+            <form action=<?php echo $downvote_action ?> >
+                <button type="submit" style="border: 0; background: transparent">
+                   <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </button>
+            </form>
+            <?php } ?>
+          </div>
+          <div class="col-lg-11">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <?php echo $authorUsername ?>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-2">
+            <p> Points: <?php echo $score ?> </p>
+          </div>
+        <!-- edit button -->
+          <div class="col-lg-6">
+          </div>
+          <div class="col-lg-1">
+            <?php
+            if($authorId == $_SESSION['userId']){
+                $edit_action = BASE_URL."/editnotes/".$id ?>
+            <form action=<?php echo $edit_action ?> >
+                <button type="submit" style="border: 0; background: transparent">
+                            <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+                </button>
+            </form>
+            <?php } ?>
+          </div>
+          <div class="col-lg-2">
+            <?php $edit_action = BASE_URL."/viewnotescomments/".$id ?>
+            <form action=<?php echo $edit_action ?> >
+                <button id = "button" type="submit" class="btn btn-primary">
+                    View Comments
+                </button>
+            </form>
+          </div>
+          <div class="col-lg-1">
+          </div>
+          
+        </div>
+<hr id = "break"></hr>
     <?php
           }
       } else {

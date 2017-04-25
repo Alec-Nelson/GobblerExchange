@@ -97,3 +97,9 @@
   padding-bottom: 10px;
 }
 
+#submit_form{
+  background-color: #660000;
+  color: white;
+  border-color: white;
+}
+

@@ -57,3 +57,4 @@ Not Implemented:
 - Logging/monitoring system
 - Ability for users to add other users to the groups they've made
 - Ability for user to be automatically logged in after they register an account
+- Searching is not super robust (can't search partial name)
