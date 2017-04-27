@@ -48,7 +48,7 @@
               ?>
         <div class="row">
           <div class="col-lg-10">
-            <h4><?php echo $title ?></h4>
+            <h4><a href="<?= BASE_URL ?>/public/notes/<?php echo $filename ?>" target="_blank"><?php echo $title ?></a></h4>
           </div>
           <div  class="col-lg-2">
             <h6><?php echo $date ?></h6>
@@ -72,7 +72,7 @@
           <div class="col-lg-11">
           </div>
         </div>
-        
+
 
         <!-- downvote -->
         <div class="row">
@@ -123,7 +123,7 @@
           </div>
           <div class="col-lg-1">
           </div>
-          
+
         </div>
 <hr id = "break"></hr>
     <?php
