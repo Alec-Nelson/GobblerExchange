@@ -25,9 +25,11 @@
 
     foreach($events as $event){
         $id = $event->get('id');
-
+        $current_month = -1;
+        $current_year = -1;
         $timestamp = $event->get('timestamp');
         $date = Event::convertToReadableDate($timestamp);
+        $month = date('m', strtotime($date));
         $time = $event->getTime();
         $isPM = $event->isPM();
 
@@ -41,6 +43,16 @@
         $location = $event->get('location');
         $description = $event->get('description');
         $title = $event->get('title');
+        ?>
+
+        <?php
+            if($current_month != $month || $current_year != $year){
+                $current_month = $month;
+                $current_year = $year ?>
+
+<h4 id = "Month"><?php echo date('F Y', mktime(0,0,0,$current_month+1,0,$current_year)); ?></h4><hr id = "break"></hr>
+
+            <?php }
         ?>
 
         <div class="panel panel-primary">
