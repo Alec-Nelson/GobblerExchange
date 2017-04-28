@@ -22,11 +22,10 @@
 
     <?php
     if($events != null){
-
-    foreach($events as $event){
-        $id = $event->get('id');
         $current_month = -1;
         $current_year = -1;
+    foreach($events as $event){
+        $id = $event->get('id');
         $timestamp = $event->get('timestamp');
         $date = Event::convertToReadableDate($timestamp);
         $month = date('m', strtotime($date));
