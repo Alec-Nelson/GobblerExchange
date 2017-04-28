@@ -37,7 +37,7 @@ Implemented:
 - Proper tag categories (Megan)
 - Make entering the dates user-friendly (https://jqueryui.com/datepicker/) (Megan)
 - Only allowing the user who authored the post/event/notes/comment to edit/delete it (currently, anyone can edit or delete any post/event/notes/comment) (Megan)
-- Leave a group (Megan
+- Leave a group (Megan)
 - PDF view preview for notes before downloading (Megan)
 - View past events (Megan)
 - Creating/editing calendar event
@@ -51,10 +51,11 @@ Not Implemented:
 - Scalability (only looks good on desktop/laptop screens for now)
 - Checking that a @vt.edu email is actually valid
 - Checking & limiting the lengths of input text fields
-- Adding pagination for groups with many posts, events, etc.
+- Adding pagination for groups with many posts, events, etc
 - Calendar month-style view
 - Adding password protection (password hashing)
 - Logging/monitoring system
 - Ability for users to add other users to the groups they've made
 - Ability for user to be automatically logged in after they register an account
 - Searching is not super robust (can't search partial name)
+- Ability to change account password
